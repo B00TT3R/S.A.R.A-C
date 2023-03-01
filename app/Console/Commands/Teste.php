@@ -30,6 +30,7 @@ class Teste extends Command
         //guzzle get request to google
         $client = new Client();
         $response = $client->request('GET', 'https://www.google.com');
+        //comentario
         $body = $response->getBody();
         $body = $body->getContents();
         $this->info($body);
