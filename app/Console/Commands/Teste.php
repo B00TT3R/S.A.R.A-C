@@ -28,8 +28,18 @@ class Teste extends Command
     public function handle(): void
     {
         //guzzle get request to google
+        $token = "EAACKJqP5FqMBALgZBU4lo7947Oy2pPc2sBoVtZC2mWmsXCL6JEnkZCSI9KV4Q8hzdmRLytQLZCE0LpeJWAO36hMbMyZAuZCg41RU5RpZBRaAZAgBzoJJQZAcM93ocNQz1sKo4y9iUAxtOXlqn5KaNngKXYT4T8Y9AeKX0B7fVznoSO8f7PGxSRlnkxKjAhpeRXpzrZAk7ZCs1EO3YAS4cVGsyGY";
+        $id = "113032176914321";
         $client = new Client();
-        $response = $client->request('GET', 'https://www.google.com');
+        /* curl -i -X POST "https://graph.facebook.com/{page-id}/feed
+  ?message=Hello Fans!
+  &access_token={page-access-token}" */
+        $response = $client->request('POST', "https://graph.facebook.com/$id/feed", [
+            'query' => [
+                'message' => 'Hello Fans!',
+                'access_token' => $token,
+            ],
+        ]);
         //comentario
         $body = $response->getBody();
         $body = $body->getContents();
