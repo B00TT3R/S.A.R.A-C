@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Tokens;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
-
+use Illuminate\Support\Facades\Artisan;
 
 class Teste extends Command
 {
@@ -13,7 +14,7 @@ class Teste extends Command
      *
      * @var string
      */
-    protected $signature = 'teste:teste';
+    protected $signature = 'teste:facebook';
 
     /**
      * The console command description.
@@ -27,22 +28,22 @@ class Teste extends Command
      */
     public function handle(): void
     {
-        //guzzle get request to google
-        $token = "EAACKJqP5FqMBALgZBU4lo7947Oy2pPc2sBoVtZC2mWmsXCL6JEnkZCSI9KV4Q8hzdmRLytQLZCE0LpeJWAO36hMbMyZAuZCg41RU5RpZBRaAZAgBzoJJQZAcM93ocNQz1sKo4y9iUAxtOXlqn5KaNngKXYT4T8Y9AeKX0B7fVznoSO8f7PGxSRlnkxKjAhpeRXpzrZAk7ZCs1EO3YAS4cVGsyGY";
-        $id = "113032176914321";
-        $client = new Client();
-        /* curl -i -X POST "https://graph.facebook.com/{page-id}/feed
-  ?message=Hello Fans!
-  &access_token={page-access-token}" */
-        $response = $client->request('POST', "https://graph.facebook.com/$id/feed", [
-            'query' => [
-                'message' => 'Hello Fans!',
-                'access_token' => $token,
-            ],
-        ]);
-        //comentario
-        $body = $response->getBody();
-        $body = $body->getContents();
-        $this->info($body);
+        $accounts = Tokens::where("type", "facebook")->get();
+        $this->info("Preparando para postar em ".$accounts->count()." Registros" );
+        
+        foreach ($accounts as $account) {
+            Artisan::call("post:facebook", 
+                [
+                    "--token" => $account->token,
+                    "--id" => $account["page-id"],
+                    "--message" => "teste de envio por comando artisan",
+                    "--imgUrl" => "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000"
+                ],
+            );
+            $this->info(Artisan::output());
+        }
+        
+
+        
     }
 }
