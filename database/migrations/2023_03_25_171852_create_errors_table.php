@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('errors', function (Blueprint $table) {
-            $table->mediumText("mensagem");
-            $table->mediumText("tipo");
+            $table->mediumText("message");
+            $table->mediumText("type");
             $table->id();
             $table->timestamps();
         });

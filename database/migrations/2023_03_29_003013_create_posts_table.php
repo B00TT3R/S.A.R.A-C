@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tokens', function (Blueprint $table) {
-            $table->mediumText("token");
-            $table->mediumText("page_id")->nullable();
-            $table->mediumText("description")->nullable();
-            $table->mediumText("extra")->nullable();
-            $table->mediumText("type");
+        Schema::create('posts', function (Blueprint $table) {
+            
+            $table->text("tipo");
+            $table->mediumText("retorno_req");
+            $table->mediumText("descricao")->nullable();
             $table->id();
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tokens');
+        Schema::dropIfExists('posts');
     }
 };
