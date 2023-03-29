@@ -21,7 +21,7 @@ class Teste extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Testa a requisição do facebook';
 
     /**
      * Execute the console command.
