@@ -35,7 +35,7 @@ class Teste extends Command
             Artisan::call("post:facebook", 
                 [
                     "--token" => $account->token,
-                    "--id" => $account["page-id"],
+                    "--id" => $account->page_id,
                     "--message" => "teste de envio por comando artisan",
                     "--imgUrl" => "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000"
                 ],
