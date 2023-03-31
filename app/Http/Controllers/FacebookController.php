@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Base\BaseInterface;
 use App\Models\Errors;
 use Error;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class FacebookController extends Controller
+class FacebookController extends Controller implements BaseInterface
 {
     
-    public static function handle($request){
+    public static function handle(array $request){
         $client = new Client();
         $id = $request["id"];
         $token = $request["token"];
