@@ -27,6 +27,15 @@ class TesteGPT extends Command
      */
     public function handle(): void
     {
-        $this->info(GPTController::handle("Crie um texto de teste, implicando que foi criado com sucesso: ", 64, 0.5, "teste"));
+        $this->info(
+            GPTController::handle(
+                [
+                    "prompt"=>"Crie um texto de teste, implicando que foi criado com sucesso: ",
+                    "maxTokens"=>64,
+                    "temperature"=>0.5,
+                    "type"=>"teste"
+                ]
+            )
+        );
     }
 }
