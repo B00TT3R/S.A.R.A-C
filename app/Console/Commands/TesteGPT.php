@@ -30,7 +30,7 @@ class TesteGPT extends Command
         $this->info(
             GPTController::handle(
                 [
-                    "prompt"=>"Crie um texto de teste, implicando que foi criado com sucesso: ",
+                    "prompt"=>"Crie um texto de teste, implicando que foi executado com sucesso: ",
                     "maxTokens"=>64,
                     "temperature"=>0.5,
                     "type"=>"teste"
