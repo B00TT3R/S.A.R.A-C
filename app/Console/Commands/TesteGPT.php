@@ -29,8 +29,8 @@ class TesteGPT extends Command
     {
         $this->info(
             GPTController::handle(
-                64,
                 "Crie um texto de teste, implicando que foi executado com sucesso: ",
+                64,
                 0.5,
                 "teste"
             )
