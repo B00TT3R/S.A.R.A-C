@@ -8,9 +8,14 @@ use Error;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class GPTController extends Controller implements BaseInterface
+class GPTController extends Controller
 {
-    public static function handle(array $request):string{
+    public static function handle(
+        string $prompt,
+        int $maxTokens = 512,
+        float $temperature = 0.7,
+        string $type="não-definido"
+        ):string{
         $client = new Client();
         $token = env("OPENAI_KEY");
         $model = env("OPENAI_MODEL");
@@ -20,16 +25,16 @@ class GPTController extends Controller implements BaseInterface
             ],
             'json' => [
                 'model' => $model,
-                'prompt' => $request["prompt"],
-                'max_tokens' => $request["maxTokens"] ?? 512,
-                'temperature' => $request["temperature"] ?? 0.7,
+                'prompt' => $prompt,
+                'max_tokens' => $maxTokens,
+                'temperature' => $temperature,
             ],
         ]);
         $json = json_decode($response->getBody()->getContents());
         Generation::create([
             "model" => $model,
-            "type" => $request["type"] ?? "não-definido",
-            "prompt" => $request["prompt"],
+            "type" => $type,
+            "prompt" => $prompt,
             "response" => $json            
         ]);
         return $json->choices[0]->text;
