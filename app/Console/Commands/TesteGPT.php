@@ -28,7 +28,7 @@ class TesteGPT extends Command
     public function handle(): void
     {
         $this->info(
-            GPTController::handle(
+            GPTController::textGen(
                 "Crie um texto de teste, implicando que foi executado com sucesso: ",
                 64,
                 0.5,

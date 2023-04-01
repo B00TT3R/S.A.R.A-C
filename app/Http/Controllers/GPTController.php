@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class GPTController extends Controller
 {
-    public static function handle(
+    public static function textGen(
         string $prompt,
         int $maxTokens = 512,
         float $temperature = 0.7,
