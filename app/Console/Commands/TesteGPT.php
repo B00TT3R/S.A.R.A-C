@@ -30,7 +30,7 @@ class TesteGPT extends Command
         $this->info(
             GPTController::textGen(
                 "Crie um texto de teste, implicando que foi executado com sucesso: ",
-                64,
+                32,
                 0.5,
                 "teste"
             )

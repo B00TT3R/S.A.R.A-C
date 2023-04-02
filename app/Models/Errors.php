@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Errors extends Model
 {
     protected $fillable = [
-        "tipo",
-        "mensagem"
+        "type",
+        "message"
     ];
     use HasFactory;
 }

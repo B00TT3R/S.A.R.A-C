@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Base\BaseInterface;
 use App\Models\Errors;
 use Error;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class FacebookController extends Controller implements BaseInterface
+class FacebookController extends Controller
 {
     
     public static function handle(array $request){
