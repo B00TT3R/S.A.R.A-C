@@ -18,7 +18,7 @@ class GPTController extends Controller
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
             try{
-                $response = $client->request('POST', 'https://api.openai.com/v1/completions', [
+                $response = $client->post('https://api.openai.com/v1/completions', [
                     'headers' => [
                         'Authorization' => 'Bearer '.env("OPENAI_KEY"),
                     ],
@@ -50,7 +50,7 @@ class GPTController extends Controller
     ){
         $client = new Client();
         try{
-            $response = $client->request('POST', 'https://api.openai.com/v1/images/generations', [
+            $response = $client->post('https://api.openai.com/v1/images/generations', [
                 'headers' => [
                     'Authorization' => 'Bearer '.env("OPENAI_KEY"),
                 ],
@@ -69,8 +69,8 @@ class GPTController extends Controller
                 'type' => $type,
                 'result'=> $json->data[0]->url
             ]);
-
         }catch(RequestException $e){
+            error_log("erro na geração de imagem");
             Errors::create([
                 "message" => $e->getResponse()->getBody(),
                 "type" => "requisição a openAI",

@@ -27,7 +27,7 @@ class TesteImagem extends Command
      */
     public function handle(): void
     {
-        GPTController::imageGen("debugging dragon", "teste-imagem");
+        GPTController::imageGen("debugging dragon", "512x512" , "teste-imagem");
         $this->info(Artisan::output());
     }
 }
