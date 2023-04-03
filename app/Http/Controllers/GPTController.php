@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Errors;
 use App\Models\Generation;
-use Error;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\Request;
 
 class GPTController extends Controller
 {
