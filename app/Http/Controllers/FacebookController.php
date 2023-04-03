@@ -12,25 +12,15 @@ class FacebookController extends Controller
     
     public static function handle(array $request){
         $client = new Client();
-        $id = $request["id"];
-        $token = $request["token"];
+        $account = $request["account"];        
         $imgUrl = $request["imgUrl"];
         $message = $request["message"];
-
-        if($id  === null || $token === null){
-            $error = new Errors();
-            error_log("token ou id nao informado");
-            $error->type = "Criação de post por facebook";
-            $error->message = "Token ou Id não informado";
-            $error->save();
-            return;
-        }
         try{
-            $response = $client->request('POST', "https://graph.facebook.com/$id/photos", [
+            $response = $client->request('POST', "https://graph.facebook.com/$account->page_id/photos", [
                 'query' => [
                     'message' => $message,
                     'url' => $imgUrl,
-                    'access_token' => $token
+                    'access_token' => $account->token
                 ],
             ]);
             $body = $response->getBody();

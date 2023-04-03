@@ -35,8 +35,7 @@ class TesteFacebook extends Command
         foreach ($accounts as $account) {
             FacebookController::handle(
                 [
-                    'id' => $account->page_id,
-                    'token' => $account->token,
+                    'account' => $account,
                     'message' => "teste de envio por comando artisan",
                     'imgUrl' => "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
                 ]
