@@ -58,8 +58,8 @@ class GPTController extends Controller
                 ],
                 'json' => [
                     'prompt' => $prompt,
+                    'size' => $size,
                     'n' => 1,
-                    'size' => $size
                 ]
             ]);
             $json = json_decode($response->getBody()->getContents());
