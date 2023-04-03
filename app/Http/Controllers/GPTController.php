@@ -31,13 +31,15 @@ class GPTController extends Controller
                     "model" => $model,
                     "type" => $type,
                     "prompt" => $prompt,
-                    "response" => $json
+                    "response" => $json,
+                    "gen-type" => "text"
                 ]);
             } catch(RequestException $e){
                 error_log("erro na geração de texto: HTTP ".$e->getCode());
                 Errors::create([
                     "message" => $e->getResponse()->getBody(),
-                    "type" => "requisição a openAI"
+                    "type" => "requisição a openAI",
+                    
                 ]);
             }
             return $json->choices[0]->text ?? "erro na geração";

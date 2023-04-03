@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\GPTController;
 use App\Models\Tokens;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
@@ -36,7 +37,7 @@ class TesteFacebook extends Command
             FacebookController::handle(
                 [
                     'account' => $account,
-                    'message' => "teste de envio por comando artisan",
+                    'message' => GPTController::textGen("Crie um texto implicando que um teste de geração de texto foi bem-sucedido:", 128, 0.7, "teste-geração"),
                     'imgUrl' => "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
                 ]
             );

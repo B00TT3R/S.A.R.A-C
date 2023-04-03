@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('generations', function (Blueprint $table) {
             $table->string("type");
+            $table->string("gen-type");
             $table->string("model");
             $table->text("prompt");
             $table->json("response");

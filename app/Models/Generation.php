@@ -13,9 +13,13 @@ class Generation extends Model
         "response",
         "model",
         "type",
-        "prompt"
+        "prompt",
+        "gen-type"
     ];
     protected $casts = [
         "response" => "json"
     ];
+    protected function asJson($value){
+        return json_encode($value, JSON_UNESCAPED_UNICODE);
+    }
 }
