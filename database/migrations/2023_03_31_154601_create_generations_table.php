@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string("type");
             $table->string("gen_type");
             $table->string("model");
+            $table->mediumText("result");
             $table->text("prompt");
             $table->json("response");
             $table->id();

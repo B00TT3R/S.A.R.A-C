@@ -32,7 +32,8 @@ class GPTController extends Controller
                     "type" => $type,
                     "prompt" => $prompt,
                     "response" => $json,
-                    "gen_type" => "text"
+                    "gen_type" => "text",
+                    "result" => $json->choices[0]->text ?? "erro na geração"
                 ]);
             } catch(RequestException $e){
                 error_log("erro na geração de texto: HTTP ".$e->getCode());
@@ -45,8 +46,9 @@ class GPTController extends Controller
             return $json->choices[0]->text ?? "erro na geração";
     }
     public static function imageGen(
-        $prompt,
-        $type = "não-definido"
+        string $prompt,
+        string $size = "1024x1024",
+        string $type = "não-definido"
     ){
         $client = new Client();
         try{
@@ -57,7 +59,7 @@ class GPTController extends Controller
                 'json' => [
                     'prompt' => $prompt,
                     'n' => 1,
-                    'size' => '1024x1024'
+                    'size' => $size
                 ]
             ]);
             $json = json_decode($response->getBody()->getContents());
@@ -67,6 +69,7 @@ class GPTController extends Controller
                 "prompt" => $prompt,
                 "response" => $json,
                 'type' => $type,
+                'result'=> $json->data[0]->url
             ]);
 
         }catch(RequestException $e){
