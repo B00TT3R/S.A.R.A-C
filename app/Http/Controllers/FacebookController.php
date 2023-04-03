@@ -3,34 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Errors;
-use Error;
+use App\Models\Post;
+use App\Models\Tokens;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class FacebookController extends Controller
 {
     
-    public static function handle(array $request){
+    public static function handle(
+        Tokens $account,
+        string $message,
+        string $imgUrl = null,
+    ){
         $client = new Client();
-        $account = $request["account"];        
-        $imgUrl = $request["imgUrl"];
-        $message = $request["message"];
-        try{
-            $response = $client->request('POST', "https://graph.facebook.com/$account->page_id/photos", [
-                'query' => [
-                    'message' => $message,
-                    'url' => $imgUrl,
-                    'access_token' => $account->token
-                ],
+        try {
+            $json = [
+                'message' => $message,
+                'access_token' => $account->token
+            ];
+            if($imgUrl){
+                $json['url'] = $imgUrl;
+                $response = $client->post("https://graph.facebook.com/$account->page_id/photos", [
+                    'json' => $json
+                ]);
+            }
+            else{
+                $response = $client->post("https://graph.facebook.com/$account->page_id/feed", [
+                    'json' => $json
+                ]);
+            }
+            $body = json_decode($response->getBody()->getContents());
+            Post::create([
+                "type" =>"facebook",
+                "response" => $body,
+                "description" => json_encode($json)
             ]);
-            $body = $response->getBody();
-            $body = $body->getContents();            
-        } catch(Error $e){            
-            $error = new Errors();
-            $error->mensagem = $e->getMessage();
-            $error->tipo = "Criação de post por facebook";
-            $error->save();
+        } catch(RequestException $e) {    
+            error_log("Erro na criação de post facebook");
+            Errors::create([
+                'message' => $e->getResponse()->getBody(),
+                'type'=>'Criação de post por facebook'
+            ]);
         }
-
     }
 }

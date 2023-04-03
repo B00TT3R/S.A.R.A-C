@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             
-            $table->text("tipo");
-            $table->mediumText("retorno_req");
-            $table->mediumText("descricao")->nullable();
+            $table->text("type");
+            $table->json("response");
+            $table->mediumText("description")->nullable();
             $table->id();
             $table->timestamps();
         });

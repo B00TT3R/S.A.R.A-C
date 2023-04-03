@@ -35,11 +35,9 @@ class TesteFacebook extends Command
         
         foreach ($accounts as $account) {
             FacebookController::handle(
-                [
-                    'account' => $account,
-                    'message' => GPTController::textGen("Crie um texto implicando que um teste de geração de texto foi bem-sucedido:", 128, 0.7, "teste-geração"),
-                    'imgUrl' => "https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
-                ]
+                $account,
+                GPTController::textGen("Crie um texto implicando que um teste de geração de texto foi bem-sucedido:", 128, 0.7, "teste-geração"),
+                //"https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
             );
             $this->info(Artisan::output());
         }
