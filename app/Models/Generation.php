@@ -14,7 +14,7 @@ class Generation extends Model
         "model",
         "type",
         "prompt",
-        "gen-type"
+        "gen_type"
     ];
     protected $casts = [
         "response" => "json"
