@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text("type");
             $table->json("response");
             $table->mediumText("description")->nullable();
+            $table->json("request");
             $table->id();
             $table->timestamps();
         });

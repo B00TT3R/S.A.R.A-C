@@ -13,9 +13,11 @@ class Post extends Model
         'type',
         'response',
         'description',
+        'request'
     ];
     protected $casts = [
        'response' => 'json',
+       'request' => 'json',
     ];
     public function asJson($value){
         return json_encode($value, JSON_UNESCAPED_UNICODE);

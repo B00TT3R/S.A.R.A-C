@@ -11,18 +11,17 @@ use Illuminate\Http\Request;
 class FacebookController extends Controller
 {
     public static function post(
-        string $message,
-        string $imgUrl = null,
+        array ...$params
     ){
         $client = new Client();
-        $page_id = env("FACEBOOK_PAGE_ID");
+        $page_id = env("FACEBOOK_PAGE_ID");        
         try {
             $json = [
-                'message' => $message,
-                'access_token' => env("FACEBOOK_TOKEN")
+                'access_token' => env("FACEBOOK_TOKEN"),
+                ...$params[0]
             ];
-            if($imgUrl){
-                $json['url'] = $imgUrl;
+            
+            if(isset($json["url"])){
                 $response = $client->post("https://graph.facebook.com/$page_id/photos", [
                     'json' => $json
                 ]);
@@ -36,7 +35,7 @@ class FacebookController extends Controller
             Post::create([
                 "type" =>"facebook",
                 "response" => $body,
-                "description" => json_encode($json)
+                "request" => $params[0]                
             ]);
         } catch(RequestException $e) {    
             error_log("Erro na criação de post facebook");
