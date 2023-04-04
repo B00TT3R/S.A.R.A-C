@@ -6,6 +6,7 @@ use App\Models\Errors;
 use App\Models\Generation;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use PhpParser\Node\Expr\Cast\String_;
 
 class GPTController extends Controller
 {
@@ -47,7 +48,7 @@ class GPTController extends Controller
         string $prompt,
         string $size = "1024x1024",
         string $type = "não-definido"
-    ){
+    ):string{
         $client = new Client();
         try{
             $response = $client->post('https://api.openai.com/v1/images/generations', [
@@ -69,6 +70,7 @@ class GPTController extends Controller
                 'type' => $type,
                 'result'=> $json->data[0]->url
             ]);
+            return $json->data[0]->url;
         }catch(RequestException $e){
             error_log("erro na geração de imagem");
             Errors::create([

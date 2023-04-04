@@ -32,8 +32,8 @@ class TesteFacebook extends Command
         $pageName = FacebookController::getPageName();
         $this->info("Postando em: ".$pageName);
         FacebookController::post(
-            GPTController::textGen("Crie um texto implicando que um teste foi bem-sucedido:", 128, 0.6, "teste-geração"),
-            //"https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&w=1000",
+            GPTController::textGen("Crie um texto extremamente absurdo e alarmante sobre uma futura invasão de cangurus ao brasil", 512, 0.6, "teste-geração"),
+            GPTController::imageGen("kangaroo banner, soviet style"),
         );
         $this->info(Artisan::output());
         
