@@ -4,33 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Errors;
 use App\Models\Post;
-use App\Models\Tokens;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class FacebookController extends Controller
 {
-    
     public static function post(
-        Tokens $account,
         string $message,
         string $imgUrl = null,
     ){
         $client = new Client();
+        $page_id = env("FACEBOOK_PAGE_ID");
         try {
             $json = [
                 'message' => $message,
-                'access_token' => $account->token
+                'access_token' => env("FACEBOOK_TOKEN")
             ];
             if($imgUrl){
                 $json['url'] = $imgUrl;
-                $response = $client->post("https://graph.facebook.com/$account->page_id/photos", [
+                $response = $client->post("https://graph.facebook.com/$page_id/photos", [
                     'json' => $json
                 ]);
             }
             else{
-                $response = $client->post("https://graph.facebook.com/$account->page_id/feed", [
+                $response = $client->post("https://graph.facebook.com/$page_id/feed", [
                     'json' => $json
                 ]);
             }
@@ -50,14 +48,14 @@ class FacebookController extends Controller
     }
     
     public static function getPageName(
-        Tokens $account
     ){
+        $page_id = env("FACEBOOK_PAGE_ID");
         $client = new Client();
         try{
-            $response = $client->get("https://graph.facebook.com/$account->page_id", [
+            $response = $client->get("https://graph.facebook.com/$page_id", [
             'query' => [
                 'fields' => 'name',
-                'access_token' => $account->token
+                'access_token' => env("FACEBOOK_TOKEN")
             ]
         ]);
             $body = json_decode($response->getBody()->getContents());
