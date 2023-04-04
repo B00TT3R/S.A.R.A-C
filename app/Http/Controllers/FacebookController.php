@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class FacebookController extends Controller
 {
     
-    public static function handle(
+    public static function post(
         Tokens $account,
         string $message,
         string $imgUrl = null,
@@ -45,6 +45,20 @@ class FacebookController extends Controller
             Errors::create([
                 'message' => $e->getResponse()->getBody(),
                 'type'=>'Criação de post por facebook'
+            ]);
+        }
+    }
+    public static function getPageName(Tokens $account){
+        $client = new Client();
+        try{
+            $response = $client->get("https://graph.facebook.com/v12.0/$account->page_id?fields=name&access_token=$account->token");
+            $body = json_decode($response->getBody()->getContents());
+            return $body->name;
+        }  catch(RequestException $e) {
+            error_log("erro na checagem de nome de pagina");
+            Errors::create([
+                'message' => $e->getMessage(),
+                'type'=>'checagem de nome de pagina'
             ]);
         }
     }

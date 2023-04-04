@@ -10,7 +10,7 @@ class Tokens extends Model
     use HasFactory;
     protected $fillable = [
         "token",
-        "page-id",
+        "page_id",
         "description",
         "extra",
         "type"
