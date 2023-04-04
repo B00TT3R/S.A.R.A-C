@@ -48,10 +48,18 @@ class FacebookController extends Controller
             ]);
         }
     }
-    public static function getPageName(Tokens $account){
+    
+    public static function getPageName(
+        Tokens $account
+    ){
         $client = new Client();
         try{
-            $response = $client->get("https://graph.facebook.com/v12.0/$account->page_id?fields=name&access_token=$account->token");
+            $response = $client->get("https://graph.facebook.com/$account->page_id", [
+            'query' => [
+                'fields' => 'name',
+                'access_token' => $account->token
+            ]
+        ]);
             $body = json_decode($response->getBody()->getContents());
             return $body->name;
         }  catch(RequestException $e) {
