@@ -17,7 +17,8 @@ use App\Http\Controllers\FrontendController;
 |
 */
 
-Route::get('/', [FrontendController::class, "index"]);
+//vou mudar isso aqui depois para não precisar usar o fallback!
+Route::fallback([FrontendController::class, "index"]);
 
 
 
