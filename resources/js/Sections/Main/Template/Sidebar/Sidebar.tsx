@@ -13,14 +13,14 @@ export default function Sidebar() {
       <header className={classNames(
         'text-3xl flex text-white transition-all',
         "border-b border-gray-700",
-        "items-center h-12 box-border",
-        sidebar?"justify-between":"justify-center w-16 bg-black "
+        "items-center h-14 box-border",
+        sidebar?"justify-between":"justify-center w-16 bg-black shadow-sm shadow-gray-900"
       )}>
 
         {sidebar ?
         (
           <>
-            <Link to="/">S.A.R.A.</Link>
+            <Link to="/">S.A.R.A</Link>
             <button 
               onClick={()=>dispatch({type: "close"})}
               className="hover:bg-white hover:text-black transition-colors h-full w-16"
