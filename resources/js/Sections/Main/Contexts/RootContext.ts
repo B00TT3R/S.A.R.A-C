@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 const initialState = {
-    sidebar: true
+    sidebar: false
 };
 
 const RootContext = createContext({} as any);

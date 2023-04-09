@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* media query that checks if it is not a phone */
+@media not ((pointer:none) or (pointer:coarse)){
+    ::-webkit-scrollbar{
+        @apply w-2 p-2
+        
+    }
+    ::-webkit-scrollbar-thumb{
+        
+        @apply bg-gray-300 rounded-sm
+    }
+}
