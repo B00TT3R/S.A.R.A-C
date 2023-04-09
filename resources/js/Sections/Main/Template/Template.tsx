@@ -12,11 +12,11 @@ export default function Template() {
         <section className='w-screen h-screen flex flex-col'>
           <Sidebar/>
           <div className={classNames(
-            "w-full h-full flex bg-gray-200",
+            "w-full h-full flex bg-gray-200 transition-all",
             state.sidebar?"p-3":"p-3.5 sm:p-5"
           )}>
             <main className={classNames(
-              "transition-[margin] flex flex-col flex-1 border-slate-400 border-2 shadow-sm",
+              "transition-all flex flex-col flex-1 border-slate-400 border-2 shadow-sm",
               "shadow-gray-400 rounded p-2 overflow-y-auto",
               "bg-white",
               state.sidebar?"ml-72":"ml-12"
