@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import ListButton from './Template/ListButton';
 export default function Sidebar() {
   const { state:{sidebar}, dispatch } = useContext(RootContext);
-  console.log(sidebar);
   return (
     <aside className={classNames(
       "bg-black h-screen absolute  transition-[width] duration-300 shadow-md shadow-gray-400",
