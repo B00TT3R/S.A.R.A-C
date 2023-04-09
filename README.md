@@ -1,5 +1,5 @@
 <p>
-    <b>S.A.R.A.</b> Significa: 
+    <b>S.A.R.A</b> Significa: 
     <br/>
     Sistema
     <br/>
