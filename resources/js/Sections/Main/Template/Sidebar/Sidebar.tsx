@@ -7,14 +7,14 @@ export default function Sidebar() {
   console.log(sidebar);
   return (
     <aside className={classNames(
-      "bg-black h-screen absolute  transition-[width] duration-300 shadow-md shadow-gray-900",
-      sidebar?"w-64":"w-12"
+      "bg-black h-screen absolute  transition-[width] duration-300 shadow-md shadow-gray-400",
+      sidebar?"sm:w-72 w-screen":"w-12"
       )}>
       <header className={classNames(
         'text-3xl flex text-white transition-all',
         "border-b border-gray-700",
         "items-center h-14 box-border",
-        sidebar?"justify-between":"justify-center w-16 bg-black shadow-sm shadow-gray-900"
+        sidebar?"justify-between":"justify-center w-14 bg-black shadow-sm shadow-gray-400"
       )}>
 
         {sidebar ?
