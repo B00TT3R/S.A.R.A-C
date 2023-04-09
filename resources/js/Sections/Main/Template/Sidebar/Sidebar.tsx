@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import {classNames} from '@/Utils/index';
-import RootContext from '../../Contexts/RootContext';
-import { FaGithub, FaHome} from 'react-icons/fa'
-import { BiErrorAlt} from 'react-icons/bi'
+import { FaGithub, FaHome, BiErrorAlt} from 'react-icons/all'
 import { Link } from 'react-router-dom';
+
+import { classNames } from '@/Utils/index';
+import RootContext from '../../Contexts/RootContext';
 import ListButton from './Template/ListButton';
 export default function Sidebar() {
   const { state:{sidebar}, dispatch } = useContext(RootContext);
