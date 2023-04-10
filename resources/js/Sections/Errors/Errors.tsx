@@ -1,7 +1,41 @@
-import React from 'react'
+import PageSpinner from '<>/PageSpinner/PageSpinner'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { useQuery } from 'react-query'
+import {paginatedValue} from '-ts/paginatedValue'
+import { classNames } from '@/Utils'
+import StyleHash from './Utils/StyleHash'
 
 export default function Errors() {
+  const [page, setPage] = useState(1)
+  const {data, isLoading, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<any>>("api/errors",{params: {page}}))
+
   return (
-    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, mollitia officia tempore voluptates earum, neque reiciendis praesentium molestiae quo nesciunt expedita rem ex placeat adipisci, est at quos minima dolorum porro ipsa distinctio dicta itaque! Rerum cumque laborum aut. Esse pariatur sint sed ea tempora eos velit, atque natus officiis delectus. Libero aliquid suscipit mollitia possimus sint consequuntur minima distinctio, quae consectetur qui provident, sapiente pariatur, corporis et laboriosam obcaecati? Aut blanditiis dolor rem sunt ea. Libero ad suscipit quod tempora autem ut repudiandae cupiditate dolorum perferendis fugit, maiores voluptatum maxime cumque rerum assumenda, animi, iusto eum ipsa explicabo quis? Incidunt harum velit repellat enim iure natus atque optio consectetur nisi nam excepturi mollitia corrupti alias quas suscipit, id eaque doloremque unde voluptatem quidem iste porro quam! Placeat ullam possimus voluptate harum sunt perferendis assumenda natus ab dicta iusto inventore autem minima aliquid asperiores numquam qui iure nulla doloribus similique, quos laboriosam culpa. Iusto est eaque fugit repudiandae, laudantium non aut, modi nisi cupiditate distinctio dicta ullam atque sint possimus nihil voluptatibus, harum eveniet debitis omnis hic tenetur totam. Asperiores, ea dicta, ipsa maiores omnis hic facilis veniam neque ab sit, quam quaerat illum eius doloribus vitae iste? Numquam illum, suscipit soluta exercitationem quas tempore rem architecto fuga dignissimos sunt aliquid tempora debitis saepe distinctio officiis, delectus esse sit excepturi optio maiores praesentium laboriosam! Error ducimus magni eos voluptas repudiandae quia doloremque, sapiente veniam, totam ullam reprehenderit. Nam quisquam nemo est, numquam consequuntur quibusdam doloribus tenetur eum repellendus, quae ipsa assumenda asperiores laudantium dignissimos optio adipisci ut exercitationem omnis sunt nesciunt. Veritatis suscipit quo error iste consequuntur libero tempora asperiores maxime repudiandae odit eaque dolorem inventore, ab repellat possimus esse nulla aliquid velit cum, nihil officia odio. Ullam placeat asperiores possimus, tempora officia exercitationem voluptate, quis voluptas pariatur dolores unde aliquam quos distinctio eos voluptates ab vel? Tempore eaque porro animi, corporis, iste voluptatum nostrum accusamus quasi consequuntur rem beatae excepturi quo omnis! Natus debitis sed rerum voluptate soluta ex repellat earum, fugit, aliquid assumenda veritatis vero officia dolores, provident minima ipsam esse? Voluptates nesciunt saepe sit natus totam fuga voluptatem cupiditate delectus. Molestiae ratione doloremque vel at sit ea tenetur quasi quisquam quis obcaecati commodi esse, ut possimus corrupti consequuntur optio. Eveniet inventore officia nisi cupiditate dolorem doloremque rerum, nemo tempora molestias pariatur dolores sapiente deleniti ipsum et velit perspiciatis voluptatibus fugiat laudantium nesciunt nobis repellat harum! Suscipit dolorem fugiat, eveniet quam assumenda ab quas praesentium? At sequi perferendis ducimus fuga. Vero distinctio sed voluptates ratione quod! Quas impedit neque odit laboriosam molestiae necessitatibus similique quos? Cupiditate et culpa eligendi quam eum excepturi quasi voluptatum rem facere? Odio necessitatibus, dolorem impedit nobis vitae ipsa quo aliquid hic cum pariatur nemo rerum placeat, dignissimos odit adipisci officiis ducimus esse vel. Laborum a aperiam sed, architecto in illo eum fugiat asperiores eveniet excepturi porro adipisci. Libero laboriosam esse nam illum quo quasi, corporis cupiditate, dolorum laborum rem sed sunt blanditiis aut, quos nesciunt. Nisi, enim officiis distinctio nemo quasi architecto commodi!</div>
+    <div className='w-full grid gap-2'>
+      <header className="text-2xl">
+        <h1>Erros:</h1>
+      </header>
+      <ul className='grid gap-1'>
+        {
+          isFetching
+          ?
+            <PageSpinner size='text-7xl'/>
+          :
+            data?.data.data.map((error:any)=>(
+              <li
+                key={error.id}
+                className={
+                  classNames(
+                    'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-md shadow-sm shadow-gray-300 hover:brightness-95 transition-all',
+                    StyleHash[error.type].wrapper
+                  )
+              }>
+                <span><b>Tipo:</b> {error.type}</span>
+                <span><b>id:</b> {error.id}</span>
+              </li>
+            ))
+        }
+      </ul>
+    </div>
   )
 }

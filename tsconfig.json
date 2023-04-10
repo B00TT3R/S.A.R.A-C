@@ -18,9 +18,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*" : ["resources/js/*"],
-      "<>/*" : ["resources/js/Components/*"]
+      "<>/*" : ["resources/js/Components/*"],
+      "-ts/*" : ["resources/js/Types/*"],
     }
   },
-  "include": ["resources/js/**.tsx", "resources/js/**/*", "./global.d.ts"],
+  "include": ["resources/js/**.tsx", "resources/js/**/*", "resources/js/Types/global.d.ts"],
   //"references": [{ "path": "./tsconfig.node.json" }]
 }

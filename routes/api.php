@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get("errorCount", [ErrorController::class, "errorCount"]);
 Route::get("generationCount", [GPTController::class, "generationCount"]);
+
+Route::get('errors', [ErrorController::class, "getErrors"]);

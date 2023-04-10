@@ -24,4 +24,8 @@ class ErrorController extends Controller
             
         ];
     }
+    public function getErrors(Request $request){
+        $errors = Errors::orderBy('id', 'desc')->paginate(10);
+        return $errors;
+    }
 }
