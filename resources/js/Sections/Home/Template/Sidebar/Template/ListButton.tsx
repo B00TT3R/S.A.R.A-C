@@ -1,9 +1,8 @@
-import RootContext from '@/Sections/Main/Contexts/RootContext';
+import RootContext from '../../../Contexts/RootContext';
 import { classNames } from '@/Utils'
-import {ReactPropTypes, useContext, useEffect, useState} from 'react'
+import {useContext} from 'react'
 import { IconType } from 'react-icons/lib'
 import { Link, useLocation } from 'react-router-dom';
-import Tailwind from 'tailwindcss'
 
 interface props {
     Icon:IconType

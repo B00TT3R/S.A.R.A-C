@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
-import Main from '@/Sections/Main/Main'
-import Template from '@/Sections/Main/Template/Template'
+import Home from '@/Sections/Home/Home'
+import Template from '@/Sections/Home/Template/Template' //mudar a localização disso aqui depois!
 import Errors from '@/Sections/Errors/Errors';
 
 
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
         element: <Template />,
         children: [
             {
-                element: <Main />,
+                element: <Home />,
                 path: '/'
             },
             {
