@@ -4,8 +4,6 @@ import Square from './Template/Square/Square';
 import { BiErrorAlt } from 'react-icons/all';
 
 const Home = () => {
-    
-    
     return (
         <div className='grid content-start gap-2'>
             <header className="text-2xl">
