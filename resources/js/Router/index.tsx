@@ -11,7 +11,6 @@ const router = createBrowserRouter([
         element: <Template />,
         children: [
             {
-                lazy: ()=>axios.get("/api/errorCount"),
                 element: <Home />,
                 path: '/'
             },

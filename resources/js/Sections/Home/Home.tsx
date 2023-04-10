@@ -2,8 +2,13 @@ import React, { useContext, useReducer } from 'react';
 import RootContext from './Contexts/RootContext';
 import Square from './Template/Square/Square';
 import { BiErrorAlt } from 'react-icons/all';
+import { useQuery, useQueryClient } from 'react-query';
+import axios from 'axios';
 
 const Home = () => {
+    const {data, isLoading} = useQuery('todos', async ()=>await axios.get("api/errorCount"))
+    console.log(data)
+
     return (
         <div className='grid content-start gap-2'>
             <header className="text-2xl">
