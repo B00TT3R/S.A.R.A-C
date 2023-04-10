@@ -3,9 +3,10 @@ import Square from '../Square/Square'
 import { SiOpenai } from 'react-icons/all';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import PageSpinner from '<>/PageSpinner/PageSpinner';
 
 export default function Errors() {
-    const {data, isLoading} = useQuery('generationCount', async ()=> await axios.get("api/generationCount"))
+    const {data, isLoading, isFetching} = useQuery('generationCount', async ()=> await axios.get("api/generationCount"))
     return (
         
         <Square
@@ -18,12 +19,11 @@ export default function Errors() {
             to="erros"
         >
             {
-                isLoading?"carregando":(
+                isFetching?<PageSpinner size='text-5xl'/>:(
                     <>
                         <span><b>Total</b>: {data?.data.total}</span>
-                        <span><b>Gerações de imagem:</b>: {data?.data.image}</span>
-                        <span><b>Gerações de texto:</b>: {data?.data.text}</span>
-                        
+                        <span><b>Gerações de imagem</b>: {data?.data.image}</span>
+                        <span><b>Gerações de texto</b>: {data?.data.text}</span>
                     </>
                 )
             }
