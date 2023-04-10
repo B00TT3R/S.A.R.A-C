@@ -16,7 +16,7 @@ export default function Square({
   return (
     <article
         className={classNames(
-            'w-full h-52 bg-white border rounded-sm shadow-md shadow-gray-200 p-2 grid gap-1 content-start',
+            'w-full bg-white border rounded-sm shadow-md shadow-gray-200 p-2 grid gap-1 content-start',
             "transition-all duration-500 group",
             "hover:shadow-lg hover:rounded-md cursor-pointer"
         )}

@@ -78,4 +78,16 @@ class GPTController extends Controller
             ]);
         }
     }
+    public function generationCount(){
+        $generations = Generation::all();
+        $count = $generations->count();
+        $imageGen = $generations->where('gen_type', 'image')->count();
+        $textGen = $generations->where('gen_type', 'text')->count();
+        return [
+            'total' => $count,
+            'image' => $imageGen,
+            'text' => $textGen
+            
+        ];
+    }
 }

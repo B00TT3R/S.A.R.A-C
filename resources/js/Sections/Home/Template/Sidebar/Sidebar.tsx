@@ -20,7 +20,7 @@ export default function Sidebar() {
         "items-center h-14 box-border",
         sidebar?`justify-between pl-2`
         :`
-          justify-center w-14 bg-black hover:w-72 hover:bg-opacity-90 hover:rounded-r-md hover:shadow-md
+          justify-center sm:w-14 bg-black hover:w-72 hover:bg-opacity-90 hover:rounded-r-md hover:shadow-md
         `
       )}>
         <Link to="/"

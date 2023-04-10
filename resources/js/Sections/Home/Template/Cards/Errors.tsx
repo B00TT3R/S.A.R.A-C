@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 
 export default function Errors() {
-    const {data, isLoading} = useQuery('todos', async ()=>await axios.get("api/errorCount"))
+    const {data, isLoading} = useQuery('errorCount', async ()=>await axios.get("api/errorCount"))
     return (
         
         <Square
@@ -20,7 +20,7 @@ export default function Errors() {
             {
                 isLoading?"carregando":(
                     <>
-                        <span><b>Total</b> = {data!.data.total}</span>
+                        <span><b>Total</b>: {data!.data.total}</span>
                         {Object.keys(data!.data.types).map((type:any) =>(
                             <div key={type}>
                                 {type}: {data!.data.types[type]}

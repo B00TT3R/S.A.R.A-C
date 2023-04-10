@@ -5,11 +5,10 @@ import { BiErrorAlt } from 'react-icons/all';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import Errors from './Template/Cards/Errors';
+import Generations from './Template/Cards/Generations';
 
 const Home = () => {
-    const {data, isLoading} = useQuery('todos', async ()=>await axios.get("api/errorCount"))
-    console.log(data)
-
+    
     return (
         <div className='grid content-start gap-2'>
             <header className="text-2xl">
@@ -18,8 +17,10 @@ const Home = () => {
             </header>
             <div className="grid content-start gap-inherit">
                 <h3>Acesso rápido:</h3>
-                <div className='grid grid-cols-3'>
+                <div className='grid sm:grid-cols-3 gap-2'>
                     <Errors/>
+                    <Generations/>
+                    
                 </div>
             </div>
         </div>
