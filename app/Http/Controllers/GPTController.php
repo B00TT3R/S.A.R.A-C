@@ -6,7 +6,6 @@ use App\Models\Errors;
 use App\Models\Generation;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use PhpParser\Node\Expr\Cast\String_;
 
 class GPTController extends Controller
 {
@@ -38,7 +37,7 @@ class GPTController extends Controller
                 error_log("erro na geração de texto: HTTP ".$e->getCode());
                 Errors::create([
                     "message" => $e->getResponse()->getBody(),
-                    "type" => "requisição a openAI",
+                    "type" => "Requisição a openAI",
                     
                 ]);
             }
@@ -75,7 +74,7 @@ class GPTController extends Controller
             error_log("erro na geração de imagem");
             Errors::create([
                 "message" => $e->getResponse()->getBody(),
-                "type" => "requisição a openAI",
+                "type" => "Requisição a openAI",
             ]);
         }
     }

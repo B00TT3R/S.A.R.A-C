@@ -4,6 +4,7 @@ import Square from './Template/Square/Square';
 import { BiErrorAlt } from 'react-icons/all';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import Errors from './Template/Cards/Errors';
 
 const Home = () => {
     const {data, isLoading} = useQuery('todos', async ()=>await axios.get("api/errorCount"))
@@ -18,28 +19,7 @@ const Home = () => {
             <div className="grid content-start gap-inherit">
                 <h3>Acesso rápido:</h3>
                 <div className='grid grid-cols-3'>
-                    <Square
-                        title={
-                            <>
-                                <BiErrorAlt className='text-red-500'/>
-                                <span className=''>Erros</span>
-                            </>
-                        }
-                        to="erros"
-                    >
-                        {
-                            isLoading?"carregando":(
-                                <>
-                                    <span><b>Total</b> = {data!.data.total}</span>
-                                    {Object.keys(data!.data.types).map((type:any) =>(
-                                        <div key={type}>
-                                            {type}: {data!.data.types[type]}
-                                        </div>
-                                    ))}
-                                </>
-                            )
-                        }
-                    </Square>
+                    <Errors/>
                 </div>
             </div>
         </div>

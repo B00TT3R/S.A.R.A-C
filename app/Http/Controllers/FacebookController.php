@@ -41,7 +41,7 @@ class FacebookController extends Controller
             error_log("Erro na criação de post facebook");
             Errors::create([
                 'message' => $e->getResponse()->getBody(),
-                'type'=>'Criação de post por facebook'
+                'type'=>'Criação de post para facebook'
             ]);
         }
     }
@@ -63,7 +63,7 @@ class FacebookController extends Controller
             error_log("erro na checagem de nome de pagina");
             Errors::create([
                 'message' => $e->getMessage(),
-                'type'=>'checagem de nome de pagina'
+                'type'=>'Checagem de nome de pagina'
             ]);
         }
     }
