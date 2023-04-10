@@ -2,7 +2,7 @@ import React, { useContext, useReducer } from 'react';
 import RootContext from './Contexts/RootContext';
 import Square from './Template/Square/Square';
 import { BiErrorAlt } from 'react-icons/all';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 
 const Home = () => {
