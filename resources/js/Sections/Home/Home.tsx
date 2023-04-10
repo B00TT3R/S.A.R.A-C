@@ -27,7 +27,18 @@ const Home = () => {
                         }
                         to="erros"
                     >
-                        asd
+                        {
+                            isLoading?"carregando":(
+                                <>
+                                    <span><b>Total</b> = {data!.data.total}</span>
+                                    {Object.keys(data!.data.types).map((type:any) =>(
+                                        <div key={type}>
+                                            {type}: {data!.data.types[type]}
+                                        </div>
+                                    ))}
+                                </>
+                            )
+                        }
                     </Square>
                 </div>
             </div>
