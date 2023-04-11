@@ -14,16 +14,17 @@ function formatArray(array:link[]):typeof array{
 }
 export default function Pagination({data, handleChange, ...rest}:props) {
   return (
-    <div className='flex shadow-md shadow-gray-300' {...rest}>              
+    <div className='flex flex-wrap drop-shadow-md ' {...rest}>              
         {formatArray(data.links).map((e, i)=>(
             <button className={
                 classNames(
-                    'w-10 h-10 border border-r-0 last:border-r grid place-content-center border-slate-400',
-                    "first:rounded-l-md last:rounded-r-md",
-                    "hover:backdrop-brightness-90 transition-colors",
+                    'w-10 h-10 ring-1 hover:ring-inset  grid place-content-center ring-black',
+                    "first:rounded-l-md last:rounded-r-md last:ring-r",
+                    "hover:brightness-90 focus:brightness-90 focus:outline-none transition-all duration-75",
                     "font-semibold",
-                    "disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed",
-                    e.active?"bg-slate-400 text-white":"text-black bg-white"
+                    "disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed",
+                    e.active?"bg-black text-white" : "text-black bg-white",
+                    "active:bg-black active:text-white"
 
                 )}
                 disabled={e.url===null}

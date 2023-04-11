@@ -55,14 +55,15 @@ export default function Errors() {
                     </Select>
                   </div>
                 </div>
-                <ul className='grid gap-1 w-full'>
+                <ul className='grid gap-2 w-full'>
                   {data?.data.data.map((error:any)=>(
                     <li
                       key={error.id}
                       className={
                         classNames(
-                          'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-md shadow-sm shadow-gray-300 hover:brightness-95 transition-all',
-                          "",
+                          'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-sm hover:brightness-95 ',
+                          "hover:shadow-inner transition-all shadow-md",
+                          "shadow-gray-100",
                           StyleHash[error.type].wrapper,
                         )
                     }>
@@ -71,7 +72,7 @@ export default function Errors() {
                     </li>
                   ))}
                 </ul>
-                <div className='sticky bottom-0'>
+                <div className='sticky bottom-0 w-full'>
                   <Pagination
                     data={data!.data}
                     handleChange={setUrl}
