@@ -2,7 +2,7 @@ import {lazy} from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import {PageLoader} from '<>'
 
-import Template from '@/Sections/Home/Template/Template' //mudar a localização disso aqui depois!
+import Template from '@/Sections/Main/Template/Template' //mudar a localização disso aqui depois!
 import NotFound from '@/Sections/NotFound/NotFound';
 const Home = lazy(()=>import("@/Sections/Main/Pages/Home/Home"));
 const Errors = lazy(()=>import("@/Sections/Main/Pages/Errors/Errors"));
