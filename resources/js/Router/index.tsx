@@ -4,8 +4,8 @@ import {PageLoader} from '<>'
 
 import Template from '@/Sections/Home/Template/Template' //mudar a localização disso aqui depois!
 import NotFound from '@/Sections/NotFound/NotFound';
-const Home = lazy(()=>import("@/Sections/Home/Home"));
-const Errors = lazy(()=>import("@/Sections/Errors/Errors"));
+const Home = lazy(()=>import("@/Sections/Main/Pages/Home/Home"));
+const Errors = lazy(()=>import("@/Sections/Main/Pages/Errors/Errors"));
 
 const router = createBrowserRouter([
     {
