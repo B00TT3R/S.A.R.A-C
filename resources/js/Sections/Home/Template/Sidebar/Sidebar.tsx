@@ -47,12 +47,14 @@ export default function Sidebar() {
         text="Home"
         to="/"
         iconClass='group-hover:text-blue-500'
+        iconClassOnActive="text-blue-500"
       />
       <ListButton
         Icon={BiErrorAlt}
         text="Erros"
         to="/erros"
         iconClass='group-hover:text-red-500'
+        iconClassOnActive="text-red-500"
       />
       <footer className='mt-auto'>
         <ListButton
@@ -60,6 +62,7 @@ export default function Sidebar() {
           text="Link no Github"
           to="https://github.com/B00TT3R/S.A.R.A"
           iconClass='group-hover:text-green-500'
+          iconClassOnActive="text-green-500"
         />
       </footer>
     </aside>

@@ -25,7 +25,7 @@ export default function Errors() {
       <header className="text-2xl">
         <h1>Erros:</h1>
       </header>
-      <div className='flex flex-col items-start w-full gap-1 pb-3 '>
+      <div className='flex flex-col items-start w-full gap-2 pb-3 '>
           {
             isFetching
             ?
