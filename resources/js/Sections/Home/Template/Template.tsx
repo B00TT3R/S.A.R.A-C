@@ -18,7 +18,7 @@ export default function Template() {
             <main className={classNames(
               "transition-all flex flex-col flex-1 border-slate-400 border-2 shadow-sm",
               "shadow-gray-400 rounded p-2 sm:p-3 overflow-y-auto",
-              "bg-white",
+              "bg-white relative",
               state.sidebar?"ml-72":"ml-12"
             )}>
               <Outlet/>

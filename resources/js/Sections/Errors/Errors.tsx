@@ -6,64 +6,83 @@ import {paginatedValue} from '-ts/paginatedValue'
 import { classNames } from '@/Utils'
 import StyleHash from './Utils/StyleHash'
 import Pagination from '<>/Pagination/Pagination'
+import Select from '<>/Select/Select'
 
 export default function Errors() {
-  const [page, setPage] = useState(1)
+  
   const [url, setUrl] = useState("api/errors")
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<any>>(url))
+  const [orderBy, setOrderBy] = useState("id")
+  const [order, setOrder] = useState("desc")
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<any>>(url, 
+    {params:{
+      orderBy,
+      order
+    }
+  }))
   useEffect(()=>{
     refetch()
-  },[url])
+  },[url, order, orderBy])
 
   return (
-    <div className='w-full grid gap-2'>
+    <div className='w-full h-full grid gap-2 content-start  relative'>
       <header className="text-2xl">
         <h1>Erros:</h1>
       </header>
-        {
-          isFetching
-          ?
-            <PageSpinner size='text-7xl'/>
-          :
-          <>
-            <ul className='grid gap-1'>
-              {data?.data.data.map((error:any)=>(
-                <li
-                  key={error.id}
-                  className={
-                    classNames(
-                      'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-md shadow-sm shadow-gray-300 hover:brightness-95 transition-all',
-                      StyleHash[error.type].wrapper
-                    )
-                }>
-                  <span><b>Tipo:</b> {error.type}</span>
-                  <span><b>id:</b> {error.id}</span>
-                </li>
-              ))}
-            </ul>
-            <Pagination
-             data={data!.data}
-             handleChange={setUrl}
-            />
-            {/* <div className='flex'>              
-              {[...Array(data?.data.last_page)].map((e, i)=>(
-                <button className={
-                  classNames(
-                    'w-10 h-10 border-2 border-r-0 last:border-r-2 grid place-content-center border-slate-500',
-                    "first:rounded-l-md last:rounded-r-md text-black",
-                    "hover:text-white hover:bg-slate-500 transition-colors"
-                  )}
-                  key={i}
-                  onClick={()=>setPage(i+1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div> */}
-      </>
-            
-            
-        }
+      <div className='flex flex-col items-start w-full gap-1 pb-3 '>
+          {
+            isFetching
+            ?
+              <PageSpinner size='text-7xl'/>
+            :
+              <>
+                {/* orderby */}
+                <div className='flex gap-2'>
+                  <div className='grid'>
+                    <span>Ordernar por: </span>
+                    <Select 
+                      onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
+                      value={orderBy}
+                    >
+                      <option value="id">ID</option>
+                      <option value="type">Tipo</option>
+                    </Select>
+                  </div>
+                  <div className='grid'>
+                    <span>Ordem: </span>
+                    <Select 
+                      onChange={({target})=>setOrder((target as HTMLSelectElement).value)}
+                      value={order}
+                    >
+                      <option value="asc">Crescente</option>
+                      <option value="desc">Decrescente</option>
+                    </Select>
+                  </div>
+                </div>
+                <ul className='grid gap-1 w-full'>
+                  {data?.data.data.map((error:any)=>(
+                    <li
+                      key={error.id}
+                      className={
+                        classNames(
+                          'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-md shadow-sm shadow-gray-300 hover:brightness-95 transition-all',
+                          "",
+                          StyleHash[error.type].wrapper,
+                        )
+                    }>
+                      <span><b>Tipo:</b> {error.type}</span>
+                      <span><b>id:</b> {error.id}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className='sticky bottom-0'>
+                  <Pagination
+                    data={data!.data}
+                    handleChange={setUrl}
+                  />
+                </div>
+              </>
+          }
+      </div>
       
     </div>
   )
