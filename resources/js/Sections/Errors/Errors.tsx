@@ -1,24 +1,21 @@
-import PageSpinner from '<>/PageSpinner/PageSpinner'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import {paginatedValue} from '-ts/paginatedValue'
 import { classNames } from '@/Utils'
 import StyleHash from './Utils/StyleHash'
-import Pagination from '<>/Pagination/Pagination'
-import Select from '<>/Select/Select'
+
+import {PageSpinner, Pagination, Select} from '<>'
 
 export default function Errors() {
-  
   const [url, setUrl] = useState("api/errors")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
+  
   const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<any>>(url, 
-    {params:{
-      orderBy,
-      order
-    }
+    {params:{orderBy, order}
   }))
+
   useEffect(()=>{
     refetch()
   },[url, order, orderBy])

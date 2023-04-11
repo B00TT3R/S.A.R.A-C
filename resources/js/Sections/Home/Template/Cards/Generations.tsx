@@ -3,7 +3,7 @@ import Square from '../Square/Square'
 import { SiOpenai } from 'react-icons/all';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import PageSpinner from '<>/PageSpinner/PageSpinner';
+import {PageSpinner} from '<>';
 
 export default function Errors() {
     const {data, isLoading, isFetching} = useQuery('generationCount', async ()=> await axios.get("api/generationCount"))

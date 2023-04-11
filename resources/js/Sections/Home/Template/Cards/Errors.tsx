@@ -3,7 +3,7 @@ import Square from '../Square/Square'
 import { BiErrorAlt } from 'react-icons/all';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import PageSpinner from '<>/PageSpinner/PageSpinner';
+import {PageSpinner} from '<>';
 
 export default function Errors() {
     const {data, isLoading, isFetching} = useQuery('errorCount', async ()=>await axios.get("api/errorCount"))

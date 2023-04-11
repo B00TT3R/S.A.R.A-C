@@ -10,7 +10,7 @@ export default function Sidebar() {
   const toggleSidebar = () => dispatch({type: 'toggle'});
   return (
     <aside className={classNames(
-      "bg-black transition-[width] duration-300 shadow-md shadow-gray-400",
+      "bg-black transition-[width] duration-300 shadow-md shadow-gray-400 z-10",
       "flex flex-col h-screen absolute",
       sidebar?"sm:w-72 w-screen":"w-12"
     )}>

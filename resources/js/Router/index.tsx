@@ -1,10 +1,8 @@
-import {lazy, Suspense} from 'react';
+import {lazy} from 'react';
 import { createBrowserRouter } from "react-router-dom";
+import {PageLoader} from '<>'
+
 import Template from '@/Sections/Home/Template/Template' //mudar a localização disso aqui depois!
-//import Errors from '@/Sections/Errors/Errors';
-import axios from 'axios';
-import PageLoader from '<>/PageLoader/PageLoader'
-//import Home from '@/Sections/Home/Home'
 const Home = lazy(()=>import("@/Sections/Home/Home"));
 const Errors = lazy(()=>import("@/Sections/Errors/Errors"));
 
