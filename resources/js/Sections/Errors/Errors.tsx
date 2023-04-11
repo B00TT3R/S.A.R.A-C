@@ -67,7 +67,7 @@ export default function Errors() {
                         )
                     }>
                       <span><b>Tipo:</b> {error.type}</span>
-                      <span><b>id:</b> {error.id}</span>
+                      <span><b>ID:</b> {error.id}</span>
                     </li>
                   ))}
                 </ul>
