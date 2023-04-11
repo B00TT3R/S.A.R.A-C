@@ -1,4 +1,4 @@
-interface link{
+export interface link{
     url:null|string
     active:boolean
     label:string
