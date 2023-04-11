@@ -19,7 +19,9 @@ const Main = () => {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}/>
+                <RouterProvider 
+                    router={router}
+                />
             </QueryClientProvider>
         </>
     )
