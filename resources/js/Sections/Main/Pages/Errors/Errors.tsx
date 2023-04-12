@@ -21,11 +21,11 @@ export default function Errors() {
   },[url, order, orderBy])
 
   return (
-    <div className='w-full h-full grid gap-2 content-start  relative'>
+    <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
         <h1>Erros:</h1>
       </header>
-      <div className='flex flex-col items-start w-full gap-2 pb-3 '>
+      <div className='flex flex-col items-start w-full h-full flex-1 gap-2 pb-3 '>
           {
             isFetching
             ?
