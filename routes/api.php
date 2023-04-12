@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\GPTController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post("login", [UserController::class, "login"]);
+
 Route::get("errorCount", [ErrorController::class, "errorCount"]);
 Route::get("generationCount", [GPTController::class, "generationCount"]);
 

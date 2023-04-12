@@ -30,7 +30,6 @@ class ErrorController extends Controller
     }
     public function getError($id){
         $error = Errors::findOrFail($id);
-        
         return $error;
     }
 }
