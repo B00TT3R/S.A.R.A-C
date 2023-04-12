@@ -6,18 +6,30 @@ import Template from '@/Sections/Main/Template/Template' //mudar a localização
 const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"));
 const Home = lazy(()=>import("&/Home/Home"));
 const Errors = lazy(()=>import("&/Errors/Errors"));
+const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"));
+
 
 const router = createBrowserRouter([
     {
         element: <Template />,
+        path: '/',
         children: [
             {
                 element: <PageLoader Element={Home}/>,
-                path: '/'
+                index: true,
             },
             {
-                element: <PageLoader Element={Errors}/>,
-                path: '/erros'
+                path: 'erros',
+                children: [
+                    {
+                        element: <PageLoader Element={Errors}/>,
+                        index:true,
+                    },
+                    {
+                        element: <PageLoader Element={ViewError}/>,
+                        path: ':id',
+                    },
+                ]
             },
         ]        
     },
@@ -25,6 +37,5 @@ const router = createBrowserRouter([
         element: <PageLoader Element={NotFound}/>,
         path: '*'
     }
-
 ]);
 export default router;

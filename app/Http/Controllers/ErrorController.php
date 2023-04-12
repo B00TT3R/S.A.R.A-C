@@ -28,4 +28,9 @@ class ErrorController extends Controller
         $errors = Errors::orderBy($request->orderBy, $request->order)->select("id","type")->paginate(10);
         return $errors;
     }
+    public function getError($id){
+        $error = Errors::findOrFail($id);
+        
+        return $error;
+    }
 }

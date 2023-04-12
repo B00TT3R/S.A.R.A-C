@@ -6,9 +6,10 @@ import { classNames } from '@/Utils'
 import StyleHash from './Utils/StyleHash'
 
 import {PageSpinner, Pagination, Select} from '<>'
+import { Link } from 'react-router-dom'
 
 export default function Errors() {
-  const [url, setUrl] = useState("api/errors")
+  const [url, setUrl] = useState("/api/errors")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
@@ -61,14 +62,16 @@ export default function Errors() {
                       key={error.id}
                       className={
                         classNames(
-                          'cursor-pointer w-full grid content-start bg-white border-2 p-3 rounded-sm hover:brightness-95 ',
+                          'cursor-pointer w-full bg-white border-2 p-3 rounded-sm hover:brightness-95 ',
                           "hover:shadow-inner transition-all shadow-md",
                           "shadow-gray-100",
                           StyleHash[error.type].wrapper,
                         )
                     }>
-                      <span><b>Tipo:</b> {error.type}</span>
-                      <span><b>ID:</b> {error.id}</span>
+                      <Link to={error.id.toString()} className="w-full h-full grid content-start">
+                        <span><b>Tipo:</b> {error.type}</span>
+                        <span><b>ID:</b> {error.id}</span>
+                      </Link>
                     </li>
                   ))}
                 </ul>

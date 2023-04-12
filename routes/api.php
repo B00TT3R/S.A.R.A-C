@@ -23,3 +23,4 @@ Route::get("errorCount", [ErrorController::class, "errorCount"]);
 Route::get("generationCount", [GPTController::class, "generationCount"]);
 
 Route::get('errors', [ErrorController::class, "getErrors"]);
+Route::get('errors/{id}', [ErrorController::class, "getError"]);
