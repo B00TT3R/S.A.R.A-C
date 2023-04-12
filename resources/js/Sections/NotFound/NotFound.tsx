@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function NotFound() {
   return (
-    <section className='w-full h-screen flex flex-col items-center justify-center'>
+    <section className='w-full h-screen flex flex-col items-center justify-center p-2 text-center'>
         <h1 style={{textShadow:"0px 4px 7px grey"}} className='text-9xl'>404</h1>
         <h3 className='text-xl'>Essa página não foi encontrada, por favor verifique a URL</h3>
         <Link 
