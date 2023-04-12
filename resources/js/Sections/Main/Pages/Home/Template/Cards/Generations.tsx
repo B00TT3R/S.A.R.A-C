@@ -16,7 +16,7 @@ export default function Errors() {
                     <span className=''>Gerações</span>
                 </>
             }
-            to="erros"
+            to="geracoes"
         >
             {
                 isFetching?<PageSpinner size='text-5xl'/>:(
