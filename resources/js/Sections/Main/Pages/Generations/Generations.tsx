@@ -4,15 +4,15 @@ import { useQuery } from 'react-query'
 
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
-import error from './Types/error'
+import generation from './Types/generation'
 import Card from './Template/Card/Card'
 
 export default function Errors() {
-  const [url, setUrl] = useState("/api/errors")
+  const [url, setUrl] = useState("/api/generations")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<error[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<generation[]>>(url, 
     {params:{orderBy, order}
   }))
 

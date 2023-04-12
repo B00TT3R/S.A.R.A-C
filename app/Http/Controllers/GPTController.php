@@ -6,6 +6,7 @@ use App\Models\Errors;
 use App\Models\Generation;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Request;
 
 class GPTController extends Controller
 {
@@ -89,5 +90,9 @@ class GPTController extends Controller
             'text' => $textGen
             
         ];
+    }
+    public function getGenerations(Request $request){
+        $errors = Generation::orderBy($request->orderBy, $request->order)->select("id","type", "gen_type")->paginate(10);
+        return $errors;
     }
 }

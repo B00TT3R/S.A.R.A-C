@@ -32,7 +32,7 @@ class TesteFacebook extends Command
         $this->info("Postando em: " . FacebookController::getPageName());
         FacebookController::post([
             'message'=> GPTController::textGen("Crie um texto extremamente absurdo e alarmante sobre uma futura invasão de cangurus ao brasil, mencionando um possível ataque surpresa da australia", 512, 0.6, "teste-geração"),
-            'url'=> GPTController::imageGen("banner de canguru, estilo soviético", "512x512", "teste-facebok"),
+            'url'=> GPTController::imageGen("banner de canguru, estilo soviético", "512x512", "teste-facebook"),
         ]);
         $this->info(Artisan::output());
     }
