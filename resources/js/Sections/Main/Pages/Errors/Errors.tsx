@@ -1,19 +1,18 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import {paginatedValue} from '-ts/paginatedValue'
-import { classNames } from '@/Utils'
 
+import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
-import { Link } from 'react-router-dom'
-import StyleHashCase from './Utils/StyleHash'
+import error from './Types/error'
+import Card from './Template/Card/Card'
 
 export default function Errors() {
   const [url, setUrl] = useState("/api/errors")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<any>>(url, 
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<error[]>>(url, 
     {params:{orderBy, order}
   }))
 
@@ -26,7 +25,7 @@ export default function Errors() {
       <header className="text-2xl">
         <h1>Erros:</h1>
       </header>
-      <div className='flex flex-col items-start w-full h-full flex-1 gap-2 pb-3 '>
+      <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
           {
             isFetching
             ?
@@ -56,23 +55,9 @@ export default function Errors() {
                     </Select>
                   </div>
                 </div>
-                <ul className='grid gap-2 w-full'>
-                  {data?.data.data.map((error:any)=>(
-                    <li
-                      key={error.id}
-                      className={
-                        classNames(
-                          'cursor-pointer w-full bg-white border-2 p-3 rounded-sm hover:brightness-95 ',
-                          "hover:shadow-inner transition-all shadow-md",
-                          "shadow-gray-100",
-                          StyleHashCase(error.type).wrapper,
-                        )
-                    }>
-                      <Link to={error.id.toString()} className="w-full h-full grid content-start">
-                        <span><b>Tipo:</b> {error.type}</span>
-                        <span><b>ID:</b> {error.id}</span>
-                      </Link>
-                    </li>
+                <ul className='grid gap-2 w-full pb-3'>
+                  {data?.data.data.map((error)=>(
+                    <Card error={error}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>
