@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*" : ["resources/js/*"],
+      "&/*" : ["resources/js/Sections/Main/Pages/*"],
       "<>/*" : ["resources/js/Components/*"],
       "<>" : ["resources/js/Components/index"],
       "-ts/*" : ["resources/js/Types/*"],
