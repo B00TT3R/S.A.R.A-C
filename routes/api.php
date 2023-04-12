@@ -26,3 +26,4 @@ Route::get('errors', [ErrorController::class, "getErrors"]);
 Route::get('errors/{id}', [ErrorController::class, "getError"]);
 
 Route::get('generations', [GPTController::class, "getGenerations"]);
+Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
