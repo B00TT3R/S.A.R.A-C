@@ -7,6 +7,7 @@ const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"));
 const Home = lazy(()=>import("&/Home/Home"));
 const Errors = lazy(()=>import("&/Errors/Errors"));
 const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"));
+const Generations = lazy(()=>import("&/Generations/Generations"));
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,19 @@ const router = createBrowserRouter([
                         element: <PageLoader Element={ViewError}/>,
                         path: ':id',
                     },
+                ]
+            },
+            {
+                path: 'geracoes',
+                children: [
+                    {
+                        element: <PageLoader Element={Generations}/>,
+                        index:true,
+                    },
+                    /* {
+                        element: <PageLoader Element={ViewError}/>,
+                        path: ':id',
+                    }, */
                 ]
             },
         ]        

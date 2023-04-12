@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FaGithub, FaHome, BiErrorAlt} from 'react-icons/all'
+import { FaGithub, FaHome, BiErrorAlt, SiOpenai} from 'react-icons/all'
 import { Link } from 'react-router-dom';
 
 import { classNames } from '@/Utils/index';
@@ -55,6 +55,13 @@ export default function Sidebar() {
         to="/erros"
         iconClass='group-hover:text-red-500'
         iconClassOnActive="text-red-500"
+      />
+      <ListButton
+        Icon={SiOpenai}
+        text="Gerações"
+        to="/geracoes"
+        iconClass='group-hover:text-green-500'
+        iconClassOnActive="text-green-500"
       />
       <footer className='mt-auto'>
         <ListButton
