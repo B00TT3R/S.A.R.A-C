@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import {paginatedValue} from '-ts/paginatedValue'
 import { classNames } from '@/Utils'
-import StyleHash from './Utils/StyleHash'
 
 import {PageSpinner, Pagination, Select} from '<>'
 import { Link } from 'react-router-dom'
+import StyleHashCase from './Utils/StyleHash'
 
 export default function Errors() {
   const [url, setUrl] = useState("/api/errors")
@@ -65,7 +65,7 @@ export default function Errors() {
                           'cursor-pointer w-full bg-white border-2 p-3 rounded-sm hover:brightness-95 ',
                           "hover:shadow-inner transition-all shadow-md",
                           "shadow-gray-100",
-                          StyleHash[error.type].wrapper,
+                          StyleHashCase(error.type).wrapper,
                         )
                     }>
                       <Link to={error.id.toString()} className="w-full h-full grid content-start">

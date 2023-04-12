@@ -62,7 +62,7 @@ class FacebookController extends Controller
         }  catch(RequestException $e) {
             error_log("erro na checagem de nome de pagina");
             Errors::create([
-                'message' => $e->getMessage(),
+                'message' => $e->getResponse()->getBody(),
                 'type'=>'Checagem de nome de pagina'
             ]);
         }

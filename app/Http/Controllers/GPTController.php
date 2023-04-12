@@ -37,8 +37,7 @@ class GPTController extends Controller
                 error_log("erro na geração de texto: HTTP ".$e->getCode());
                 Errors::create([
                     "message" => $e->getResponse()->getBody(),
-                    "type" => "Requisição a openAI",
-                    
+                    "type" => "Requisição a openAI (texto)",
                 ]);
             }
             return $json->choices[0]->text ?? "erro na geração";
@@ -71,11 +70,12 @@ class GPTController extends Controller
             ]);
             return $json->data[0]->url;
         }catch(RequestException $e){
-            error_log("erro na geração de imagem");
+            error_log("erro na geração de texto: HTTP ".$e->getCode());
             Errors::create([
                 "message" => $e->getResponse()->getBody(),
-                "type" => "Requisição a openAI",
+                "type" => "Requisição a openAI (imagem)",
             ]);
+            return "https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_960_720.png";
         }
     }
     public function generationCount(){

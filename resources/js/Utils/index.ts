@@ -1,2 +1,3 @@
 import classNames from "./classNames";
-export {classNames}
+import DateFormatter from "./DateFormatter";
+export {classNames, DateFormatter}
