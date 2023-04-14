@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ErrorController extends Controller
 {
     //
-    public function errorCount(){
+    public function errorCount(Request $request){
         $errors = Errors::all();
         $count = $errors->count();
         $types = $errors->pluck("type");
@@ -17,7 +17,7 @@ class ErrorController extends Controller
             $typeList[$type] = $errors->where("type", $type)->count();
 
         }
-        
+        error_log($request->user()->name);
         return [
             "total" => $count,
             "types" => $typeList

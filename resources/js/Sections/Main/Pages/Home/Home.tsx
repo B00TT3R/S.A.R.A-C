@@ -7,7 +7,7 @@ const Home = () => {
         <div className='grid content-start gap-2'>
             <header className="text-2xl">
                 <span>Bem vindo, </span>
-                <b>usuário!</b>
+                <b>{localStorage.getItem("userName")}</b>
             </header>
             <div className="grid content-start gap-inherit">
                 <h3>Acesso rápido:</h3>

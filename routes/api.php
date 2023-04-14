@@ -23,11 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post("login", [UserController::class, "login"]);
 
-Route::get("errorCount", [ErrorController::class, "errorCount"]);
-Route::get("generationCount", [GPTController::class, "generationCount"]);
+Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
+    Route::get("errorCount", [ErrorController::class, "errorCount"]);
+    Route::get("generationCount", [GPTController::class, "generationCount"]);
+    
+    Route::get('errors', [ErrorController::class, "getErrors"]);
+    Route::get('errors/{id}', [ErrorController::class, "getError"]);
+    
+    Route::get('generations', [GPTController::class, "getGenerations"]);
+    Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
 
-Route::get('errors', [ErrorController::class, "getErrors"]);
-Route::get('errors/{id}', [ErrorController::class, "getError"]);
+    Route::post("logout", [UserController::class, "logout"]);
 
-Route::get('generations', [GPTController::class, "getGenerations"]);
-Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
+});

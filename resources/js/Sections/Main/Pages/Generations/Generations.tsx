@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/Utils/api'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
@@ -12,7 +12,7 @@ export default function Errors() {
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await axios.get<paginatedValue<generation[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<generation[]>>(url, 
     {params:{orderBy, order}
   }))
 

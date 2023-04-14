@@ -2,13 +2,15 @@ import {lazy} from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import {PageLoader} from '<>'
 
-import Template from '@/Sections/Main/Template/Template' //mudar a localização disso aqui depois!
-const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"));
-const Home = lazy(()=>import("&/Home/Home"));
-const Errors = lazy(()=>import("&/Errors/Errors"));
-const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"));
-const Generations = lazy(()=>import("&/Generations/Generations"));
-const ViewGeneration = lazy(()=>import("&/Generations/Pages/ViewGeneration/ViewGeneration"));
+import Template from '@/Sections/Main/Template/Template'
+const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"))
+const Logout = lazy(()=>import("@/Sections/Logout/Logout"))
+const Login = lazy(()=>import("@/Sections/Login/Login"))
+const Home = lazy(()=>import("&/Home/Home"))
+const Errors = lazy(()=>import("&/Errors/Errors"))
+const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"))
+const Generations = lazy(()=>import("&/Generations/Generations"))
+const ViewGeneration = lazy(()=>import("&/Generations/Pages/ViewGeneration/ViewGeneration"))
 
 
 const router = createBrowserRouter([
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
                 ]
             },
         ]        
+    },
+    {
+        path:'login',
+        element: <PageLoader Element={Login}/>
+    },
+    {
+        path:'logout',
+        element: <PageLoader Element={Logout}/>
     },
     {
         element: <PageLoader Element={NotFound}/>,
