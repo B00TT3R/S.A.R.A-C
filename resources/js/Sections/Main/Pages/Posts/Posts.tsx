@@ -1,18 +1,18 @@
+import api from '@/Utils/api'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
-import error from './Types/error'
+import generation from './Types/generation'
 import Card from './Template/Card/Card'
-import api from '@/Utils/api'
 
 export default function Errors() {
-  const [url, setUrl] = useState("/api/errors")
+  const [url, setUrl] = useState("/api/generations")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<error[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<generation[]>>(url, 
     {params:{orderBy, order}
   }))
 
@@ -23,7 +23,7 @@ export default function Errors() {
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
-        <h1>Erros:</h1>
+        <h1>Posts:</h1>
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
           {

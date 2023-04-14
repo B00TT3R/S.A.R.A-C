@@ -57,7 +57,7 @@ export default function Errors() {
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((error)=>(
-                    <Card error={error}/>
+                    <Card error={error} key={error.id}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>

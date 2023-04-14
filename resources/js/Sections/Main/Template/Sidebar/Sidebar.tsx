@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FaGithub, FaHome, BiErrorAlt, SiOpenai, FaUser, FaSignOutAlt} from 'react-icons/all'
+import { FaGithub, FaHome, BiErrorAlt, SiOpenai, FaFacebook } from 'react-icons/all'
 import { Link } from 'react-router-dom';
 
 import { classNames } from '@/Utils/index';
@@ -47,8 +47,15 @@ export default function Sidebar() {
         Icon={FaHome}
         text="Home"
         to="/"
-        iconClass='group-hover:text-blue-500'
-        iconClassOnActive="text-blue-500"
+        iconClass='group-hover:text-black'
+        iconClassOnActive="text-black"
+      />
+      <ListButton
+        Icon={FaFacebook}
+        text="Posts"
+        to="/posts"
+        iconClass='group-hover:text-blue-600'
+        iconClassOnActive="text-blue-600"
       />
       <ListButton
         Icon={BiErrorAlt}
