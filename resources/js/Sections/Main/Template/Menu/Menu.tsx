@@ -32,7 +32,7 @@ export default function Menu() {
             </Link>
         </div>
         <button 
-            className='absolute top-full bg-black text-white px-3 rounded-b -translate-x-1/2 left-1/2 text-xl h-4 flex items-center hover:bg-gray-700'
+            className='absolute top-full bg-black text-white px-4 rounded-b -translate-x-1/2 left-1/2 text-xl h-5 sm:h-6 flex items-center hover:bg-gray-700'
             onClick={()=>dispatch({type:'toggleMenu'})}
         >
             {state.menu
