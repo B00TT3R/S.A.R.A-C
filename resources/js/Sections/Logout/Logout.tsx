@@ -7,16 +7,22 @@ import { useQuery } from 'react-query';
 
 export default function Logout() {
     const navigate = useNavigate()
-    const {data, isFetching} = useQuery('logout', async ()=> {
-        await api.post('/api/logout')
-        navigate('/login')
+    const { data, isFetching } = useQuery('logout', async () => {
+        const confirmLogout = window.confirm('Tem certeza que quer deslogar?');//fazer um modal aqui, e fazer essa lógica externamente!
+        if (confirmLogout) {
+            await api.post('/api/logout')
+            navigate('/login')
+        }
+        else{
+            navigate(-1)
+        }
     })
 
     return (
-    <div className='w-full h-screen flex flex-col justify-center items-center'>
-        {
-            isFetching && <PageSpinner label="Deslogando, aguarde..."/>
-        }     
-    </div>
+        <div className='w-full h-screen flex flex-col justify-center items-center'>
+            {
+                isFetching && <PageSpinner label="Deslogando, aguarde..." />
+            }
+        </div>
     )
 }
