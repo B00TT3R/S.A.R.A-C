@@ -64,15 +64,15 @@ export default function Sidebar() {
         iconClass='group-hover:text-green-500'
         iconClassOnActive="text-green-500"
       />
-      <ListButton
+      {/* <ListButton
         className='mt-auto'
         Icon={FaSignOutAlt}
         text="Logout"
         to="/logout"
         iconClass='group-hover:text-black'
         iconClassOnActive="text-black"
-      />
-      <footer>
+      /> */}
+      <footer className='mt-auto'>
         <ListButton
           Icon={FaGithub}
           text="Link no Github"
