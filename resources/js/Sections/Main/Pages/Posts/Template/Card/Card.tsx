@@ -1,10 +1,10 @@
 import { classNames } from '@/Utils'
 import { Link } from 'react-router-dom'
-import generation from '../../Types/generation'
+import post from '../../Types/post'
 interface props{
-    error: generation
+    post: post
 }
-export default function Card({error}:props) {
+export default function Card({post}:props) {
   return (
     <li
         className={
@@ -14,10 +14,10 @@ export default function Card({error}:props) {
             "shadow-gray-100",
         )
     }>
-        <Link to={error.id.toString()} className="w-full h-full grid content-start">
-        <span><b>Tipo:</b> {error.type}</span>
-        <span><b>Tipo de geração:</b> {error.gen_type=="image"?"Imagem":"Texto"}</span>
-        <span><b>ID:</b> {error.id}</span>
+        <Link to={post.id.toString()} className="w-full h-full grid content-start">
+          <span><b>Tipo:</b> {post.type}</span>
+          <span><b>ID:</b> {post.id}</span>
+          <span><b>Post_Id:</b> {post.response.id}</span>
         </Link>
     </li>
   )

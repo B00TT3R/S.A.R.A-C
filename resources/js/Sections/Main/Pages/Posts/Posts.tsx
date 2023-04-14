@@ -4,15 +4,15 @@ import { useQuery } from 'react-query'
 
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
-import generation from './Types/generation'
+import post from './Types/post'
 import Card from './Template/Card/Card'
 
-export default function Errors() {
-  const [url, setUrl] = useState("/api/generations")
+export default function Posts() {
+  const [url, setUrl] = useState("/api/posts")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<generation[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getPosts',async ()=> await api.get<paginatedValue<post[]>>(url, 
     {params:{orderBy, order}
   }))
 
@@ -56,8 +56,8 @@ export default function Errors() {
                   </div>
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
-                  {data?.data.data.map((error)=>(
-                    <Card error={error} key={error.id}/>
+                  {data?.data.data.map((post)=>(
+                    <Card post={post} key={post.id}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>

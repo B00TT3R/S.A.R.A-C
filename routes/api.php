@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\GPTController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,9 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     
     Route::get('generations', [GPTController::class, "getGenerations"]);
     Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
+
+    Route::get('posts', [PostsController::class, "getPosts"]);
+    Route::get('posts/{id}', [PostsController::class, "getPost"]);
 
     Route::post("logout", [UserController::class, "logout"]);
 

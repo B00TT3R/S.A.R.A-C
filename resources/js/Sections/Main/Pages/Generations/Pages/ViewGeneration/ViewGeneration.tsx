@@ -1,15 +1,14 @@
 import { PageSpinner } from '<>'
 import { DateFormatter } from '@/Utils'
-import axios, { AxiosError } from 'axios'
-import React, { useState } from 'react'
+import api from '@/Utils/api'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
 export default function ViewError() {
   const {id} = useParams()
   const {data, refetch, isFetching, error} = useQuery(
-    'getError', 
-    async ()=> await axios.get(`/api/generations/${id}`),
+    'getGeneration', 
+    async ()=> await api.get(`/api/generations/${id}`),
     {
       retry:false
     }
@@ -32,7 +31,7 @@ export default function ViewError() {
               {error
                 ?
                   (
-                    (axios.isAxiosError(error) && error.response?.status === 404)
+                    (api.isAxiosError(error) && error.response?.status === 404)
                       ?
                         <h1 className='text-xl text-center'>A geração requisitada não existe!</h1>
                       :

@@ -12,7 +12,9 @@ export default function Errors() {
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<error[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<error[]>>
+  (
+    url, 
     {params:{orderBy, order}
   }))
 

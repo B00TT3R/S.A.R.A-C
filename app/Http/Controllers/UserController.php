@@ -21,7 +21,6 @@ class UserController extends Controller
                 ];
             }
         }
-        
         else{
             return response(["message" =>"Email ou senha incorretos"], 401);
         }
@@ -29,8 +28,7 @@ class UserController extends Controller
     
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        return ['message' => 'Successfully logged out'];
     }
 
 

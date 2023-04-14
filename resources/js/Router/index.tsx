@@ -12,6 +12,7 @@ const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"))
 const Generations = lazy(()=>import("&/Generations/Generations"))
 const ViewGeneration = lazy(()=>import("&/Generations/Pages/ViewGeneration/ViewGeneration"))
 const Posts = lazy(()=>import("&/Posts/Posts"))
+const ViewPost = lazy(()=>import("&/Posts/Pages/ViewPosts/ViewPosts"))
 
 
 const router = createBrowserRouter([
@@ -56,10 +57,10 @@ const router = createBrowserRouter([
                         element: <PageLoader Element={Posts}/>,
                         index:true,
                     },
-                    /* {
-                        element: <PageLoader Element={ViewGeneration}/>,
+                    {
+                        element: <PageLoader Element={ViewPost}/>,
                         path: ':id',
-                    }, */
+                    },
                 ]
             },
         ]        

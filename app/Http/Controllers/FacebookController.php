@@ -67,4 +67,13 @@ class FacebookController extends Controller
             ]);
         }
     }
+
+    public static function getPostUrl(Post $post){
+        if(isset($post->response["post_id"]))
+            $postId = $post->response["post_id"];
+        else
+            $postId = $post->response["id"];
+        $postUrl = "https://facebook.com/$postId";
+        return $postUrl;
+    }
 }
