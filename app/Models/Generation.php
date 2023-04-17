@@ -17,7 +17,8 @@ class Generation extends Model
         "type",
         "prompt",
         "gen_type",
-        "result"
+        "result",
+        "local_result"
     ];
     protected $casts = [
         "response" => "json"
@@ -35,7 +36,7 @@ class Generation extends Model
             $path = $directory . '/' . $filename;
             File::makeDirectory($directory, 0755, true, true);
             file_put_contents($path, $contents);
-            $model->result = '/images/' . $filename;
+            $model->local_result = '/images/' . $filename;
         });
     }
 

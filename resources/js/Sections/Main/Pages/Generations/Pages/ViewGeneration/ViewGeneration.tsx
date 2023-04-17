@@ -63,7 +63,7 @@ export default function ViewError() {
                         <h3 className='text-xl font-semibold'>Resultado:</h3>
                         {data?.data.gen_type == "image"
                         ?
-                          <img src={data.data.result} alt="" />
+                          <img src={data.data.local_result} alt="" />
                         :
                           data?.data.result
                         }
