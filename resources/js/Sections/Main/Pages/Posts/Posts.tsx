@@ -6,6 +6,7 @@ import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import post from './Types/post'
 import Card from './Template/Card/Card'
+import { Link } from 'react-router-dom'
 
 export default function Posts() {
   const [url, setUrl] = useState("/api/posts")
@@ -33,7 +34,7 @@ export default function Posts() {
             :
               <>
                 {/* orderby */}
-                <div className='flex gap-2'>
+                <div className='flex gap-2 w-full'>
                   <div className='grid'>
                     <span>Ordernar por: </span>
                     <Select 
@@ -54,6 +55,11 @@ export default function Posts() {
                       <option value="desc">Decrescente</option>
                     </Select>
                   </div>
+                  <Link to="novo" className="ml-auto bg-red text-white   flex flex-col">
+                    <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2 mt-auto">
+                      Novo
+                    </div>
+                  </Link>
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((post)=>(

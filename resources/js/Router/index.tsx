@@ -13,6 +13,7 @@ const Generations = lazy(()=>import("&/Generations/Generations"))
 const ViewGeneration = lazy(()=>import("&/Generations/Pages/ViewGeneration/ViewGeneration"))
 const Posts = lazy(()=>import("&/Posts/Posts"))
 const ViewPost = lazy(()=>import("&/Posts/Pages/ViewPosts/ViewPosts"))
+const NewPost = lazy(()=>import("&/Posts/Pages/NewPost/NewPost"))
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
                     {
                         element: <PageLoader Element={Posts}/>,
                         index:true,
+                    },
+                    {
+                        element: <PageLoader Element={NewPost}/>,
+                        path: 'novo',
                     },
                     {
                         element: <PageLoader Element={ViewPost}/>,
