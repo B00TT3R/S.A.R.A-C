@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Generation extends Model
 {
@@ -20,7 +22,21 @@ class Generation extends Model
     protected $casts = [
         "response" => "json"
     ];
-    protected function asJson($value){
-        return json_encode($value, JSON_UNESCAPED_UNICODE);
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $client = new Client();
+            $response = $client->get($model->result);
+            $contents = $response->getBody()->getContents();
+            $filename = 'image_' . time() . '.png';
+            $directory = public_path('images');
+            $path = $directory . '/' . $filename;
+            File::makeDirectory($directory, 0755, true, true);
+            file_put_contents($path, $contents);
+            $model->result = '/images/' . $filename;
+        });
     }
+
 }

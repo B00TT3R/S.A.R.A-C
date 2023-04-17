@@ -27,6 +27,7 @@
         "react-icons": "^4.8.0",
         "react-query": "^3.39.3",
         "react-router-dom": "^6.10.0",
+        "react-social-media-embed": "^2.3.5",
         "yup": "^1.1.0"
     }
 }

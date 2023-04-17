@@ -69,11 +69,27 @@ class FacebookController extends Controller
     }
 
     public static function getPostUrl(Post $post){
-        if(isset($post->response["post_id"]))
-            $postId = $post->response["post_id"];
-        else
-            $postId = $post->response["id"];
-        $postUrl = "https://facebook.com/$postId";
-        return $postUrl;
+        $client = new Client();
+        $postId = $post->response["post_id"] ?? $post->response["id"];
+        $response = $client->get("https://graph.facebook.com/$postId", [
+            'query'=>[
+                'fields'=> "permalink_url",
+                "access_token"=>env("FACEBOOK_TOKEN")
+            ]
+        ]);
+        $body = json_decode($response->getBody());
+        return $body->permalink_url;
+    }
+    public static function getFeed(){
+        $client = new Client();
+        $pageId = env("FACEBOOK_PAGE_ID");
+        $response = $client->get("https://graph.facebook.com/$pageId/feed",[
+            'query' =>[
+                'fields'=>"permalink_url",
+                "access_token" => env("FACEBOOK_TOKEN")
+            ]
+        ]);
+        $body = json_decode($response->getBody()->getContents());
+        return json_encode($body, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES);
     }
 }

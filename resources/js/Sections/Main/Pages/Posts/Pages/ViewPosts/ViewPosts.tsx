@@ -1,9 +1,10 @@
 import { PageSpinner } from '<>'
 import { DateFormatter } from '@/Utils'
 import api from '@/Utils/api'
-import React, { useState } from 'react'
+import { FacebookEmbed } from 'react-social-media-embed';
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
+import FacebookPreview from '../../Template/FacebookPreview/FacebookPreview'
 
 export default function ViewError() {
   const {id} = useParams()
@@ -64,6 +65,10 @@ export default function ViewError() {
                       <div>
                         <h3 className='text-xl font-semibold'>Criado em:</h3>
                         {data?.data.created_at?DateFormatter(data.data.created_at):"sem valor"}
+                      </div>
+                      <div>
+                        <h3 className='text-xl font-semibold'>Preview:</h3>
+                        <FacebookPreview url={data?.data.url}/>
                       </div>
                     </div>
               }
