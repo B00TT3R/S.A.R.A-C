@@ -6,7 +6,7 @@ import axios from 'axios';
 import {PageSpinner} from '<>';
 import api from '@/Utils/api';
 
-export default function Errors() {
+export default function Generations() {
     const {data, isLoading, isFetching} = useQuery('generationCount', async ()=> await api.get("api/generationCount"))
     return (
         

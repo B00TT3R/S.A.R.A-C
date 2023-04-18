@@ -1,5 +1,6 @@
 import Errors from './Template/Cards/Errors';
 import Generations from './Template/Cards/Generations';
+import Posts from './Template/Cards/Posts';
 
 const Home = () => {
     
@@ -11,9 +12,10 @@ const Home = () => {
             </header>
             <div className="grid content-start gap-inherit">
                 <h3>Acesso rápido:</h3>
-                <div className='grid sm:grid-cols-3 gap-2'>
+                <div className='grid md:grid-cols-3 gap-2'>
                     <Errors/>
                     <Generations/>
+                    <Posts/>
                     
                 </div>
             </div>

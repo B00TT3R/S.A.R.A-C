@@ -29,6 +29,7 @@ Route::post("login", [UserController::class, "login"]);
 Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::get("errorCount", [ErrorController::class, "errorCount"]);
     Route::get("generationCount", [GPTController::class, "generationCount"]);
+    Route::get("postCount", [PostsController::class, "postCount"]);
     
     Route::get('errors', [ErrorController::class, "getErrors"]);
     Route::get('errors/{id}', [ErrorController::class, "getError"]);
