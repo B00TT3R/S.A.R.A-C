@@ -4,7 +4,7 @@ import { classNames } from '@/Utils';
 import { Context } from '../../Context/Context';
 import { useQuery } from 'react-query';
 import api from '@/Utils/api';
-import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
+import { CgSpinnerTwoAlt, FaLightbulb, FiRotateCcw } from 'react-icons/all';
 
 export default function ImagePrompt() {
     const {state, dispatch} = useContext(Context)
@@ -24,6 +24,10 @@ export default function ImagePrompt() {
             setError("O valor não pode ser nulo")
         }
     }
+    const handleReset = () => { 
+        dispatch({type:"setImageResult", payload:""})
+    }
+    
     useEffect(() => {
       dispatch({type:"setImageResult", payload: data?.data.result})
     }, [data])
@@ -33,7 +37,7 @@ export default function ImagePrompt() {
       }, [isFetching])
     
     return (
-        <div className='flex w-full gap-4 items-end'>
+        <div className='flex w-full gap-2 items-end'>
             <Input
                 name="image"
                 label="Prompt da imagem"
@@ -42,22 +46,31 @@ export default function ImagePrompt() {
                 value={state.imagePrompt}
                 error={error}
             />
-            <div className='h-full pt-7'>
-            <button 
-                className={classNames(
-                    'bg-black border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
-                    "disabled:bg-gray-700"
-                )}
-                disabled={isFetching}
-                onClick={handleClick}
-            >
-                {isFetching
-                ?
-                    <CgSpinnerTwoAlt className='animate-spin'/>
-                :
-                    <FaLightbulb/>
-                }
-            </button>
+            <div className='h-full pt-7 flex gap-1'>
+                <button 
+                    className={classNames(
+                        'bg-black border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
+                        "disabled:bg-gray-700"
+                    )}
+                    disabled={isFetching}
+                    onClick={handleClick}
+                >
+                    {isFetching
+                    ?
+                        <CgSpinnerTwoAlt className='animate-spin'/>
+                    :
+                        <FaLightbulb/>
+                    }
+                </button>
+                <button 
+                    className={classNames(
+                        'bg-black border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
+                        "disabled:bg-gray-700"
+                    )}
+                    onClick={handleReset}
+                >
+                    <FiRotateCcw/>
+                </button>
             </div>
         </div>
     )

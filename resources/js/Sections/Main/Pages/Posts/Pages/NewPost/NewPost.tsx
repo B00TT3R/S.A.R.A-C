@@ -60,17 +60,26 @@ export default function NewPòst() {
           ? 
             <PageSpinner/> 
           :
-           <a href={data?.data.url}>{data?.data.url}</a>
+            <a
+              href={data?.data.url}
+              className='text-blue-500 hover:text-blue-600 hover:underline'
+              target="_blank"
+            >
+              {data?.data.url}
+            </a>
         }
-        <div className='w-full flex justify-start'>
-          <button
-            className="bg-black rounded hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
-            disabled={false}
-            onClick={handleCreate}
-          >
-            Criar Post
-          </button>
-        </div>
+        {
+          state.textResult && !(state.textLoading || state.imageLoading) &&
+          <div className='w-full flex justify-start'>
+            <button
+              className="bg-black rounded hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
+              disabled={false}
+              onClick={handleCreate}
+            >
+              Criar Post
+            </button>
+          </div>
+        }
       </div>
     </Context.Provider>
   )

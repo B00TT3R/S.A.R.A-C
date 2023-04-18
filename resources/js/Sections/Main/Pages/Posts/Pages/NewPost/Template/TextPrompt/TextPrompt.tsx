@@ -32,7 +32,7 @@ export default function TextPrompt() {
     }, [isFetching])
     
     return (
-        <div className='flex w-full gap-4 items-end'>
+        <div className='flex w-full gap-2 items-end'>
             <Input
                 name="text"
                 label="Prompt do titulo"
