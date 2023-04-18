@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::get('posts', [PostsController::class, "getPosts"]);
     Route::get('posts/{id}', [PostsController::class, "getPost"]);
     Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
+    Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
 
     Route::post("logout", [UserController::class, "logout"]);
 

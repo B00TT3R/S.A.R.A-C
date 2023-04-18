@@ -23,6 +23,12 @@ export default function NewPòst() {
             {state.titleResult}
           </p>
         </div>
+        {/* imageResult */}
+        <div>
+          {state.imageResult &&
+           <img src={state.imageResult} alt="" />
+          }
+        </div>
       </div>
     </Context.Provider>
   )

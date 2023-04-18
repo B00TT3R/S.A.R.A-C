@@ -16,8 +16,6 @@ class GPTController extends Controller
         float $temperature = 0.7,
         string $type="não-definido"
         ):string{
-            
-            
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
             try{
@@ -63,7 +61,7 @@ class GPTController extends Controller
                 ]
             ]);
             $json = json_decode($response->getBody()->getContents());
-            Generation::create([
+            $generation = Generation::create([
                 "model" => "dalle2",
                 "gen_type" => "image",
                 "prompt" => $prompt,
@@ -71,7 +69,7 @@ class GPTController extends Controller
                 'type' => $type,
                 'result'=> $json->data[0]->url
             ]);
-            return $json->data[0]->url;
+            return $generation->local_result;
         }catch(RequestException $e){
             error_log("erro na geração de texto: HTTP ".$e->getCode());
             Errors::create([

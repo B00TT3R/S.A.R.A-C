@@ -28,7 +28,8 @@ class Generation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if($model->type == "image"){
+            if($model->gen_type == "image"){
+                error_log("downloading image to local storage");
                 $client = new Client();
                 $response = $client->get($model->result);
                 $contents = $response->getBody()->getContents();

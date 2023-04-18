@@ -8,7 +8,7 @@ import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
 
 export default function TextPrompt() {
     const {state, dispatch} = useContext(Context)
-    const { isLoading, data, refetch } = useQuery(
+    const { isFetching, data, refetch } = useQuery(
         "getTitleResult", 
         async () => await api.post('/api/getTitleResult', {value: state.titlePrompt}),
         {
@@ -38,10 +38,10 @@ export default function TextPrompt() {
                     'bg-black h-full border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
                     "disabled:bg-gray-700"
                 )}
-                disabled={isLoading}
+                disabled={isFetching}
                 onClick={handleClick}
             >
-                {isLoading
+                {isFetching
                 ?
                     <CgSpinnerTwoAlt className='animate-spin'/>
                 :
