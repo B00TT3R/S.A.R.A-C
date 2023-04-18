@@ -17,10 +17,10 @@ export default function Input({
     ...rest
 }:props) {
   return (
-    <div className='w-full flex flex-col gap-1'>
+    <div className='w-full flex flex-col gap-1 relative'>
         <label htmlFor='name'>{label}</label>
         <input
-            className={'rounded '+ className}
+            className={'rounded p-2'+ className}
             type={type} 
             name={name}
             onChange={onChange}

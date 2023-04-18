@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GPTController;
 use App\Http\Controllers\PostsController;
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::get('posts/{id}', [PostsController::class, "getPost"]);
     Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
     Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
+    Route::post("createPost", [PostsController::class, "createPost"]);
 
     Route::post("logout", [UserController::class, "logout"]);
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Input } from '<>';
 import { classNames } from '@/Utils';
 import { Context } from '../../Context/Context';
@@ -8,6 +8,7 @@ import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
 
 export default function ImagePrompt() {
     const {state, dispatch} = useContext(Context)
+    const [error, setError] = useState<undefined|string>()
     const { isFetching, data, refetch } = useQuery(
         "getImageResult", 
         async () => await api.post('/api/getImageResult', {value: state.imagePrompt}),
@@ -17,7 +18,11 @@ export default function ImagePrompt() {
         }
     )
     const handleClick = () => {
-        refetch()
+        if (state.imagePrompt.trim() !== '') {
+            refetch()
+        } else {
+            setError("O valor não pode ser nulo")
+        }
     }
     useEffect(() => {
       dispatch({type:"setImageResult", payload: data?.data.result})
@@ -35,11 +40,12 @@ export default function ImagePrompt() {
                 placeholder='Digite o prompt da imagem, a ser passado para a IA'
                 onChange={(e)=>dispatch({type:"setImagePrompt", payload:e.target.value})}
                 value={state.imagePrompt}
+                error={error}
             />
             <div className='h-full pt-7'>
             <button 
                 className={classNames(
-                    'bg-black h-full border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
+                    'bg-black border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
                     "disabled:bg-gray-700"
                 )}
                 disabled={isFetching}
@@ -52,7 +58,6 @@ export default function ImagePrompt() {
                     <FaLightbulb/>
                 }
             </button>
-
             </div>
         </div>
     )

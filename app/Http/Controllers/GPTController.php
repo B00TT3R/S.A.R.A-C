@@ -15,7 +15,7 @@ class GPTController extends Controller
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido"
-        ):string{
+    ):string{
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
             try{
@@ -46,7 +46,8 @@ class GPTController extends Controller
     public static function imageGen(
         string $prompt,
         string $size = "1024x1024",
-        string $type = "não-definido"
+        string $type = "não-definido",
+        bool $originalUrl = false
     ):string{
         $client = new Client();
         try{
@@ -69,7 +70,11 @@ class GPTController extends Controller
                 'type' => $type,
                 'result'=> $json->data[0]->url
             ]);
-            return $generation->local_result;
+            if($originalUrl){
+                return $generation->result;
+            } else{
+                return $generation->local_result;
+            }
         }catch(RequestException $e){
             error_log("erro na geração de texto: HTTP ".$e->getCode());
             Errors::create([

@@ -16,16 +16,20 @@ class FrontendController extends Controller
     public function getTitleResult(Request $request){
         return 
         [
-          "result" =>  GPTController::textGen($request->value, 2048, 0.7, "Geração de conteúdo manual")
+          "result" =>  GPTController::textGen(
+                prompt: $request->value,
+                max_tokens: 2048,
+                type:"Geração de conteúdo manual"
+            )
         ];
     }
     public function getImageResult(Request $request){
         return 
         [
             "result" =>  GPTController::imageGen(
-                $prompt = $request->value,
-                $size = "1024x1024",
-                $type = "Geração de conteúdo manual"
+                prompt: $request->value,
+                type: "Geração de conteúdo manual",
+                originalUrl:true
             )
         ];
     }

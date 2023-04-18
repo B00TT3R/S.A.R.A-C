@@ -21,7 +21,7 @@ class FacebookController extends Controller
                 ...$params[0]
             ];
             
-            if(isset($json["url"])){
+            if(isset($json["url"]) && $json["url"] != ""){
                 $response = $client->post("https://graph.facebook.com/$page_id/photos", [
                     'json' => $json
                 ]);
@@ -32,7 +32,7 @@ class FacebookController extends Controller
                 ]);
             }
             $body = json_decode($response->getBody()->getContents());
-            Post::create([
+            return Post::create([
                 "type" =>"facebook",
                 "response" => $body,
                 "request" => $params[0]                

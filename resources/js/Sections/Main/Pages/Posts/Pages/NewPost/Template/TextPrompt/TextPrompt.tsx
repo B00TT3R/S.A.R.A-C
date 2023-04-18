@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Input } from '<>';
 import { classNames } from '@/Utils';
 import { Context } from '../../Context/Context';
@@ -8,6 +8,7 @@ import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
 
 export default function TextPrompt() {
     const {state, dispatch} = useContext(Context)
+    const [error, setError] = useState<undefined|string>()
     const { isFetching, data, refetch } = useQuery(
         "getTextResult", 
         async () => await api.post('/api/getTitleResult', {value: state.textPrompt}),
@@ -17,7 +18,11 @@ export default function TextPrompt() {
         }
     )
     const handleClick = () => {
-        refetch()
+        if (state.textPrompt.trim() !== '') {
+            refetch()
+        } else {
+            setError("O valor não pode ser nulo")
+        }
     }
     useEffect(() => {
       dispatch({type:"setTextResult", payload: data?.data.result})
@@ -34,11 +39,12 @@ export default function TextPrompt() {
                 placeholder='Digite o prompt do titulo, a ser passado para a IA'
                 onChange={(e)=>dispatch({type:"setTextPrompt", payload:e.target.value})}
                 value={state.textPrompt}
+                error={error}
             />
             <div className='h-full pt-7'>
             <button 
                 className={classNames(
-                    'bg-black h-full border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
+                    'bg-black border p-3 text-white rounded hover:bg-gray-800 hover:ring-2 ring-black transition-all duration-300',
                     "disabled:bg-gray-700"
                 )}
                 disabled={isFetching}
@@ -51,7 +57,6 @@ export default function TextPrompt() {
                     <FaLightbulb/>
                 }
             </button>
-
             </div>
         </div>
     )
