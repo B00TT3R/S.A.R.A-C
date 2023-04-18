@@ -9,8 +9,8 @@ import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
 export default function TextPrompt() {
     const {state, dispatch} = useContext(Context)
     const { isFetching, data, refetch } = useQuery(
-        "getTitleResult", 
-        async () => await api.post('/api/getTitleResult', {value: state.titlePrompt}),
+        "getTextResult", 
+        async () => await api.post('/api/getTitleResult', {value: state.textPrompt}),
         {
             enabled: false,
             retry:false,
@@ -20,17 +20,20 @@ export default function TextPrompt() {
         refetch()
     }
     useEffect(() => {
-      dispatch({type:"setTitleResult", payload: data?.data.result})
+      dispatch({type:"setTextResult", payload: data?.data.result})
     }, [data])
+    useEffect(() => {
+      dispatch({type:"setTextLoading", payload: isFetching})
+    }, [isFetching])
     
     return (
         <div className='flex w-full gap-4 items-end'>
             <Input
-                name="title"
+                name="text"
                 label="Prompt do titulo"
                 placeholder='Digite o prompt do titulo, a ser passado para a IA'
-                onChange={(e)=>dispatch({type:"setTitlePrompt", payload:e.target.value})}
-                value={state.titlePrompt}
+                onChange={(e)=>dispatch({type:"setTextPrompt", payload:e.target.value})}
+                value={state.textPrompt}
             />
             <div className='h-full pt-7'>
             <button 

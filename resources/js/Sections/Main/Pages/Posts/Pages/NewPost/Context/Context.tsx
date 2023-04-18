@@ -3,7 +3,7 @@ import {createContext, useReducer, ReactNode} from 'react'
 
 interface Action{
   type:string
-  payload:string
+  payload:any
 }
 
 interface ContextProps {
@@ -12,26 +12,27 @@ interface ContextProps {
 }
 export const Context = createContext({} as ContextProps)
 export const initialState = {
-    titlePrompt:"",
-    titleResult:"",
+    textPrompt:"",
+    textResult:"",
     imagePrompt:"",
     imageResult:"",
+    imageLoading:false,
+    textLoading:false,
 }
 
-export function reducer(state: any, action: any) {
-    switch (action.type) {
-      case 'setTitlePrompt':
-        return { ...state, titlePrompt: action.payload };
-      case 'setTitleResult':
-        return { ...state, titleResult: action.payload };
-      case 'setImagePrompt':
-        return { ...state, imagePrompt: action.payload };
-      case 'setImageResult':
-        return { ...state, imageResult: action.payload };
-      default:
-        return state;
-    }
-}
+export const reducer = (state: typeof initialState, action: Action): any => {
+  const { type, payload } = action;
+  const stateUpdates = {
+    setTextPrompt: { ...state, textPrompt: payload },
+    setTextResult: { ...state, textResult: payload },
+    setTextLoading: { ...state, textLoading: payload },
+    setImagePrompt: { ...state, imagePrompt: payload },
+    setImageResult: { ...state, imageResult: payload },
+    setImageLoading: { ...state, imageLoading: payload },
+    
+  } as {[key:string]:typeof initialState};
+  return stateUpdates[type] || state;
+};
 
 export function NewPostContextProvider({children}:{children: ReactNode}) {
     const [state, dispatch] = useReducer(reducer, initialState);  

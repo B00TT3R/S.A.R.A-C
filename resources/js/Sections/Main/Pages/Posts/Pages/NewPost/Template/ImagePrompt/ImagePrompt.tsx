@@ -23,6 +23,10 @@ export default function ImagePrompt() {
       dispatch({type:"setImageResult", payload: data?.data.result})
     }, [data])
     
+    useEffect(() => {
+        dispatch({type:"setImageLoading", payload: isFetching})
+      }, [isFetching])
+    
     return (
         <div className='flex w-full gap-4 items-end'>
             <Input

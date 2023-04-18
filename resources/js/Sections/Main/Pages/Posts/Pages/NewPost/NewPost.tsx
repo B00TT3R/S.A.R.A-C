@@ -2,6 +2,7 @@ import {useContext, useReducer} from 'react'
 import TextPrompt from './Template/TextPrompt/TextPrompt';
 import { Context, initialState, reducer } from './Context/Context';
 import ImagePrompt from './Template/ImagePrompt/ImagePrompt';
+import { PageSpinner } from '<>';
 
 export default function NewPòst() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -17,16 +18,25 @@ export default function NewPòst() {
           <TextPrompt/>
           <ImagePrompt/>
         </div>
-        {/* titleResult */}
+        {/* textResult */}
         <div>
-          <p>
-            {state.titleResult}
-          </p>
+          {state.textLoading
+          ?
+            <PageSpinner />
+          :
+            <p>
+              {state.textResult}
+            </p>
+          }
         </div>
         {/* imageResult */}
         <div>
-          {state.imageResult &&
-           <img src={state.imageResult} alt="" />
+          {state.imageLoading
+          ?
+            <PageSpinner />
+          :
+            state.imageResult &&
+            <img src={state.imageResult} alt="" />
           }
         </div>
       </div>
