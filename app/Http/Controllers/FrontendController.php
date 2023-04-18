@@ -13,4 +13,10 @@ class FrontendController extends Controller
         
         ]);
     }
+    public function getTitleResult(Request $request){
+        return 
+        [
+          "result" =>  GPTController::textGen($request->value, 2048, 0.7, "Geração de conteúdo manual")
+        ];
+    }
 }

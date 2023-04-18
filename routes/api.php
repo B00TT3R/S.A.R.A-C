@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GPTController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
 
     Route::get('posts', [PostsController::class, "getPosts"]);
     Route::get('posts/{id}', [PostsController::class, "getPost"]);
+    Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
 
     Route::post("logout", [UserController::class, "logout"]);
 

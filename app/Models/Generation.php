@@ -28,15 +28,17 @@ class Generation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $client = new Client();
-            $response = $client->get($model->result);
-            $contents = $response->getBody()->getContents();
-            $filename = 'image_' . time() . '.png';
-            $directory = public_path('images');
-            $path = $directory . '/' . $filename;
-            File::makeDirectory($directory, 0755, true, true);
-            file_put_contents($path, $contents);
-            $model->local_result = '/images/' . $filename;
+            if($model->type == "image"){
+                $client = new Client();
+                $response = $client->get($model->result);
+                $contents = $response->getBody()->getContents();
+                $filename = 'image_' . time() . '.png';
+                $directory = public_path('images');
+                $path = $directory . '/' . $filename;
+                File::makeDirectory($directory, 0755, true, true);
+                file_put_contents($path, $contents);
+                $model->local_result = '/images/' . $filename;
+            }
         });
     }
 

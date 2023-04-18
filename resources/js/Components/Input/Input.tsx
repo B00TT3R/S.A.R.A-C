@@ -5,7 +5,7 @@ interface props extends React.InputHTMLAttributes<HTMLInputElement>{
     onChange?:(event:any) => void
     label?:string
     classNames?:string
-    error:string|undefined
+    error?:string|undefined
 }
 export default function Input({
     name,

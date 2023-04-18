@@ -16,6 +16,8 @@ class GPTController extends Controller
         float $temperature = 0.7,
         string $type="não-definido"
         ):string{
+            
+            
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
             try{
