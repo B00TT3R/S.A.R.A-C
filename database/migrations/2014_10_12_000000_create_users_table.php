@@ -18,13 +18,23 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->json('permissions')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
         });
         DB::table('users')->insert([
             'name' => 'Bot',
             'email' => 'boott3r@gmail.com',
-            'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm'
+            "permissions" => json_encode([
+                'posts',
+                'errors',
+                'view_users',
+                'generations',
+                'root_infos'
+            ]),
+            'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm',
+            
 
         ]);
     }

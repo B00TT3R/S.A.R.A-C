@@ -14,6 +14,7 @@ export default function Login() {
             localStorage.setItem('token', response.data.token); 
             api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token
             localStorage.setItem('userName', response.data.user); 
+            localStorage.setItem('permissions', JSON.stringify(response.data.permissions)); 
             navigate('/')
 
         } catch (error){

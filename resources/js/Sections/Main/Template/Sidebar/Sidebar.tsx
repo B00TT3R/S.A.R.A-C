@@ -8,6 +8,7 @@ import ListButton from './Template/ListButton';
 export default function Sidebar() {
   const { state:{sidebar}, dispatch } = useContext(RootContext);
   const toggleSidebar = () => dispatch({type: 'toggle'});
+  
   return (
     <aside className={classNames(
       "bg-black transition-[width] duration-300 shadow-md shadow-gray-400 z-10",
@@ -56,6 +57,7 @@ export default function Sidebar() {
         to="/posts"
         iconClass='group-hover:text-blue-600'
         iconClassOnActive="text-blue-600"
+        permission='posts'
       />
       <ListButton
         Icon={BiErrorAlt}
@@ -63,6 +65,7 @@ export default function Sidebar() {
         to="/erros"
         iconClass='group-hover:text-red-500'
         iconClassOnActive="text-red-500"
+        permission='errors'
       />
       <ListButton
         Icon={SiOpenai}
@@ -70,6 +73,7 @@ export default function Sidebar() {
         to="/geracoes"
         iconClass='group-hover:text-green-500'
         iconClassOnActive="text-green-500"
+        permission='generations'
       />
       {/* <ListButton
         className='mt-auto'

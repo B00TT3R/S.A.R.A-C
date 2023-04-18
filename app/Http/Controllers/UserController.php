@@ -14,16 +14,16 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
         if($user != null){
             if(Hash::check($request->password, $user->password)){
-                $token = $user->createToken('userToken')->plainTextToken;
+                $token = $user->createToken('userToken', $user->permissions)->plainTextToken;
                 return [
                     'token'=>$token,
-                    'user'=>$user->name
+                    'user'=>$user->name,
+                    'permissions'=>$user->permissions
                 ];
             }
-        }
-        else{
             return response(["message" =>"Email ou senha incorretos"], 401);
         }
+            return response(["message" =>"Email ou senha incorretos"], 401);
     }
     
     public function logout(Request $request){
