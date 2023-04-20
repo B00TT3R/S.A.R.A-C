@@ -31,18 +31,27 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::get("generationCount", [GPTController::class, "generationCount"]);
     Route::get("postCount", [PostsController::class, "postCount"]);
     
-    Route::get('errors', [ErrorController::class, "getErrors"]);
-    Route::get('errors/{id}', [ErrorController::class, "getError"]);
+    Route::middleware(['auth:sanctum', 'abilities:errors'])->group(function () {
+        Route::get('errors', [ErrorController::class, "getErrors"]);
+        Route::get('errors/{id}', [ErrorController::class, "getError"]);
+    });
     
-    Route::get('generations', [GPTController::class, "getGenerations"]);
-    Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
+    Route::middleware(['auth:sanctum', 'abilities:generations'])->group(function () {        
+        Route::get('generations', [GPTController::class, "getGenerations"]);
+        Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
+    });
 
-    Route::get('posts', [PostsController::class, "getPosts"]);
-    Route::get('posts/{id}', [PostsController::class, "getPost"]);
-    Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
-    Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
-    Route::post("createPost", [PostsController::class, "createPost"]);
+    Route::middleware(['auth:sanctum', 'abilities:posts'])->group(function () {        
+        Route::get('posts', [PostsController::class, "getPosts"]);
+        Route::get('posts/{id}', [PostsController::class, "getPost"]);
+        Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
+        Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
+        Route::post("createPost", [PostsController::class, "createPost"]);
+    });
+
+    Route::middleware(['auth:sanctum', 'abilities:view_users'])->group(function () {
+        Route::get('users', [UserController::class, "getUsers"]);
+    });
 
     Route::post("logout", [UserController::class, "logout"]);
-
 });

@@ -31,5 +31,9 @@ class UserController extends Controller
         return ['message' => 'Successfully logged out'];
     }
 
+    public function getUsers(Request $request){
+        $errors = User::orderBy($request->orderBy, $request->order)->select("id","name", "email")->paginate(10);
+        return $errors;
+    }
 
 }

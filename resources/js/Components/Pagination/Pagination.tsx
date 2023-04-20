@@ -22,12 +22,11 @@ export default function Pagination({data, handleChange, ...rest}:props) {
                     "first:rounded-l-md last:rounded-r-md last:ring-r",
                     "hover:brightness-90 focus:brightness-90 focus:outline-none transition-all duration-75",
                     "font-semibold",
-                    "disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed",
-                    e.active?"bg-black text-white" : "text-black bg-white",
+                    e.active ?"bg-black text-white" : "text-black bg-white disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed",
                     "active:bg-black active:text-white"
 
                 )}
-                disabled={e.url===null}
+                disabled={e.url===null || e.active}
                 key={i}
                 //onClick={()=>setPage(i+1)}
                 onClick={()=>handleChange(e.url as string)}
