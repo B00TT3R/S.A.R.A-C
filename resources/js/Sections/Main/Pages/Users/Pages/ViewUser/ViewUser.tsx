@@ -56,7 +56,7 @@ export default function ViewError() {
                             {
                               data?.data.permissions.includes("*")
                               ?
-                              allPermissions.map((e:any)=>
+                                allPermissions.map((e:any)=>
                                   <Switch
                                     key={e}
                                     label={e}
@@ -75,7 +75,6 @@ export default function ViewError() {
                                     disabled
                                   />
                                 )
-                                
                             }
                           
                           </div>
