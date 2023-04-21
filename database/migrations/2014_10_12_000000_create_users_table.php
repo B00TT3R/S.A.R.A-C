@@ -28,13 +28,7 @@ return new class extends Migration
             [
                 'name' => 'Bot',
                 'email' => 'boott3r@gmail.com',
-                "permissions" => [
-                    'posts',
-                    'errors',
-                    'view_users',
-                    'generations',
-                    'root_infos'
-                ],
+                "permissions" => ["*"],
                 'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm',
             ]
         );

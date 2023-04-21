@@ -53,15 +53,31 @@ export default function ViewError() {
                       <div className="">
                         <h3 className='text-xl font-semibold'>Permissões:</h3>
                           <div className="grid gap-1">
-                            {allPermissions.map((e:any,i:number)=>
-                              <Switch
-                                key={e}
-                                label={e}
-                                name={e}
-                                checked={allPermissions.includes(e)}
-                                disabled
-                              />
-                            )}
+                            {
+                              data?.data.permissions.includes("*")
+                              ?
+                              allPermissions.map((e:any)=>
+                                  <Switch
+                                    key={e}
+                                    label={e}
+                                    name={e}
+                                    checked={true}
+                                    disabled
+                                  />
+                                )
+                              :
+                                allPermissions.map((e:any)=>
+                                  <Switch
+                                    key={e}
+                                    label={e}
+                                    name={e}
+                                    checked={data?.data.permissions.includes(e)}
+                                    disabled
+                                  />
+                                )
+                                
+                            }
+                          
                           </div>
                       </div>
                       <div className="">

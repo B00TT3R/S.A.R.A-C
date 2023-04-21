@@ -18,6 +18,7 @@ export default function ListButton({Icon, text, to, permission=undefined, iconCl
     const {state:{sidebar}} = useContext(RootContext);
     const {pathname} = useLocation()
     const permissions:{[key:string]:any} = JSON.parse(localStorage.getItem('permissions') as string);
+    const isAllowed = (!permission || permissions.includes(permission)) || permissions.includes("*")
     
     return (
         <Link to={to} className={classNames(
@@ -29,7 +30,7 @@ export default function ListButton({Icon, text, to, permission=undefined, iconCl
             `,
             className,
             pathname===to?"bg-gray-200 text-gray-950":"text-white",
-            (permission && !permissions.includes(permission)) ? "hidden" : ""
+            isAllowed ? "" : "hidden"
         )}
         {...rest}
         >
