@@ -35,5 +35,8 @@ class UserController extends Controller
         $errors = User::orderBy($request->orderBy, $request->order)->select("id","name", "email")->paginate(10);
         return $errors;
     }
+    public function getUser($id){
+        return User::find($id);
+    }
 
 }

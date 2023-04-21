@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
 
     Route::middleware(['auth:sanctum', 'abilities:view_users'])->group(function () {
         Route::get('users', [UserController::class, "getUsers"]);
+        Route::get('users/{id}', [UserController::class, "getUser"]);
     });
 
     Route::post("logout", [UserController::class, "logout"]);

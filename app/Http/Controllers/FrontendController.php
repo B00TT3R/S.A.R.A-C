@@ -10,7 +10,13 @@ class FrontendController extends Controller
     //
     public function index() {
         return Inertia::render('index', [
-        
+            'allPermissions' => [
+                "posts",
+                "errors",
+                "view_users",
+                "generations",
+                "root_infos",
+            ]
         ]);
     }
     public function getTitleResult(Request $request){

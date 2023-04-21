@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -23,20 +24,21 @@ return new class extends Migration
             $table->timestamps();
 
         });
-        DB::table('users')->insert([
-            'name' => 'Bot',
-            'email' => 'boott3r@gmail.com',
-            "permissions" => json_encode([
-                'posts',
-                'errors',
-                'view_users',
-                'generations',
-                'root_infos'
-            ]),
-            'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm',
-            
-
-        ]);
+        User::create(
+            [
+                'name' => 'Bot',
+                'email' => 'boott3r@gmail.com',
+                "permissions" => [
+                    'posts',
+                    'errors',
+                    'view_users',
+                    'generations',
+                    'root_infos'
+                ],
+                'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm',
+            ]
+        );
+        
     }
 
     /**

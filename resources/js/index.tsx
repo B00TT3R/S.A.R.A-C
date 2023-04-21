@@ -4,6 +4,8 @@ import {
     QueryClient,
     QueryClientProvider,
 } from 'react-query'
+import { GlobalContext } from './Context/GlobalContext';
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -14,16 +16,17 @@ const queryClient = new QueryClient({
 
 
 
-const Main = () => {
-    
+
+const Main = (props:any) => {
+    //console.log(props)
     return (
-        <>
+        <GlobalContext.Provider value={props}>
             <QueryClientProvider client={queryClient}>
                 <RouterProvider 
                     router={router}
                 />
             </QueryClientProvider>
-        </>
+        </GlobalContext.Provider>
     )
 }
 export default Main;
