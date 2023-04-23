@@ -18,7 +18,7 @@ export default function Input({
 }:props) {
   return (
     <div className='w-full flex flex-col gap-1 relative'>
-        <label htmlFor='name'>{label}</label>
+        <label htmlFor={name}>{label}</label>
         <input
             className={'rounded p-2'+ className}
             type={type} 

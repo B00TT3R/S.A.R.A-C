@@ -10,7 +10,7 @@ export default function ViewError() {
   const {allPermissions} = useContext(GlobalContext);
   const {id} = useParams()
   const {data, refetch, isFetching, error} = useQuery(
-    'getError', 
+    'getUser', 
     async ()=> await api.get(`/api/users/${id}`),
     {
       retry:false
@@ -21,7 +21,7 @@ export default function ViewError() {
     <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
         <h1>
-          <b>Usuário:</b> {id}
+          <b>Usuário:</b> {isFetching?id:data?.data.name}
         </h1>
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2 pb-3 '>

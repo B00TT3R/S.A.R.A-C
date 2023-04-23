@@ -6,6 +6,7 @@ import {PageSpinner, Pagination, Select} from '<>'
 import error from './Types/user'
 import Card from './Template/Card/Card'
 import api from '@/Utils/api'
+import { Link } from 'react-router-dom'
 
 export default function Users() {
   const [url, setUrl] = useState("/api/users")
@@ -35,7 +36,7 @@ export default function Users() {
             :
               <>
                 {/* orderby */}
-                <div className='flex gap-2'>
+                <div className='flex gap-2 w-full'>
                   <div className='grid'>
                     <span>Ordernar por: </span>
                     <Select 
@@ -57,6 +58,12 @@ export default function Users() {
                       <option value="desc">Decrescente</option>
                     </Select>
                   </div>
+                  <Link to="novo" className="ml-auto bg-red text-white flex flex-col">
+                    <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2 mt-auto">
+                      Novo
+                    </div>
+                  </Link>
+                  
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((user)=>(
@@ -68,11 +75,10 @@ export default function Users() {
                     data={data!.data}
                     handleChange={setUrl}
                   />
-                </div>
+                </div>                
               </>
           }
       </div>
-      
     </div>
   )
 }

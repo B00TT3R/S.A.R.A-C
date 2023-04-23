@@ -14,6 +14,7 @@ class FrontendController extends Controller
                 "posts",
                 "errors",
                 "view_users",
+                "modify_users",
                 "generations",
                 "root_infos",
             ]

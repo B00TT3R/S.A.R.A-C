@@ -53,6 +53,10 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get('users', [UserController::class, "getUsers"]);
         Route::get('users/{id}', [UserController::class, "getUser"]);
     });
+    Route::middleware(['auth:sanctum', 'abilities:modify_users'])->group(function () {
+        Route::post('users', [UserController::class, "createUser"]);
+        //Route::get('users/{id}', [UserController::class, "getUser"]);
+    });
 
     Route::post("logout", [UserController::class, "logout"]);
 });

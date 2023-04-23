@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useEffect, useId, useState } from 'react';
 import { Switch as Switcher } from '@headlessui/react';
 import {Form, Formik} from "formik"
 
-interface Props extends  React.ComponentPropsWithoutRef<typeof Switcher> {
+interface Props extends React.ComponentPropsWithoutRef<typeof Switcher> {
   label?: string;
   error?: string | undefined;
   checked? :boolean

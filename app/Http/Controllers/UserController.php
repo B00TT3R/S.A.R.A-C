@@ -18,6 +18,7 @@ class UserController extends Controller
                 return [
                     'token'=>$token,
                     'user'=>$user->name,
+                    'id'=>$user->id,
                     'permissions'=>$user->permissions
                 ];
             }
@@ -37,6 +38,10 @@ class UserController extends Controller
     }
     public function getUser($id){
         return User::find($id);
+    }
+    public function createUser(Request $request){
+        User::create($request->all());
+        return ["message" => "Successfully created"];
     }
 
 }
