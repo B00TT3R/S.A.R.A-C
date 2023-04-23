@@ -46,5 +46,8 @@ class UserController extends Controller
     public function deleteUser($id){
         User::destroy($id);
     }
+    public function editUser($id, Request $request){
+        User::find($id)->update($request->all());
+    }
 
 }

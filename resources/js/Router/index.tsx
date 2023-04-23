@@ -10,6 +10,7 @@ const Home = lazy(()=>import("&/Home/Home"))
 const Errors = lazy(()=>import("&/Errors/Errors"))
 const Users = lazy(()=>import("&/Users/Users"));
 const NewUser = lazy(()=>import("&/Users/Pages/NewUser/NewUser"))
+const EditUser = lazy(()=>import("&/Users/Pages/EditUser/EditUser"))
 const ViewUser = lazy(()=>import("&/Users/Pages/ViewUser/ViewUser"))
 const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"))
 const Generations = lazy(()=>import("&/Generations/Generations"))
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
                     {
                         element: <PageLoader Element={NewUser}/>,
                         path: 'novo',
+                    },
+                    {
+                        element: <PageLoader Element={EditUser}/>,
+                        path: 'editar/:id',
                     },
                     {
                         element: <PageLoader Element={ViewUser}/>,

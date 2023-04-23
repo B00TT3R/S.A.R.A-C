@@ -5,7 +5,7 @@ interface Props {
   keys: string[];
   values?: string[];
   onChange?: (e: { target: { value: Array<string> } }) => void;
-  error?: undefined | string | never[] | string[]
+  error?: undefined | string | never[] | string[] |any
 }
 
 const ListSwitch = ({ keys, onChange, error, values = [] }: Props) => {
