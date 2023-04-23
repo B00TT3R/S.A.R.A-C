@@ -17,7 +17,6 @@ class ErrorController extends Controller
             $typeList[$type] = $errors->where("type", $type)->count();
 
         }
-        error_log($request->user()->name);
         return [
             "total" => $count,
             "types" => $typeList

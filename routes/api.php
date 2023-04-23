@@ -21,10 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post("login", [UserController::class, "login"]);
 
 Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
@@ -45,9 +41,9 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::middleware(['auth:sanctum', 'abilities:posts'])->group(function () {        
         Route::get('posts', [PostsController::class, "index"]);
         Route::get('posts/{id}', [PostsController::class, "show"]);
+        Route::post("createPost", [PostsController::class, "create"]); // mudar o nome da rota depois
         Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
         Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
-        Route::post("createPost", [PostsController::class, "create"]);
     });
 
     Route::middleware(['auth:sanctum', 'abilities:view_users'])->group(function () {
@@ -60,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::post('users/{id}', [UserController::class, "update"]);
     });
     Route::middleware(['auth:sanctum', 'abilities:root_infos'])->group(function () {
-        Route::post('rootInfos', [RootInfosController::class, "create"]);
+        Route::get('rootInfos', [RootInfosController::class, "index"]);
         Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
         Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
     });

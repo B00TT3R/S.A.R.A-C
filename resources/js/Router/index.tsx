@@ -6,19 +6,25 @@ import Template from '@/Sections/Main/Template/Template'
 const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"))
 const Logout = lazy(()=>import("@/Sections/Logout/Logout"))
 const Login = lazy(()=>import("@/Sections/Login/Login"))
-const Home = lazy(()=>import("&/Home/Home"))
-const Errors = lazy(()=>import("&/Errors/Errors"))
-const Users = lazy(()=>import("&/Users/Users"));
-const NewUser = lazy(()=>import("&/Users/Pages/NewUser/NewUser"))
-const EditUser = lazy(()=>import("&/Users/Pages/EditUser/EditUser"))
-const ViewUser = lazy(()=>import("&/Users/Pages/ViewUser/ViewUser"))
-const ViewError = lazy(()=>import("&/Errors/Pages/ViewError/ViewError"))
-const Generations = lazy(()=>import("&/Generations/Generations"))
-const ViewGeneration = lazy(()=>import("&/Generations/Pages/ViewGeneration/ViewGeneration"))
-const Posts = lazy(()=>import("&/Posts/Posts"))
-const ViewPost = lazy(()=>import("&/Posts/Pages/ViewPosts/ViewPosts"))
-const NewPost = lazy(()=>import("&/Posts/Pages/NewPost/NewPost"))
 
+const Home = lazy(()=>import("&/Home/Home"))
+
+const Errors = lazy(()=>import("&/Errors/Errors"))
+const ViewError = lazy(()=>import("&/Errors/Pages/View/View"))
+
+const Users = lazy(()=>import("&/Users/Users"));
+const NewUser = lazy(()=>import("&/Users/Pages/New/New"))
+const EditUser = lazy(()=>import("&/Users/Pages/Edit/Edit"))
+const ViewUser = lazy(()=>import("&/Users/Pages/View/View"))
+
+const Posts = lazy(()=>import("&/Posts/Posts"))
+const ViewPost = lazy(()=>import("&/Posts/Pages/View/View"))
+const NewPost = lazy(()=>import("&/Posts/Pages/New/New"))
+
+const Generations = lazy(()=>import("&/Generations/Generations"))
+const ViewGeneration = lazy(()=>import("&/Generations/Pages/View/View"))
+
+const RootInfos = lazy(()=>import("&/RootInfos/RootInfos"))
 
 const router = createBrowserRouter([
     {
@@ -70,6 +76,27 @@ const router = createBrowserRouter([
                         element: <PageLoader Element={ViewPost}/>,
                         path: ':id',
                     },
+                ]
+            },
+            {
+                path: 'inforaiz',
+                children: [
+                    {
+                        element: <PageLoader Element={RootInfos}/>,
+                        index:true,
+                    },
+                    /* {
+                        element: <PageLoader Element={NewUser}/>,
+                        path: 'novo',
+                    },
+                    {
+                        element: <PageLoader Element={EditUser}/>,
+                        path: 'editar/:id',
+                    },
+                    {
+                        element: <PageLoader Element={ViewUser}/>,
+                        path: ':id',
+                    }, */
                 ]
             },
             {

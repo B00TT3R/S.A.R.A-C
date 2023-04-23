@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FaGithub, FaHome, BiErrorAlt, SiOpenai, FaFacebook, FaUserAlt } from 'react-icons/all'
+import { FaGithub, FaHome, BiErrorAlt, SiOpenai, FaFacebook, FaUserAlt, AiOutlineInfoCircle } from 'react-icons/all'
 import { Link } from 'react-router-dom';
 
 import { classNames } from '@/Utils/index';
@@ -74,6 +74,14 @@ export default function Sidebar() {
         iconClass='group-hover:text-green-500'
         iconClassOnActive="text-green-500"
         permission='generations'
+      />
+      <ListButton
+        Icon={AiOutlineInfoCircle}
+        text="Informações Raiz"
+        to="/inforaiz"
+        iconClass='group-hover:text-fuchsia-500'
+        iconClassOnActive="text-fuchsia-500"
+        permission='view_users'
       />
       <ListButton
         Icon={FaUserAlt}
