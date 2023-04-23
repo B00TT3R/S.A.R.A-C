@@ -14,11 +14,11 @@ class PostsController extends Controller
             "last" => $posts->last()->created_at
         ];
     }
-    public function getPosts(Request $request){
+    public function index(Request $request){
         $posts = Post::orderBy($request->orderBy, $request->order)->select("id","type", "response")->paginate(10);
         return $posts;
     }
-    public function getPost($id){
+    public function show($id){
         $post = Post::findOrFail($id);
         $postUrl = FacebookController::getPostUrl($post);
         $post->url = $postUrl;
@@ -26,7 +26,7 @@ class PostsController extends Controller
         
         return $post;
     }
-    public function createPost(Request $request)
+    public function create(Request $request)
     {
         $post = FacebookController::post([
             "message"=> $request->message,

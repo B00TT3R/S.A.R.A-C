@@ -24,11 +24,11 @@ class ErrorController extends Controller
             
         ];
     }
-    public function getErrors(Request $request){
+    public function index(Request $request){
         $errors = Errors::orderBy($request->orderBy, $request->order)->select("id","type")->paginate(10);
         return $errors;
     }
-    public function getError($id){
+    public function show($id){
         $error = Errors::findOrFail($id);
         return $error;
     }

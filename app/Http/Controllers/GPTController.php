@@ -96,11 +96,11 @@ class GPTController extends Controller
             
         ];
     }
-    public function getGenerations(Request $request){
+    public function index(Request $request){
         $errors = Generation::orderBy($request->orderBy, $request->order)->select("id","type", "gen_type")->paginate(10);
         return $errors;
     }
-    public function getGeneration($id){
+    public function show($id){
         $error = Generation::findOrFail($id);
         return $error;
     }

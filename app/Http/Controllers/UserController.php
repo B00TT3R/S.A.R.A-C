@@ -32,21 +32,24 @@ class UserController extends Controller
         return ['message' => 'Successfully logged out'];
     }
 
-    public function getUsers(Request $request){
+    public function index(Request $request){
         $errors = User::orderBy($request->orderBy, $request->order)->select("id","name", "email")->paginate(10);
         return $errors;
     }
-    public function getUser($id){
+
+    public function show($id){
         return User::find($id);
     }
-    public function createUser(Request $request){
+
+    public function create(Request $request){
         User::create($request->all());
-        return ["message" => "Successfully created"];
     }
-    public function deleteUser($id){
+
+    public function destroy($id){
         User::destroy($id);
     }
-    public function editUser($id, Request $request){
+    
+    public function update($id, Request $request){
         User::find($id)->update($request->all());
     }
 

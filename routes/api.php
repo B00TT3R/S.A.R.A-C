@@ -5,6 +5,7 @@ use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GPTController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\RootInfosController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,31 +33,36 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::get("postCount", [PostsController::class, "postCount"]);
     
     Route::middleware(['auth:sanctum', 'abilities:errors'])->group(function () {
-        Route::get('errors', [ErrorController::class, "getErrors"]);
-        Route::get('errors/{id}', [ErrorController::class, "getError"]);
+        Route::get('errors', [ErrorController::class, "index"]);
+        Route::get('errors/{id}', [ErrorController::class, "show"]);
     });
     
     Route::middleware(['auth:sanctum', 'abilities:generations'])->group(function () {        
-        Route::get('generations', [GPTController::class, "getGenerations"]);
-        Route::get('generations/{id}', [GPTController::class, "getGeneration"]);
+        Route::get('generations', [GPTController::class, "index"]);
+        Route::get('generations/{id}', [GPTController::class, "show"]);
     });
 
     Route::middleware(['auth:sanctum', 'abilities:posts'])->group(function () {        
-        Route::get('posts', [PostsController::class, "getPosts"]);
-        Route::get('posts/{id}', [PostsController::class, "getPost"]);
+        Route::get('posts', [PostsController::class, "index"]);
+        Route::get('posts/{id}', [PostsController::class, "show"]);
         Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
         Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
-        Route::post("createPost", [PostsController::class, "createPost"]);
+        Route::post("createPost", [PostsController::class, "create"]);
     });
 
     Route::middleware(['auth:sanctum', 'abilities:view_users'])->group(function () {
-        Route::get('users', [UserController::class, "getUsers"]);
-        Route::get('users/{id}', [UserController::class, "getUser"]);
+        Route::get('users', [UserController::class, "index"]);
+        Route::get('users/{id}', [UserController::class, "show"]);
     });
     Route::middleware(['auth:sanctum', 'abilities:modify_users'])->group(function () {
-        Route::post('users', [UserController::class, "createUser"]);
-        Route::delete('users/{id}', [UserController::class, "deleteUser"]);
-        Route::post('users/{id}', [UserController::class, "editUser"]);
+        Route::post('users', [UserController::class, "create"]);
+        Route::delete('users/{id}', [UserController::class, "destroy"]);
+        Route::post('users/{id}', [UserController::class, "update"]);
+    });
+    Route::middleware(['auth:sanctum', 'abilities:root_infos'])->group(function () {
+        Route::post('rootInfos', [RootInfosController::class, "create"]);
+        Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
+        Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
     });
 
     Route::post("logout", [UserController::class, "logout"]);
