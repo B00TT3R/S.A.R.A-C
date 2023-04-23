@@ -43,5 +43,8 @@ class UserController extends Controller
         User::create($request->all());
         return ["message" => "Successfully created"];
     }
+    public function deleteUser($id){
+        User::destroy($id);
+    }
 
 }

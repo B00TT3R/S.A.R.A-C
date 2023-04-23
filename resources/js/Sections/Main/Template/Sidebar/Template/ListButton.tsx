@@ -2,7 +2,7 @@ import RootContext from '../../../Contexts/RootContext';
 import { classNames } from '@/Utils'
 import {useContext} from 'react'
 import { IconType } from 'react-icons/lib'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, matchPath, useLocation } from 'react-router-dom';
 
 interface props {
     Icon:IconType
@@ -19,6 +19,9 @@ export default function ListButton({Icon, text, to, permission=undefined, iconCl
     const {pathname} = useLocation()
     const permissions:{[key:string]:any} = JSON.parse(localStorage.getItem('permissions') as string);
     const isAllowed = (!permission || permissions.includes(permission)) || permissions.includes("*")
+    const isMatchedRoute = !!matchPath({ path: `/${to}`, end:false },location.pathname )
+    
+
     
     return (
         <Link to={to} className={classNames(
@@ -29,14 +32,14 @@ export default function ListButton({Icon, text, to, permission=undefined, iconCl
             hover:w-72 hover:justify-start hover:pl-4 shadow-md hover:bg-opacity-90 hover:border-r-2 hover:rounded-r-md
             `,
             className,
-            pathname===to?"bg-gray-200 text-gray-950":"text-white",
+            isMatchedRoute?"bg-gray-200 text-gray-950":"text-white",
             isAllowed ? "" : "hidden"
         )}
         {...rest}
         >
             <Icon className={classNames(
                 iconClass,
-                pathname===to?iconClassOnActive:"")
+                isMatchedRoute?iconClassOnActive:"")
             }/>
             <span className={sidebar?"":"hidden group-hover:block"}>{text}</span>
         </Link>

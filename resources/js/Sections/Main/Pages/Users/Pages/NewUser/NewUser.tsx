@@ -42,7 +42,6 @@ const NewUser = () =>{
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
                 validationSchema={validation}
-                
                 validateOnChange={false}
             >
                 {({

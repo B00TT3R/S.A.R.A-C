@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     });
     Route::middleware(['auth:sanctum', 'abilities:modify_users'])->group(function () {
         Route::post('users', [UserController::class, "createUser"]);
+        Route::delete('users/{id}', [UserController::class, "deleteUser"]);
         //Route::get('users/{id}', [UserController::class, "getUser"]);
     });
 

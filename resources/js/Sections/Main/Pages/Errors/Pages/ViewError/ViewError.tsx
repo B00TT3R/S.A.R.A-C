@@ -1,6 +1,6 @@
 import { PageSpinner } from '<>'
 import { DateFormatter } from '@/Utils'
-import axios, { AxiosError } from 'axios'
+import api from '@/Utils/api'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
@@ -10,7 +10,7 @@ export default function ViewError() {
   const [notFound, setNotFound] = useState(false)
   const {data, refetch, isFetching, error} = useQuery(
     'getError', 
-    async ()=> await axios.get(`/api/errors/${id}`),
+    async ()=> await api.get(`/api/errors/${id}`),
     {
       retry:false
     }
@@ -33,7 +33,7 @@ export default function ViewError() {
               {error
                 ?
                   (
-                    (axios.isAxiosError(error) && error.response?.status === 404)
+                    (api.isAxiosError(error) && error.response?.status === 404)
                       ?
                         <h1 className='text-xl text-center'>O erro requisitado não existe!</h1>
                       :

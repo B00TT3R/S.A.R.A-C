@@ -67,7 +67,7 @@ export default function Users() {
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((user)=>(
-                    <Card user={user} key={user.id}/>
+                    <Card user={user} onDelete={refetch} key={user.id}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>
