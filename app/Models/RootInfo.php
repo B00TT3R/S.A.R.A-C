@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RootInfo extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "type", "info"
+    ];
 }

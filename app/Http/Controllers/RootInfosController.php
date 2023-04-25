@@ -14,4 +14,13 @@ class RootInfosController extends Controller
     public function show($id){
         return RootInfo::find($id);
     }
+    public function create(Request $request){
+        RootInfo::create($request->all());
+    }
+    public function destroy($id){
+        RootInfo::destroy($id);
+    }
+    public function update($id, Request $request){
+        RootInfo::find($id)->update($request->all());
+    }
 }

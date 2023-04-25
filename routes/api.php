@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get('rootInfos', [RootInfosController::class, "index"]);
         Route::get('rootInfos/{id}', [RootInfosController::class, "show"]);
         Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
+        Route::post('rootInfos/', [RootInfosController::class, "create"]);
         Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
     });
 

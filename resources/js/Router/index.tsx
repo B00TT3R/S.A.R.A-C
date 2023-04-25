@@ -26,6 +26,8 @@ const ViewGeneration = lazy(()=>import("&/Generations/Pages/View/View"))
 
 const RootInfos = lazy(()=>import("&/RootInfos/RootInfos"))
 const ViewRootInfos = lazy(()=>import("&/RootInfos/Pages/View/View"))
+const NewRootInfos = lazy(()=>import("&/RootInfos/Pages/New/New"))
+const EditRootInfos = lazy(()=>import("&/RootInfos/Pages/Edit/Edit"))
 
 const router = createBrowserRouter([
     {
@@ -90,14 +92,14 @@ const router = createBrowserRouter([
                         element: <PageLoader Element={ViewRootInfos}/>,
                         path: ':id',
                     },
-                    /* {
-                        element: <PageLoader Element={NewUser}/>,
+                    {
+                        element: <PageLoader Element={NewRootInfos}/>,
                         path: 'novo',
                     },
                     {
-                        element: <PageLoader Element={EditUser}/>,
+                        element: <PageLoader Element={EditRootInfos}/>,
                         path: 'editar/:id',
-                    }, */
+                    },
                 ]
             },
             {
