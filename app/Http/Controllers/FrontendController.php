@@ -32,8 +32,7 @@ class FrontendController extends Controller
         ];
     }
     public function getImageResult(Request $request){
-        return 
-        [
+        return [
             "result" =>  GPTController::imageGen(
                 prompt: $request->value,
                 type: "Geração de conteúdo manual",

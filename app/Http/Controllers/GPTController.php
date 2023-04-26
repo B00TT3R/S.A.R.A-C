@@ -9,13 +9,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
-class GPTController extends BaseController
+class GPTController extends Controller
 {
     public function __construct(){
         $this->model = Generation::class;
         $this->select = ["id","type", "gen_type"];
     }
-    
+
     private static function formatRootInfosToText(string $prompt): string {
         $infos = RootInfo::where('type', "text")->pluck('info')->toArray();
         if(count($infos) == 0)

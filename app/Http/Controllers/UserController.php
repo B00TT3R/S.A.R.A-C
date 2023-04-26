@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -37,7 +37,5 @@ class UserController extends BaseController
         return ['message' => 'Successfully logged out'];
     }
    
-
-
 
 }

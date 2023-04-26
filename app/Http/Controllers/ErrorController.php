@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Errors;
 use Illuminate\Http\Request;
 
-class ErrorController extends BaseController
+class ErrorController extends Controller
 {
     public function __construct(){
         $this->model = Errors::class;
