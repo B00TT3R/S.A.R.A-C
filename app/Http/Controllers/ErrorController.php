@@ -5,30 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Errors;
 use Illuminate\Http\Request;
 
-class ErrorController extends Controller
+class ErrorController extends BaseController
 {
-    //
-    public function errorCount(Request $request){
+    public function __construct(){
+        $this->model = Errors::class;
+        $this->select = ["id", "type"];
+        
+    }
+    public function errorCount(){
         $errors = Errors::all();
         $count = $errors->count();
         $types = $errors->pluck("type");
         $typeList = [];
         foreach($types as $type){            
             $typeList[$type] = $errors->where("type", $type)->count();
-
         }
         return [
             "total" => $count,
             "types" => $typeList
-            
         ];
-    }
-    public function index(Request $request){
-        $errors = Errors::orderBy($request->orderBy, $request->order)->select("id","type")->paginate(10);
-        return $errors;
-    }
-    public function show($id){
-        $error = Errors::findOrFail($id);
-        return $error;
     }
 }

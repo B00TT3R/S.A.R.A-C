@@ -35,7 +35,7 @@ class FacebookController extends Controller
             return Post::create([
                 "type" =>"facebook",
                 "response" => $body,
-                "request" => $params[0]                
+                "request" => $params[0]
             ]);
         } catch(RequestException $e) {    
             error_log("Erro na criação de post facebook");

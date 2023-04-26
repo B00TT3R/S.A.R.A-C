@@ -18,7 +18,6 @@ const queryClient = new QueryClient({
 
 
 const Main = (props:any) => {
-    //console.log(props)
     return (
         <GlobalContext.Provider value={props}>
             <QueryClientProvider client={queryClient}>

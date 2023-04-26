@@ -8,8 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = User::class;
+        $this->select = ["id","name", "email"];
+    }
     public function login(Request $request){
         $user = User::where('email', $request->email)->first();
         if($user != null){
@@ -31,26 +36,8 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
         return ['message' => 'Successfully logged out'];
     }
+   
 
-    public function index(Request $request){
-        $errors = User::orderBy($request->orderBy, $request->order)->select("id","name", "email")->paginate(10);
-        return $errors;
-    }
 
-    public function show($id){
-        return User::find($id);
-    }
-
-    public function create(Request $request){
-        User::create($request->all());
-    }
-
-    public function destroy($id){
-        User::destroy($id);
-    }
-    
-    public function update($id, Request $request){
-        User::find($id)->update($request->all());
-    }
 
 }

@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class PostsController extends BaseController
 {
+    public function __construct(){
+        $this->model = Post::class;
+        $this->select = ["id", "type", "response"];
+    }
+
     public function postCount(){
         $posts = Post::all();
         return [
@@ -14,16 +19,9 @@ class PostsController extends Controller
             "last" => $posts->last()->created_at
         ];
     }
-    public function index(Request $request){
-        $posts = Post::orderBy($request->orderBy, $request->order)->select("id","type", "response")->paginate(10);
-        return $posts;
-    }
     public function show($id){
-        $post = Post::findOrFail($id);
-        $postUrl = FacebookController::getPostUrl($post);
-        $post->url = $postUrl;
-
-        
+        $post = parent::show($id);
+        $post->url = FacebookController::getPostUrl($post);;
         return $post;
     }
     public function create(Request $request)

@@ -9,8 +9,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
-class GPTController extends Controller
+class GPTController extends BaseController
 {
+    public function __construct(){
+        $this->model = Generation::class;
+        $this->select = ["id","type", "gen_type"];
+    }
+    
     private static function formatRootInfosToText(string $prompt): string {
         $infos = RootInfo::where('type', "text")->pluck('info')->toArray();
         if(count($infos) == 0)
@@ -107,13 +112,5 @@ class GPTController extends Controller
             'text' => $textGen
             
         ];
-    }
-    public function index(Request $request){
-        $errors = Generation::orderBy($request->orderBy, $request->order)->select("id","type", "gen_type")->paginate(10);
-        return $errors;
-    }
-    public function show($id){
-        $error = Generation::findOrFail($id);
-        return $error;
     }
 }
