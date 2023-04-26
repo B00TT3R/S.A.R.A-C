@@ -26,6 +26,7 @@ class FrontendController extends Controller
           "result" =>  GPTController::textGen(
                 prompt: $request->value,
                 max_tokens: 2048,
+                temperature:0.9,
                 type:"Geração de conteúdo manual"
             )
         ];

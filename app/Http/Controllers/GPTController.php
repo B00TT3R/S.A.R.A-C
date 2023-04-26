@@ -4,20 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Errors;
 use App\Models\Generation;
+use App\Models\RootInfo;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
 class GPTController extends Controller
 {
+    private static function formatRootInfosToText(string $prompt): string {
+        $infos = RootInfo::where('type', "text")->pluck('info')->toArray();
+        if(count($infos) == 0)
+            return "Gere uma noticia falsa Tendo como titulo: $prompt";
+        $formattedString = implode(', ', $infos);
+        return "Gere uma noticia falsa, $formattedString, Tendo como titulo: $prompt";
+    }
+    
     public static function textGen(
         string $prompt,
         int $max_tokens = 512,
         float $temperature = 0.7,
-        string $type="não-definido"
+        string $type="não-definido",
+        bool $useRoot = true
     ):string{
+            //self::formatRootInfosToText($prompt);
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
+            $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
             try{
                 $response = $client->post('https://api.openai.com/v1/completions', [
                     'headers' => [

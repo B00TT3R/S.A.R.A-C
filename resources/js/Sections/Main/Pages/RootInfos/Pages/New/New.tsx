@@ -51,6 +51,7 @@ const NewUser = () =>{
                             onChange={handleChange("type")}
                             error={errors.type}
                         >
+                            <option value="" label="Selecione um valor"/>
                             <option value="text" label="Texto"/>
                             <option value="image" label="Imagem"/>
                         </Select>

@@ -18,28 +18,29 @@ class Generation extends Model
         "prompt",
         "gen_type",
         "result",
-        "local_result"
     ];
     protected $casts = [
         "response" => "json"
     ];
+
+    private static function downloadImage(string $path):string{
+        error_log("Baixando imagem para o armazenamento local");
+        $client = new Client();
+        $response = $client->get($path);
+        $contents = $response->getBody()->getContents();
+        $filename = 'image_' . time() . '.png';
+        $directory = public_path('images');
+        $path = $directory . '/' . $filename;
+        File::makeDirectory($directory, 0755, true, true);
+        file_put_contents($path, $contents);
+        return $filename;
+    }
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($model) {
-            if($model->gen_type == "image"){
-                error_log("downloading image to local storage");
-                $client = new Client();
-                $response = $client->get($model->result);
-                $contents = $response->getBody()->getContents();
-                $filename = 'image_' . time() . '.png';
-                $directory = public_path('images');
-                $path = $directory . '/' . $filename;
-                File::makeDirectory($directory, 0755, true, true);
-                file_put_contents($path, $contents);
-                $model->local_result = '/images/' . $filename;
-            }
+            if($model->gen_type == "image")
+                $model->local_result = '/images/' . self::downloadImage($model->result);
         });
     }
 
