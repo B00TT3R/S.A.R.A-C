@@ -8,7 +8,7 @@ use Inertia\Inertia;
 class FrontendController extends Controller
 {
     //
-    public function index() {
+    public function index(Request $request) {
         return Inertia::render('index', [
             'allPermissions' => [
                 "posts",
