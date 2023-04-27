@@ -13,7 +13,7 @@ export default function Login() {
             const response = await api.post('/api/login', values)
             localStorage.setItem('token', response.data.token)
             api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token
-            localStorage.setItem('userName', response.data.user)
+            localStorage.setItem('userName', response.data.name)
             localStorage.setItem('userId', response.data.id)
             localStorage.setItem('permissions', JSON.stringify(response.data.permissions))
             navigate('/')

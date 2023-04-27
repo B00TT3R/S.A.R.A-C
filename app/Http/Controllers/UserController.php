@@ -22,9 +22,7 @@ class UserController extends Controller
                 $token = $user->createToken('userToken', $user->permissions)->plainTextToken;
                 return [
                     'token'=>$token,
-                    'user'=>$user->name,
-                    'id'=>$user->id,
-                    'permissions'=>$user->permissions
+                    ...$user->toArray()
                 ];
             }
             return response(["message" =>"Email ou senha incorretos"], 401);

@@ -19,7 +19,10 @@ export default function Card({user, onDelete}:props) {
     }
   }
   const handleEdit = async () => {
-    navigate(`/usuarios/editar/${id}`)
+    if(!thisUser){
+      navigate(`/usuarios/editar/${id}`)
+
+    }
   }
   return (
     <li
