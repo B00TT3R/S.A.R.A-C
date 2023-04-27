@@ -23,6 +23,14 @@ class GPTController extends Controller
         $formattedString = implode(', ', $infos);
         return "Gere uma noticia falsa, $formattedString, Tendo como titulo: $prompt";
     }
+
+    private static function formatRootInfosToImage(string $prompt){
+        $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
+        if(count($infos) == 0)
+            return $prompt;
+        $formattedString = implode('\n', $infos);
+        return "Imagem de: $prompt,  \n Estilos: $formattedString";
+    }
     
     public static function textGen(
         string $prompt,
@@ -64,9 +72,11 @@ class GPTController extends Controller
         string $prompt,
         string $size = "1024x1024",
         string $type = "não-definido",
-        bool $originalUrl = false
+        bool $originalUrl = false,
+        bool $useRoot = true
     ):string{
         $client = new Client();
+        $prompt = $useRoot? self::formatRootInfosToImage($prompt) : $prompt;
         try{
             $response = $client->post('https://api.openai.com/v1/images/generations', [
                 'headers' => [
