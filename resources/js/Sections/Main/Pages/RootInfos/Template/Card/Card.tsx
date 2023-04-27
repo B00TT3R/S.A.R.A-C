@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import rootInfo from '../../Types/rootInfo'
 import { MdModeEditOutline, RxCrossCircled } from 'react-icons/all'
 import api from '@/Utils/api'
+import InfoHash from './Utils/InfoHash'
 interface props{
     rootinfo: rootInfo
     onDelete?: ()=>void
@@ -29,7 +30,7 @@ export default function Card({rootinfo, onDelete}:props) {
           )
     }>
         <Link to={rootinfo.id.toString()} className="w-full h-full grid content-start">
-          <span><b>Tipo:</b> {rootinfo.type == "image"?"Imagem":"Texto"}</span>
+          <span><b>Tipo:</b> { InfoHash(rootinfo.type) }</span>
           <span><b>Informação:</b> {rootinfo.info}</span>
           <span><b>ID:</b> {rootinfo.id}</span>
         </Link>

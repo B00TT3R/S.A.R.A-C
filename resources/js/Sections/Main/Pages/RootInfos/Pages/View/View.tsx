@@ -5,6 +5,7 @@ import api from '@/Utils/api'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '@/Context/GlobalContext'
+import InfoHash from '../../Template/Card/Utils/InfoHash'
 
 export default function ViewError() {
   const {allPermissions} = useContext(GlobalContext);
@@ -44,7 +45,7 @@ export default function ViewError() {
                     <div className='flex flex-col gap-2'>
                       <div className="">
                         <h3 className='text-xl font-semibold'>Tipo:</h3>
-                        {data?.data.type =="image"?"Imagem":"Texto"}
+                        { InfoHash(data?.data.type) }
                       </div>
                       <div className="">
                         <h3 className='text-xl font-semibold'>Informação:</h3>

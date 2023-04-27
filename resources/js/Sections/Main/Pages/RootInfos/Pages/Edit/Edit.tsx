@@ -57,8 +57,10 @@ const EditRoot = () =>{
                                 onChange={handleChange("type")}
                                 error={errors.type as string}
                             >
-                                <option value="text" label="Texto"/>
-                                <option value="image" label="Imagem"/>
+                                <option value="" label="Selecione um valor"/>
+                                <option value="text" label="Estilo de Texto"/>
+                                <option value="textinfo" label="Informação Chave"/>
+                                <option value="image" label="Estilo de Imagem"/>
                             </Select>
                             <Input
                                 label="Informação"

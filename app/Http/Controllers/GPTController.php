@@ -17,12 +17,30 @@ class GPTController extends Controller
     }
 
     private static function formatRootInfosToText(string $prompt): string {
-        $infos = RootInfo::where('type', "text")->pluck('info')->toArray();
-        if(count($infos) == 0)
-            return "Gere uma noticia falsa Tendo como titulo: $prompt";
-        $formattedString = implode(', ', $infos);
-        return "Gere uma noticia falsa, $formattedString, Tendo como titulo: $prompt";
+        $textStyle = RootInfo::where('type', "text")->pluck('info')->toArray();
+        $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
+    
+        $formattedTextStyle = "";
+        if(count($textStyle) > 0) {
+            $formattedTextStyle = " usando os seguintes estilos de escrita: \"" . implode("\", \"", $textStyle) . "\"";
+        }
+    
+        $formattedInfoString = "";
+        if(count($infos) > 0) {
+            $formattedInfoString = " e usando alguns desses fatos: \"" . implode("\", \"", $infos) . "\"";
+        }
+    
+        if(empty($formattedTextStyle) && empty($formattedInfoString)) {
+            return "Gere uma notícia falsa Tendo como título: $prompt";
+        } elseif(empty($formattedTextStyle)) {
+            return "Gere uma notícia falsa $formattedInfoString. Tendo como título: $prompt";
+        } elseif(empty($formattedInfoString)) {
+            return "Gere uma notícia falsa $formattedTextStyle. Tendo como título: $prompt";
+        } else {
+            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString. Tendo como título: $prompt";
+        }
     }
+    
 
     private static function formatRootInfosToImage(string $prompt){
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
