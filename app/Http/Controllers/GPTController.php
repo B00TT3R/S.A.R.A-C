@@ -108,7 +108,7 @@ class GPTController extends Controller
             ]);
             $json = json_decode($response->getBody()->getContents());
             $generation = Generation::create([
-                "model" => "dalle2",
+                "model" => env("OPENAI_IMAGE_MODEL"),
                 "gen_type" => "image",
                 "prompt" => $prompt,
                 "response" => $json,
