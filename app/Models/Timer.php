@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,15 +21,18 @@ class Timer extends Model
     
     private static function getInstance(): self
     {
-        if (!self::$instance) {
-            self::$instance = self::firstOrCreate([
-                "next" => now()->toDateTimeString()
-            ]);
+        if (self::$instance === null) {
+            self::$instance = self::firstOr(function () {
+                return self::create([
+                    "next" => now()->toDateTimeString()
+                ]);
+            }
+        );
         }
         return self::$instance;
     }
 
-    public static function getNextTime(): string
+    public static function getNextTime(): Carbon
     {
         $timer = self::getInstance();
         return $timer->next;
