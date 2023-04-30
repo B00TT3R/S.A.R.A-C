@@ -21,7 +21,9 @@ class Timer extends Model
     private static function getInstance(): self
     {
         if (!self::$instance) {
-            self::$instance = self::firstOrCreate([]);
+            self::$instance = self::firstOrCreate([
+                "next" => now()->toDateTimeString()
+            ]);
         }
         return self::$instance;
     }

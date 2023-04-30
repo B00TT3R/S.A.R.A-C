@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Timer;
 
 use App\Models\Timer;
 use Illuminate\Console\Command;
 
-class getTimer extends Command
+class addTimer extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'get:timer';
+    protected $signature = 'timer:add {time}';
 
     /**
      * The console command description.
@@ -26,6 +26,8 @@ class getTimer extends Command
      */
     public function handle(): void
     {
-        $this->info(Timer::getNextTime());
+        $time = $this->argument("time");
+        $this->info(Timer::addMinutes($time));
+        
     }
 }
