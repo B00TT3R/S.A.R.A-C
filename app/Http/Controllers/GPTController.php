@@ -57,7 +57,6 @@ class GPTController extends Controller
         string $type="não-definido",
         bool $useRoot = true
     ):string{
-            //self::formatRootInfosToText($prompt);
             $client = new Client();
             $model = env("OPENAI_TEXT_MODEL");
             $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
