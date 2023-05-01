@@ -17,7 +17,6 @@ class Timer extends Model
     ];
 
     protected static $instance;
-
     
     private static function getInstance(): self
     {
@@ -26,8 +25,7 @@ class Timer extends Model
                 return self::create([
                     "next" => now()->toDateTimeString()
                 ]);
-            }
-        );
+            });
         }
         return self::$instance;
     }

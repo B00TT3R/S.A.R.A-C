@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command("news:shoot")->when(function (){
             $next = Timer::getNextTime();
-            error_log($next->isPast());
             return $next->isPast();
         });
         
