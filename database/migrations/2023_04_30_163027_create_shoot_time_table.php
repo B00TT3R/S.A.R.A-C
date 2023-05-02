@@ -17,9 +17,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
-        ShootTime::create([
-            "time" => 30
-        ]);
     }
 
     /**

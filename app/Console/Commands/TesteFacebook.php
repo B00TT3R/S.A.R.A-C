@@ -31,8 +31,8 @@ class TesteFacebook extends Command
     {
         $this->info("Postando em: " . FacebookController::getPageName());
         FacebookController::post([
-            'message'=> GPTController::textGen("Crie uma noticia sobre uma futura chuva de meteoros de nivel apocalíptico", 512, 0.6, "teste-geração"),
-            //'url'=> GPTController::imageGen("banner de canguru, estilo soviético, sem texto", "512x512", "teste-facebook"),
+            'message'=> 'GPTController::textGen("Crie uma noticia sobre uma futura chuva de meteoros de nivel apocalíptico", 512, 0.6, "teste-geração"),'
+            //'url'=> GPTController::imageGen("chuva de meteoros", "512x512", "teste-facebook", true),
         ]);
         $this->info(Artisan::output());
     }

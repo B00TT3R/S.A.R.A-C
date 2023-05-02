@@ -4,92 +4,73 @@ namespace App\Http\Controllers;
 
 use App\Models\Errors;
 use App\Models\Post;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 class FacebookController extends Controller
 {
     public static function post(
         array ...$params
     ){
-        $client = new Client();
         $page_id = env("FACEBOOK_PAGE_ID");        
-        try {
-            $json = [
-                'access_token' => env("FACEBOOK_TOKEN"),
-                ...$params[0]
-            ];
-            
-            if(isset($json["url"]) && $json["url"] != ""){
-                $response = $client->post("https://graph.facebook.com/$page_id/photos", [
-                    'json' => $json
-                ]);
-            }
-            else{
-                $response = $client->post("https://graph.facebook.com/$page_id/feed", [
-                    'json' => $json
-                ]);
-            }
-            $body = json_decode($response->getBody()->getContents());
-            return Post::create([
-                "type" =>"facebook",
-                "response" => $body,
-                "request" => $params[0]
-            ]);
-        } catch(RequestException $e) {    
+        $json = [
+            'access_token' => env("FACEBOOK_TOKEN"),
+            ...$params[0]
+        ];
+        $url = "https://graph.facebook.com/$page_id/";
+
+        if (isset($json['url']) && !!$json['url']) $url .= "photos";
+        else  $url .= "feed";
+
+        
+        $response = Http::post($url, $json);
+        $response->onError(function($e){
             error_log("Erro na criação de post facebook");
             Errors::create([
-                'message' => $e->getResponse()->getBody(),
+                'message' => $e,
                 'type'=>'Criação de post para facebook'
             ]);
-        }
+        });
+        return Post::create([
+            "type" =>"facebook",
+            "response" => json_decode($response),
+            "request" => $params[0]
+        ]);        
     }
     
-    public static function getPageName(
-    ){
+    public static function getPageName(){
         $page_id = env("FACEBOOK_PAGE_ID");
-        $client = new Client();
-        try{
-            $response = $client->get("https://graph.facebook.com/$page_id", [
-            'query' => [
-                'fields' => 'name',
-                'access_token' => env("FACEBOOK_TOKEN")
-            ]
+        $response = Http::get("https://graph.facebook.com/$page_id", [
+            'fields' => 'name',
+            'access_token' => env("FACEBOOK_TOKEN")
         ]);
-            $body = json_decode($response->getBody()->getContents());
-            return $body->name;
-        }  catch(RequestException $e) {
+        $body = json_decode($response);
+        $response->onError(function($e){
             error_log("erro na checagem de nome de pagina");
             Errors::create([
                 'message' => $e->getResponse()->getBody(),
                 'type'=>'Checagem de nome de pagina'
             ]);
-        }
+        });
+        return $body->name;
     }
 
     public static function getPostUrl(Post $post){
-        $client = new Client();
+        
         $postId = $post->response["post_id"] ?? $post->response["id"];
-        $response = $client->get("https://graph.facebook.com/$postId", [
-            'query'=>[
-                'fields'=> "permalink_url",
-                "access_token"=>env("FACEBOOK_TOKEN")
-            ]
+        $response = Http::get("https://graph.facebook.com/$postId", [
+            'fields'=> "permalink_url",
+            "access_token"=>env("FACEBOOK_TOKEN")
         ]);
-        $body = json_decode($response->getBody());
+        $body = json_decode($response);
         return $body->permalink_url;
     }
+
     public static function getFeed(){
-        $client = new Client();
         $pageId = env("FACEBOOK_PAGE_ID");
-        $response = $client->get("https://graph.facebook.com/$pageId/feed",[
-            'query' =>[
+        $response = Http::get("https://graph.facebook.com/$pageId/feed",[
                 'fields'=>"permalink_url",
                 "access_token" => env("FACEBOOK_TOKEN")
-            ]
         ]);
-        $body = json_decode($response->getBody()->getContents());
+        $body = json_decode($response);
         return json_encode($body, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES);
     }
 }
