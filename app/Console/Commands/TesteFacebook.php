@@ -3,9 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\FacebookController;
-use App\Http\Controllers\GPTController;
 use Illuminate\Console\Command;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Artisan;
 
 class TesteFacebook extends Command

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\GPTController;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
 class TesteGPT extends Command

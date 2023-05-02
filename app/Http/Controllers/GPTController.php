@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Errors;
 use App\Models\Generation;
 use App\Models\RootInfo;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class GPTController extends Controller
 {
@@ -57,33 +57,31 @@ class GPTController extends Controller
         string $type="não-definido",
         bool $useRoot = true
     ):string{
-            $client = new Client();
-            $model = env("OPENAI_TEXT_MODEL");
-            $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
-            try{
-                $response = $client->post('https://api.openai.com/v1/completions', [
-                    'headers' => [
-                        'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-                    ],
-                    'json' => compact('model', 'prompt', 'max_tokens', 'temperature'),
-                ]);
-                $json = json_decode($response->getBody()->getContents());
-                Generation::create([
-                    "model" => $model,
-                    "type" => $type,
-                    "prompt" => $prompt,
-                    "response" => $json,
-                    "gen_type" => "text",
-                    "result" => $json->choices[0]->text ?? "erro na geração"
-                ]);
-            } catch(RequestException $e){
-                error_log("erro na geração de texto: HTTP ".$e->getCode());
-                Errors::create([
-                    "message" => $e->getResponse()->getBody(),
-                    "type" => "Requisição a openAI (texto)",
-                ]);
-            }
-            return $json->choices[0]->text ?? "erro na geração";
+        $model = env("OPENAI_TEXT_MODEL");
+        $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
+        try{
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer '.env("OPENAI_KEY"),
+            ])->post('https://api.openai.com/v1/completions', [
+                ...compact('model', 'prompt', 'max_tokens', 'temperature'),
+            ])->throw();
+            $json = json_decode($response);
+            Generation::create([
+                "model" => $model,
+                "type" => $type,
+                "prompt" => $prompt,
+                "response" => $json,
+                "gen_type" => "text",
+                "result" => $json->choices[0]->text ?? "erro na geração"
+            ]);
+        } catch(RequestException $e){
+            error_log("erro na geração de texto");
+            Errors::create([
+                "message" => $e,
+                "type" => "Requisição a openAI (texto)",
+            ]);
+        }
+        return $json->choices[0]->text ?? "erro na geração";
     }
     public static function imageGen(
         string $prompt,
@@ -92,20 +90,16 @@ class GPTController extends Controller
         bool $originalUrl = false,
         bool $useRoot = true
     ):string{
-        $client = new Client();
         $prompt = $useRoot? self::formatRootInfosToImage($prompt) : $prompt;
         try{
-            $response = $client->post('https://api.openai.com/v1/images/generations', [
-                'headers' => [
-                    'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-                ],
-                'json' => [
-                    'prompt' => $prompt,
-                    'size' => $size,
-                    'n' => 1,
-                ]
-            ]);
-            $json = json_decode($response->getBody()->getContents());
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer '.env("OPENAI_KEY"),
+            ])->post('https://api.openai.com/v1/images/generations', [
+                'prompt' => $prompt,
+                'size' => $size,
+                'n' => 1,
+            ])->throw();
+            $json = json_decode($response);
             $generation = Generation::create([
                 "model" => env("OPENAI_IMAGE_MODEL"),
                 "gen_type" => "image",
@@ -120,9 +114,9 @@ class GPTController extends Controller
                 return $generation->local_result;
             }
         }catch(RequestException $e){
-            error_log("erro na geração de texto: HTTP ".$e->getCode());
+            error_log("erro na geração de imagem");
             Errors::create([
-                "message" => $e->getResponse()->getBody(),
+                "message" => $e,
                 "type" => "Requisição a openAI (imagem)",
             ]);
             return "https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_960_720.png";
@@ -137,7 +131,6 @@ class GPTController extends Controller
             'total' => $count,
             'image' => $imageGen,
             'text' => $textGen
-            
         ];
     }
 }

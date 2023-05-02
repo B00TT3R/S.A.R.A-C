@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Models;
-
-use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 class Generation extends Model
 {
@@ -25,9 +24,7 @@ class Generation extends Model
 
     private static function downloadImage(string $path):string{
         error_log("Baixando imagem para o armazenamento local");
-        $client = new Client();
-        $response = $client->get($path);
-        $contents = $response->getBody()->getContents();
+        $contents = Http::get($path);        
         $filename = 'image_' . time() . '.png';
         $directory = public_path('images');
         $path = $directory . '/' . $filename;

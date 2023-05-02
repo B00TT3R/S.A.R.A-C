@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\GPTController;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -30,9 +29,5 @@ class TesteImagem extends Command
     {
         $url = GPTController::imageGen("debugging dragon", "256x256" , "teste-imagem");
         $this->info(Artisan::output());
-        
-    
-        
-        
     }
 }
