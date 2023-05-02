@@ -19,7 +19,7 @@ class ShootNews extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'gera uma noticia';
 
     /**
      * Execute the console command.
