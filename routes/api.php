@@ -1,13 +1,11 @@
 <?php
 
 use App\Http\Controllers\ErrorController;
-use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\GPTController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RootInfosController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

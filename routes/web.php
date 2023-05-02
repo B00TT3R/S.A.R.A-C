@@ -17,7 +17,6 @@ use App\Http\Controllers\FrontendController;
 |
 */
 
-//vou mudar isso aqui depois para não precisar usar o fallback!
 Route::fallback([FrontendController::class, "index"]);
 
 
