@@ -13,7 +13,7 @@ class GPTController extends Controller
 {
     public function __construct(){
         $this->model = Generation::class;
-        $this->select = ["id","type", "gen_type"];
+        $this->select = ["id","type","gen_type"];
     }
 
     private static function formatRootInfosToText(string $prompt): string {
@@ -41,6 +41,30 @@ class GPTController extends Controller
         }
     }
     
+    private static function formatRootInfosToTextWithoutPrompt(){
+        $textStyle = RootInfo::where('type', "text")->pluck('info')->toArray();
+        $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
+    
+        $formattedTextStyle = "";
+        if(count($textStyle) > 0) {
+            $formattedTextStyle = " usando os seguintes estilos de escrita: \"" . implode("\", \"", $textStyle) . "\"";
+        }
+    
+        $formattedInfoString = "";
+        if(count($infos) > 0) {
+            $formattedInfoString = " usando alguns desses fatos: \"" . implode("\", \"", $infos) . "\"";
+        }
+
+        if(empty($formattedTextStyle) && empty($formattedInfoString)) {
+            return "Gere uma notícia falsa";
+        } elseif(empty($formattedTextStyle)) {
+            return "Gere uma notícia falsa $formattedInfoString";
+        } elseif(empty($formattedInfoString)) {
+            return "Gere uma notícia falsa $formattedTextStyle.";
+        } else {
+            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString.";
+        }
+    }
 
     private static function formatRootInfosToImage(string $prompt){
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
@@ -51,20 +75,24 @@ class GPTController extends Controller
     }
     
     public static function textGen(
-        string $prompt,
+        null|string $prompt = null,
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
         bool $useRoot = true
     ):string{
         $model = env("OPENAI_TEXT_MODEL");
-        $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
+        if($prompt){
+            $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
+        }
+        else{
+            $prompt = $useRoot?self::formatRootInfosToTextWithoutPrompt():"gere um texto dizendo que o usuário não inseriu a informação necessária";
+        }
         try{
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-            ])->post('https://api.openai.com/v1/completions', [
-                ...compact('model', 'prompt', 'max_tokens', 'temperature'),
-            ])->throw();
+            ])->post('https://api.openai.com/v1/completions',
+                compact('model','prompt','max_tokens','temperature'))->throw();
             $json = json_decode($response);
             Generation::create([
                 "model" => $model,
