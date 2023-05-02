@@ -54,14 +54,13 @@ class FacebookController extends Controller
     }
 
     public static function getPostUrl(Post $post){
-        
         $postId = $post->response["post_id"] ?? $post->response["id"];
         $response = Http::get("https://graph.facebook.com/$postId", [
             'fields'=> "permalink_url",
             "access_token"=>env("FACEBOOK_TOKEN")
         ]);
         $body = json_decode($response);
-        return $body->permalink_url;
+        return $body->permalink_url??"erro";
     }
 
     public static function getFeed(){
