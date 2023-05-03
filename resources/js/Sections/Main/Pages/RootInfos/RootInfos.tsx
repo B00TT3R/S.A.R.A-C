@@ -3,17 +3,19 @@ import { useQuery } from 'react-query'
 
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
-import error from './Types/rootInfo'
+import rootInfo from './Types/rootInfo'
 import Card from './Template/Card/Card'
 import api from '@/Utils/api'
 import { Link } from 'react-router-dom'
+import { Formik } from 'formik'
+import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 
 export default function Users() {
   const [url, setUrl] = useState("/api/rootInfos")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getRootInfos',async ()=> await api.get<paginatedValue<error[]>>
+  const {data, refetch, isFetching} = useQuery('getRootInfos',async ()=> await api.get<paginatedValue<rootInfo[]>>
   (
     url, 
     {params:{orderBy, order}
@@ -23,12 +25,15 @@ export default function Users() {
     refetch()
   },[url, order, orderBy])
 
+  
+
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
-        <h1>Informação:</h1>
+        <h1>Informações Raiz:</h1>
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
+        <AutomaticGen/>
           {
             isFetching
             ?

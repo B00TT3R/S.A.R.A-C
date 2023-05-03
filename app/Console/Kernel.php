@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Http\Controllers\ScheduleController;
+use App\Models\AutoGen;
 use App\Models\Timer;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -16,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command("news:shoot")->when(function (){
             $next = Timer::getNextTime();
-            return $next->isPast();
+            return $next->isPast() && AutoGen::getGenerate();
         });
         
     }
