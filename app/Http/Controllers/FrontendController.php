@@ -36,7 +36,7 @@ class FrontendController extends Controller
             "result" =>  GPTController::imageGen(
                 prompt: $request->value,
                 type: "Geração de conteúdo manual",
-                originalUrl:false
+                originalUrl:true
             )
         ];
     }

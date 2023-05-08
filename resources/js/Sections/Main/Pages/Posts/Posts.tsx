@@ -12,6 +12,7 @@ export default function Posts() {
   const [url, setUrl] = useState("/api/posts")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
+  const [isDeleting, setIsDeleting] = useState(false)
   
   const {data, refetch, isFetching} = useQuery('getPosts',async ()=> await api.get<paginatedValue<post[]>>(url, 
     {params:{orderBy, order}
@@ -28,7 +29,7 @@ export default function Posts() {
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
           {
-            isFetching
+            isFetching || isDeleting
             ?
               <PageSpinner size='text-7xl'/>
             :
@@ -55,7 +56,7 @@ export default function Posts() {
                       <option value="desc">Decrescente</option>
                     </Select>
                   </div>
-                  <Link to="novo" className="ml-auto bg-red text-white   flex flex-col">
+                  <Link to="novo" className="ml-auto bg-red text-white flex flex-col">
                     <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2 mt-auto">
                       Novo
                     </div>
@@ -63,7 +64,7 @@ export default function Posts() {
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((post)=>(
-                    <Card post={post} key={post.id}/>
+                    <Card post={post} onDelete={refetch} isDeleting={setIsDeleting} key={post.id}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>

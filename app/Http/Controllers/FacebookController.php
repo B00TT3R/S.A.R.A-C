@@ -18,8 +18,7 @@ class FacebookController extends Controller
         $url = "https://graph.facebook.com/$page_id/";
 
         if (isset($json['url']) && !!$json['url']) $url .= "photos";
-        else  $url .= "feed";
-
+        else $url .= "feed";
         
         $response = Http::post($url, $json);
         $response->onError(function($e){
@@ -29,11 +28,12 @@ class FacebookController extends Controller
                 'type'=>'Criação de post para facebook'
             ]);
         });
+        
         return Post::create([
             "type" =>"facebook",
             "response" => json_decode($response),
             "request" => $params[0]
-        ]);        
+        ]);;
     }
     
     public static function getPageName(){
@@ -61,6 +61,23 @@ class FacebookController extends Controller
         ]);
         $body = json_decode($response);
         return $body->permalink_url??"erro";
+    }
+
+    public static function deletePost(Post $post){
+        try{
+            $postId = $post->response["post_id"] ?? $post->response["id"];
+            $response = Http::delete("https://graph.facebook.com/$postId", [
+                "access_token"=>env("FACEBOOK_TOKEN")
+            ])->throw();
+            $body = json_decode($response);
+            return $body??"erro";
+
+        } catch (\Exception $e) {
+            Errors::create([
+                "type"=> "post delete",
+                "message"=>$e->getMessage(),
+            ]);
+        }
     }
 
     public static function getFeed(){

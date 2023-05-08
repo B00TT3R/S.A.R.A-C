@@ -35,4 +35,9 @@ class PostsController extends Controller
         ];
     }
 
+    public function destroy($id){
+        FacebookController::deletePost(Post::find($id));
+        Post::destroy($id);
+    }
+
 }
