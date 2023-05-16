@@ -74,7 +74,7 @@ class FacebookController extends Controller
 
         } catch (\Exception $e) {
             Errors::create([
-                "type"=> "post delete",
+                "type"=> "Remoção de post do facebook",
                 "message"=>$e->getMessage(),
             ]);
         }

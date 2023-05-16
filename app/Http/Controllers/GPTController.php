@@ -31,13 +31,13 @@ class GPTController extends Controller
         }
     
         if(empty($formattedTextStyle) && empty($formattedInfoString)) {
-            return "Gere uma notícia falsa Tendo como título: $prompt";
+            return "Gere uma notícia falsa Tendo como título: $prompt:\n";
         } elseif(empty($formattedTextStyle)) {
-            return "Gere uma notícia falsa $formattedInfoString. Tendo como título: $prompt";
+            return "Gere uma notícia falsa $formattedInfoString. Tendo como título: $prompt:\n";
         } elseif(empty($formattedInfoString)) {
-            return "Gere uma notícia falsa $formattedTextStyle. Tendo como título: $prompt";
+            return "Gere uma notícia falsa $formattedTextStyle. Tendo como título: $prompt:\n";
         } else {
-            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString. Tendo como título: $prompt";
+            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString. Tendo como título: $prompt:\n";
         }
     }
     
@@ -143,6 +143,7 @@ class GPTController extends Controller
             }
         }catch(RequestException $e){
             error_log("erro na geração de imagem");
+            error_log($prompt);
             Errors::create([
                 "message" => $e,
                 "type" => "Requisição a openAI (imagem)",

@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get('posts', [PostsController::class, "index"]);
         Route::get('posts/{id}', [PostsController::class, "show"]);
         Route::delete('posts/{id}', [PostsController::class, "destroy"]);
-        Route::post("createPost", [PostsController::class, "create"]); // mudar o nome da rota depois
+        Route::post("createPost", [PostsController::class, "create"]);
         Route::post('getTitleResult', [FrontendController::class, "getTitleResult"]);
         Route::post('getImageResult', [FrontendController::class, "getImageResult"]);
     });
