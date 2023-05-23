@@ -28,7 +28,7 @@ class ScheduleController extends Controller
             useRoot:true
         );
         $url = GPTController::imageGen(
-            prompt: "imagem de capa para a noticia: cujo titulo é:".self::getTitle($message),
+            prompt: "imagem de capa para a noticia: cujo titulo é: ".self::getTitle($message),
             size: "512x512",
             type: "geração-automatica",
             originalUrl: true

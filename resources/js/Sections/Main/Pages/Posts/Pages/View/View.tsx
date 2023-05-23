@@ -68,7 +68,7 @@ export default function ViewError() {
                       </div>
                       <div>
                         <h3 className='text-xl font-semibold'>Preview:</h3>
-                        <FacebookPreview url={data?.data.url}/>
+                        <FacebookEmbed url={data?.data.url}/>
                       </div>
                     </div>
               }
