@@ -1,6 +1,7 @@
 import Errors from './Template/Cards/Errors';
 import Generations from './Template/Cards/Generations';
 import Posts from './Template/Cards/Posts';
+import LastPost from './Template/LastPost/LastPost';
 
 const Home = () => {
     
@@ -16,8 +17,11 @@ const Home = () => {
                     <Errors/>
                     <Generations/>
                     <Posts/>
-                    
                 </div>
+            </div>
+            <div className="grid content-start gap-inherit">
+                <h3>Ultimo Post:</h3>
+                <LastPost/>
             </div>
         </div>
     )

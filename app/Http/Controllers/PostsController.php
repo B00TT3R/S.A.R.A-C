@@ -39,5 +39,12 @@ class PostsController extends Controller
         FacebookController::deletePost(Post::find($id));
         Post::destroy($id);
     }
+    public function lastPost(){
+        $lastPost = Post::latest()->first();
+        
+        return [
+            'url' => FacebookController::getPostUrl($lastPost)
+        ];
+    }
 
 }
