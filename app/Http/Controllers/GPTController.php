@@ -91,7 +91,7 @@ class GPTController extends Controller
         try{
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-            ])->post('https://api.openai.com/v1/completions',
+            ])->timeout(60)->post('https://api.openai.com/v1/completions',
                 compact('model','prompt','max_tokens','temperature'))->throw();
             $json = json_decode($response);
             Generation::create([
@@ -100,7 +100,7 @@ class GPTController extends Controller
                 "prompt" => $prompt,
                 "response" => $json,
                 "gen_type" => "text",
-                "result" => $json->choices[0]->text ?? "erro na geração"
+                "result" => $json->choices[0]->text
             ]);
         } catch(RequestException $e){
             error_log("erro na geração de texto");
