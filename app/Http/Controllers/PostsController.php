@@ -40,8 +40,13 @@ class PostsController extends Controller
         Post::destroy($id);
     }
     public function lastPost(){
+        if(Post::all()->count() == 0){
+            return [
+                'url' => null,
+            ];
+        }
+
         $lastPost = Post::latest()->first();
-        
         return [
             'url' => FacebookController::getPostUrl($lastPost)
         ];

@@ -11,7 +11,11 @@ export default function LastPost(){
             ?
                 <PageSpinner/>
             :
-                <FacebookEmbed url={data?.data.url}/>
+                data?.data.url == null 
+                ?
+                    <h1>Sem ultimo post!</h1>
+                :
+                    <FacebookEmbed url={data?.data.url}/>
             }
         </>
     )   
