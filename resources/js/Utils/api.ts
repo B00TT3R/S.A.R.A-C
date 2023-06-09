@@ -1,6 +1,5 @@
 import axios from 'axios';
 import router from "@/Router/index"
-//const navigate = useNavigate()
 const api = axios
 api.interceptors.response.use(
     (response) => {

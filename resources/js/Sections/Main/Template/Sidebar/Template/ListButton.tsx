@@ -17,7 +17,7 @@ interface props {
 export default function ListButton({Icon, text, to, permission=undefined, iconClass="", iconClassOnActive="", className="", ...rest}:props) {
     const {state:{sidebar}} = useContext(RootContext);
     const {pathname} = useLocation()
-    const permissions:{[key:string]:any} = JSON.parse(localStorage.getItem('permissions') as string);
+    const permissions:{[key:string]:any} = localStorage.getItem('permissions') ? JSON.parse(localStorage.getItem('permissions') as string) : [];
     const isAllowed = (!permission || permissions.includes(permission)) || permissions.includes("*")
     const isMatchedRoute = !!matchPath({ path: `/${to}`, end:false },location.pathname )
     

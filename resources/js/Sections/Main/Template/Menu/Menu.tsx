@@ -7,7 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Menu() {
     const navigate = useNavigate()
     const { state, dispatch } = useContext(RootContext);
-    const permissions = JSON.parse(localStorage.getItem('permissions') as string);
+    if(!localStorage.getItem('permissions')){
+        navigate("/login")
+    }
+    const permissions = localStorage.getItem('permissions') ? JSON.parse(localStorage.getItem('permissions') as string) : [];
     const canSeeItself = permissions.includes("view_user") || permissions.includes("*")
     
     const handleUserClick = () =>{
