@@ -16,7 +16,7 @@ class PostsController extends Controller
         $posts = Post::all();
         return [
             "total" => $posts->count(),
-            "last" => $posts->last()->created_at
+            "last" => $posts->last()->created_at ?? null
         ];
     }
     public function show($id){
