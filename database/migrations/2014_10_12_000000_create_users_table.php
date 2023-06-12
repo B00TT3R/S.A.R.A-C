@@ -31,7 +31,7 @@ return new class extends Migration
                 'email' => 'boott3r@gmail.com',
                 "permissions" => ["*"],
                 //'password' => '$2a$12$XXQ3yLGOqd5dpFL1O/3R9.vxxc33jJeXwfCb3CRyRF.LhefHGEyAm',
-                'password' => Hash::make("senhateste"),
+                'password' => "senhateste",
             ]
         );
         
