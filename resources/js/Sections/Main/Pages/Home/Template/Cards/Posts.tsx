@@ -22,7 +22,7 @@ export default function Posts() {
                 isFetching?<PageSpinner size='text-5xl'/>:(
                     <>
                         <span><b>Total</b>: {data?.data.total}</span>
-                        <span><b>Ultima criação:</b>: {DateFormatter(data?.data.last)}</span>
+                        <span><b>Ultima criação:</b>: {data?.data.last?DateFormatter(data?.data.last):"sem posts"}</span>
                         
                     </>
                 )
