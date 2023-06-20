@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RootInfo;
 use App\Models\ShootTime;
 use App\Models\Timer;
 use Illuminate\Http\Request;
@@ -19,16 +20,35 @@ class ScheduleController extends Controller
         error_log($title);
         return $title;
     }
+    private static function getImagePrompt($title){
+        $prompt = "descreva de forma sem prosa, curta e sucinta, a imagem de capa de uma noticia cujo titulo é o seguinte:";
+        $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
+        if(count($infos) == 0)
+            $infos = "";
+        else
+            $infos = ", Respeitando os seguintes estilos de imagem: ".implode('\n, ', $infos);
+        
+        $imagePrompt =  GPTController::textGen(
+            max_tokens: 512,
+            prompt: "$prompt: $title$infos. \n>",
+            temperature:0.4,
+            type: "geração de prompt de imagem",
+            useRoot:false,
+        );
+        error_log($imagePrompt);
+        return $imagePrompt;
+    }
     public static function shoot(){
         error_log("Criando noticia automaticamente...");
         $message = GPTController::textGen(
-            max_tokens:2048,
+            max_tokens:3064,
             temperature:0.6,
             type: "geração automática",
             useRoot:true
         );
         $url = GPTController::imageGen(
-            prompt: "imagem de capa para a noticia: cujo titulo é: ".self::getTitle($message),
+            //prompt: "imagem de capa para a noticia: cujo titulo é: ".self::getTitle($message),
+            prompt: self::getImagePrompt(self::getTitle($message)),
             size: "512x512",
             type: "geração-automatica",
             originalUrl: true
