@@ -23,7 +23,6 @@ export default function Login() {
                 setError(error.response.data.message)
             }
         }
-        
         setSubmitting(false)
     }
     const initial = {
@@ -49,7 +48,7 @@ export default function Login() {
                     isSubmitting
                 }) => (
                     <Form
-                        className='w-96 border-2 bg-white rounded-md shadow-md shadow-gray-300 p-3 items-center flex flex-col gap-4'
+                        className='w-80 sm:w-96 border-2 bg-white rounded-md shadow-md shadow-gray-300 p-3 items-center flex flex-col gap-4'
                     >
                         <div className='text-center'>
                             <h1 className="text-3xl">

@@ -35,7 +35,7 @@ export default function Posts() {
             :
               <>
                 {/* orderby */}
-                <div className='flex gap-2 w-full'>
+                <div className='flex gap-1 sm:gap-2 w-full text-sm sm:text-base'>
                   <div className='grid'>
                     <span>Ordernar por: </span>
                     <Select 
@@ -57,7 +57,7 @@ export default function Posts() {
                     </Select>
                   </div>
                   <Link to="novo" className="ml-auto bg-red text-white flex flex-col">
-                    <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2 mt-auto">
+                    <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2.5 sm:p-2 mt-auto">
                       Novo
                     </div>
                   </Link>

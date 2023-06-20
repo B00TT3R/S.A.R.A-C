@@ -38,7 +38,6 @@ export default function Sidebar() {
             "hover:bg-white hover:text-black transition-colors h-full",
             sidebar?"w-14":"w-full"
           )}
-          
         >
           {sidebar?"<":">"}
         </button>
@@ -48,14 +47,14 @@ export default function Sidebar() {
         Icon={FaHome}
         text="Home"
         to="/"
-        iconClass='group-hover:text-black'
+        iconClass='sm:group-hover:text-black active:text-black'
         iconClassOnActive="text-black"
       />
       <ListButton
         Icon={FaFacebook}
         text="Posts"
         to="/posts"
-        iconClass='group-hover:text-blue-600'
+        iconClass='sm:group-hover:text-blue-600 active:text-blue-600'
         iconClassOnActive="text-blue-600"
         permission='posts'
       />
@@ -63,7 +62,7 @@ export default function Sidebar() {
         Icon={BiErrorAlt}
         text="Erros"
         to="/erros"
-        iconClass='group-hover:text-red-500'
+        iconClass='sm:group-hover:text-red-500 active:text-red-500'
         iconClassOnActive="text-red-500"
         permission='errors'
       />
@@ -71,7 +70,7 @@ export default function Sidebar() {
         Icon={SiOpenai}
         text="Gerações"
         to="/geracoes"
-        iconClass='group-hover:text-green-500'
+        iconClass='sm:group-hover:text-green-500 active:text-green-500'
         iconClassOnActive="text-green-500"
         permission='generations'
       />
@@ -79,7 +78,7 @@ export default function Sidebar() {
         Icon={TbInfoSquare}
         text="Informações Raiz"
         to="/inforaiz"
-        iconClass='group-hover:text-fuchsia-500'
+        iconClass='sm:group-hover:text-fuchsia-500 active:text-fuchsia-500'
         iconClassOnActive="text-fuchsia-500"
         permission='view_users'
       />
@@ -87,7 +86,7 @@ export default function Sidebar() {
         Icon={FaUserAlt}
         text="Usuários"
         to="/usuarios"
-        iconClass='group-hover:text-blue-500'
+        iconClass='sm:group-hover:text-blue-500 active:text-blue-500'
         iconClassOnActive="text-blue-500"
         permission='view_users'
       />
@@ -96,7 +95,7 @@ export default function Sidebar() {
           Icon={FaGithub}
           text="Link no Github"
           to="https://github.com/B00TT3R/S.A.R.A"
-          iconClass='group-hover:text-green-500'
+          iconClass='sm:group-hover:text-green-500 active:text-green-500'
           iconClassOnActive="text-green-500"
         />
       </footer>
