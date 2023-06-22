@@ -19,8 +19,8 @@ class Controller extends BaseController
         return $register;
     }
     public function show($id){
-        $error = $this->model::findOrFail($id);
-        return $error;
+        $register = $this->model::findOrFail($id);
+        return $register;
     }
     public function create(Request $request){
         $this->model::create($request->all());
