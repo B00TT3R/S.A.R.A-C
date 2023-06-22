@@ -16,6 +16,66 @@ class GPTController extends Controller
         $this->select = ["id","type","gen_type"];
     }
 
+    private static function textCompletionGen(
+        null|string $prompt = null,
+        int $max_tokens = 512,
+        float $temperature = 0.7,
+        string $type="não-definido",
+    ){
+        $model = env("OPENAI_TEXT_MODEL");
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.env("OPENAI_KEY"),
+        ])->timeout(60)->post('https://api.openai.com/v1/completions',
+            compact('model','prompt','max_tokens','temperature'))->throw();
+        $json = json_decode($response);
+        Generation::create([
+            "model" => $model,
+            "type" => $type,
+            "prompt" => $prompt,
+            "response" => $json,
+            "gen_type" => "text",
+            "result" => $json->choices[0]->text
+        ]);
+        return $json->choices[0]->text ?? "erro na geração";
+    }
+    
+    private static function chatCompletionGen(
+        null|string $prompt = null,
+        int $max_tokens = 512,
+        float $temperature = 0.7,
+        string $type="não-definido",
+    ){
+        $model = env("OPENAI_TEXT_MODEL");
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer '.env("OPENAI_KEY"),
+        ])->timeout(60)->post('https://api.openai.com/v1/chat/completions',[
+            "model" => $model,
+            "messages" => [
+                [
+                    "role" => "system",
+                    "content" => "fale de forma impessoal e sem prosa"
+                ],
+                [
+                    "role" => "user",
+                    "content" => $prompt
+                ],
+            ],
+            "max_tokens" => $max_tokens,
+            "temperature" => $temperature
+        ])->throw();
+        $json = json_decode($response);
+        
+        Generation::create([
+            "model" => $model,
+            "type" => $type,
+            "prompt" => $prompt,
+            "response" => $json,
+            "gen_type" => "text",
+            "result" => $json->choices[0]->message->content
+        ]);
+        return $json->choices[0]->message->content ?? "erro na geração";
+    }
+
     private static function formatRootInfosToText(string $prompt): string {
         $textStyle = RootInfo::where('type', "text")->pluck('info')->toArray();
         $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
@@ -81,7 +141,7 @@ class GPTController extends Controller
         string $type="não-definido",
         bool $useRoot = true
     ):string{
-        $model = env("OPENAI_TEXT_MODEL");
+        $textGenType = env("OPENAI_TEXT_GEN_TYPE");
         if($prompt){
             $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
         }
@@ -89,19 +149,22 @@ class GPTController extends Controller
             $prompt = $useRoot?self::formatRootInfosToTextWithoutPrompt():"gere um texto dizendo que o usuário não inseriu a informação necessária";
         }
         try{
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-            ])->timeout(60)->post('https://api.openai.com/v1/completions',
-                compact('model','prompt','max_tokens','temperature'))->throw();
-            $json = json_decode($response);
-            Generation::create([
-                "model" => $model,
-                "type" => $type,
-                "prompt" => $prompt,
-                "response" => $json,
-                "gen_type" => "text",
-                "result" => $json->choices[0]->text
-            ]);
+            if($textGenType == "completion"){
+                $json = self::textCompletionGen(
+                    $prompt,
+                    $max_tokens,
+                    $temperature,
+                    $type
+                );
+            }
+            elseif($textGenType == "chat"){
+                $json = self::chatCompletionGen(
+                    $prompt,
+                    $max_tokens,
+                    $temperature,
+                    $type
+                );
+            }
         } catch(RequestException $e){
             error_log("erro na geração de texto");
             Errors::create([
@@ -109,7 +172,7 @@ class GPTController extends Controller
                 "type" => "Requisição a openAI (texto)",
             ]);
         }
-        return $json->choices[0]->text ?? "erro na geração";
+        return $json;
     }
     public static function imageGen(
         string $prompt,
