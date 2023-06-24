@@ -4,6 +4,10 @@ S.A.R.A significa Sistema Automatizado de Relatos Artificiais.
 
 O objetivo do S.A.R.A é produzir e manter uma "notícia" falsa usando inteligência artificial.
 
+## Visão Geral
+
+O S.A.R.A (Sistema Automatizado de Relatos Artificiais) é um projeto que visa conscientizar as pessoas sobre as capacidades das inteligências artificiais modernas. Ele permite a geração automática de notícias usando modelos de IA e oferece a opção de publicá-las automaticamente no Facebook. O backend é desenvolvido em Laravel, enquanto o frontend utiliza React e Tailwind. O projeto é direcionado a desenvolvedores interessados em geração de texto por IA. É importante observar que o uso do S.A.R.A deve estar dentro dos limites legais e éticos. Para obter mais informações e suporte, consulte a documentação do projeto.
+
 ## Funcionamento
 
 O projeto consiste na criação e manutenção de uma notícia falsa que será regularmente postada no Facebook. O backend do projeto é desenvolvido em PHP com o framework Laravel, enquanto o frontend é construído com ReactJS.
