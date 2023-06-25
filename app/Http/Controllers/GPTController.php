@@ -60,6 +60,10 @@ class GPTController extends Controller
                     "content" => "Considere que o usuário vá apenas copiar e colar a resposta"
                 ],
                 [
+                    "role" => "system",
+                    "content" => "Não use prefixos no prompt, por exemplo: \"Imaxem:\", apenas gere o conteúdo requisitado"
+                ],
+                [
                     "role" => "user",
                     "content" => $prompt
                 ],
