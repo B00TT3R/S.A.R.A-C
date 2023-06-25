@@ -53,7 +53,11 @@ class GPTController extends Controller
             "messages" => [
                 [
                     "role" => "system",
-                    "content" => "fale de forma impessoal e sem prosa"
+                    "content" => "fale de forma impessoal e sem prosa, de forma a dar apenas o resultado pedido"
+                ],
+                [
+                    "role" => "system",
+                    "content" => "Considere que o usuário vá apenas copiar e colar a resposta"
                 ],
                 [
                     "role" => "user",
@@ -130,7 +134,7 @@ class GPTController extends Controller
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             return $prompt;
-        $formattedString = implode(' \n ', $infos);
+        $formattedString = implode(', \n ', $infos);
         return "$prompt,  \n Estilos: $formattedString";
     }
     
