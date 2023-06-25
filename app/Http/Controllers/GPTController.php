@@ -57,11 +57,15 @@ class GPTController extends Controller
                 ],
                 [
                     "role" => "system",
-                    "content" => "Considere que o usuário vá apenas copiar e colar a resposta"
+                    "content" => "Considere que o usuário vá apenas copiar e colar a resposta, sem tratamento"
                 ],
                 [
                     "role" => "system",
-                    "content" => "Não use prefixos no prompt, por exemplo: \"Imaxem:\", apenas gere o conteúdo requisitado"
+                    "content" => "Não use prefixos como \"Imagem de \" ou \"Imagem de capa: \" no retorno apenas gere o conteúdo requisitado de forma impessoal"
+                ],
+                [
+                    "role" => "system",
+                    "content" => "Finja que está criando respostas para uma máquina, não dê explicações sobre a razão de prompts de imagem (caso requisitado)"
                 ],
                 [
                     "role" => "user",
@@ -182,6 +186,7 @@ class GPTController extends Controller
         }
         return $json;
     }
+
     public static function imageGen(
         string $prompt,
         string $size = "1024x1024",
@@ -222,6 +227,7 @@ class GPTController extends Controller
             return "https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061131_960_720.png";
         }
     }
+
     public function generationCount(){
         $generations = Generation::all();
         $count = $generations->count();

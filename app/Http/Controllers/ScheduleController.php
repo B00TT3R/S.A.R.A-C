@@ -21,7 +21,7 @@ class ScheduleController extends Controller
         return $title;
     }
     private static function getImagePrompt($title){
-        $prompt = "Descreva de forma sem prosa, curta, resumida e sucinta, considerando que será o prompt a ser passado para uma IA de geração de imagem, a imagem de capa de uma noticia cujo titulo é o seguinte:";
+        $prompt = "Descreva de forma sem prosa, curta, literal e sucinta, uma possível imagem de capa para uma noticia cujo titulo é o seguinte: ";
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             $infos = "";
@@ -29,7 +29,7 @@ class ScheduleController extends Controller
             $infos = ", Respeitando os seguintes estilos de imagem: ".implode(', ', $infos);
         
         $imagePrompt =  GPTController::textGen(
-            max_tokens: 200,
+            max_tokens: 50,
             prompt: "$prompt: $title$infos \n>",
             temperature:0.4,
             type: "geração de prompt de imagem",
@@ -47,7 +47,6 @@ class ScheduleController extends Controller
             useRoot:true
         );
         $url = GPTController::imageGen(
-            //prompt: "imagem de capa para a noticia: cujo titulo é: ".self::getTitle($message),
             prompt: self::getImagePrompt(self::getTitle($message)),
             size: "512x512",
             type: "geração-automatica",
