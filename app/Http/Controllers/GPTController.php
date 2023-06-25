@@ -130,8 +130,8 @@ class GPTController extends Controller
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             return $prompt;
-        $formattedString = implode('\n', $infos);
-        return "Imagem de: $prompt,  \n Estilos: $formattedString";
+        $formattedString = implode(' \n ', $infos);
+        return "$prompt,  \n Estilos: $formattedString";
     }
     
     public static function textGen(
