@@ -21,7 +21,7 @@ class ScheduleController extends Controller
         return $title;
     }
     private static function getImagePrompt($title){
-        $prompt = "Descreva de forma sem prosa, curta, resumida e sucinta, a imagem de capa de uma noticia cujo titulo é o seguinte (seja bem breve):";
+        $prompt = "Descreva de forma sem prosa, curta, resumida e sucinta, a imagem de capa de uma noticia cujo titulo é o seguinte:";
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             $infos = "";
