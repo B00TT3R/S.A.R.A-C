@@ -57,7 +57,7 @@ class GPTController extends Controller
                 ],
                 [
                     "role" => "system",
-                    "content" => "Considere que o usuário vá apenas copiar e colar a resposta, sem tratamento"
+                    "content" => "Considere que o usuário vá apenas copiar a resposta, sem tratamento"
                 ],
                 [
                     "role" => "system",
