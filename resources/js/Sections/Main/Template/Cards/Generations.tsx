@@ -1,6 +1,6 @@
 import React from 'react'
 import Square from '../Square/Square'
-import { SiOpenai } from 'react-icons/all';
+import { SiOpenai } from 'react-icons/si';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import {PageSpinner} from '<>';

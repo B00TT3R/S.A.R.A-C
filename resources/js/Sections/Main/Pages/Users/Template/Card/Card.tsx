@@ -2,7 +2,8 @@ import { classNames } from '@/Utils'
 import StyleHashCase from './Utils/StyleHash'
 import { Link, useNavigate } from 'react-router-dom'
 import user from '../../Types/user'
-import { AiFillEdit, BiEditAlt, MdModeEditOutline, RxCrossCircled } from 'react-icons/all'
+import { MdModeEditOutline} from 'react-icons/md'
+import { RxCrossCircled } from 'react-icons/rx'
 import api from '@/Utils/api'
 interface props{
     user: user

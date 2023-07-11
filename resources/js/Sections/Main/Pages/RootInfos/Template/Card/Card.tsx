@@ -1,7 +1,8 @@
 import { classNames } from '@/Utils'
 import { Link, useNavigate } from 'react-router-dom'
 import rootInfo from '../../Types/rootInfo'
-import { MdModeEditOutline, RxCrossCircled } from 'react-icons/all'
+import { MdModeEditOutline } from 'react-icons/md'
+import { RxCrossCircled } from 'react-icons/rx'
 import api from '@/Utils/api'
 import InfoHash from './Utils/InfoHash'
 interface props{

@@ -4,7 +4,8 @@ import { classNames } from '@/Utils';
 import { Context } from '../../Context/Context';
 import { useQuery } from 'react-query';
 import api from '@/Utils/api';
-import { CgSpinnerTwoAlt, FaLightbulb } from 'react-icons/all';
+import { FaLightbulb } from 'react-icons/fa';
+import { CgSpinnerTwoAlt } from 'react-icons/cg';
 
 export default function TextPrompt() {
     const {state, dispatch} = useContext(Context)

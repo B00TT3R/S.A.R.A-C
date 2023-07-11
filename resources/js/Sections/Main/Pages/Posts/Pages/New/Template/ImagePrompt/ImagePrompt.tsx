@@ -4,7 +4,10 @@ import { classNames } from '@/Utils';
 import { Context } from '../../Context/Context';
 import { useQuery } from 'react-query';
 import api from '@/Utils/api';
-import { CgSpinnerTwoAlt, FaLightbulb, FiRotateCcw } from 'react-icons/all';
+import { CgSpinnerTwoAlt } from 'react-icons/cg';
+import { FaLightbulb } from 'react-icons/fa';
+import { FiRotateCcw } from 'react-icons/fi';
+
 
 export default function ImagePrompt() {
     const {state, dispatch} = useContext(Context)

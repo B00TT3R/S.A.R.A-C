@@ -1,5 +1,8 @@
 import { useContext } from 'react';
-import { FaGithub, FaHome, BiErrorAlt, SiOpenai, FaFacebook, FaUserAlt, AiOutlineInfoCircle, BsInfoCircleFill, TbInfoSquare } from 'react-icons/all'
+import { FaGithub, FaHome, FaFacebook, FaUserAlt } from 'react-icons/fa';
+import { BiErrorAlt } from 'react-icons/bi';
+import { SiOpenai } from 'react-icons/si';
+import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 import { classNames } from '@/Utils/index';

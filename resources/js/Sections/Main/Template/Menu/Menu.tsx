@@ -1,7 +1,8 @@
 import React, {useContext} from 'react'
 import RootContext from '../../Contexts/RootContext';
 import { classNames } from '@/Utils';
-import { FaSignOutAlt, FaUser, RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/all';
+import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
+import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Menu() {

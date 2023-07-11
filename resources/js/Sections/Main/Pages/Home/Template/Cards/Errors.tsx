@@ -1,6 +1,6 @@
 import React from 'react'
 import Square from '../Square/Square'
-import { BiErrorAlt } from 'react-icons/all';
+import { BiErrorAlt } from 'react-icons/bi';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import {PageSpinner} from '<>';
