@@ -1,10 +1,11 @@
+import { titleHandler } from '@/Utils';
 import Errors from './Template/Cards/Errors';
 import Generations from './Template/Cards/Generations';
 import Posts from './Template/Cards/Posts';
 import LastPost from './Template/LastPost/LastPost';
 
 const Home = () => {
-    
+    titleHandler("Home")
     return (
         <div className='grid content-start gap-2'>
             <header className="text-2xl">

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import error from './Types/user'
 import Card from './Template/Card/Card'
-import api from '@/Utils/api'
 import { Link } from 'react-router-dom'
+import { titleHandler, api } from '@/Utils'
 
 export default function Users() {
+  titleHandler("Usuários")
   const [url, setUrl] = useState("/api/users")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")

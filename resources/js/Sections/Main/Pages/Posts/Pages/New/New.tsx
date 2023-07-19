@@ -1,12 +1,13 @@
-import {useContext, useReducer} from 'react'
+import { useReducer } from 'react'
 import TextPrompt from './Template/TextPrompt/TextPrompt';
 import { Context, initialState, reducer } from './Context/Context';
 import ImagePrompt from './Template/ImagePrompt/ImagePrompt';
 import { PageSpinner } from '<>';
 import { useQuery } from 'react-query';
-import api from '@/Utils/api';
+import { titleHandler, api } from '@/Utils';
 
 export default function NewPòst() {
+  titleHandler("Criar Post")
   const [state, dispatch] = useReducer(reducer, initialState)
   const { isFetching, data, refetch } = useQuery(
     "createPost", 

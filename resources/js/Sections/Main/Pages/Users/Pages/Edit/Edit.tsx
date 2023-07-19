@@ -1,16 +1,17 @@
 import { Input, ListSwitch, PageSpinner } from "<>"
 import { GlobalContext } from "@/Context/GlobalContext";
-import api from "@/Utils/api";
+import { titleHandler, api } from "@/Utils";
 import {Form, Formik, FormikHelpers} from "formik"
 import { ChangeEvent, useContext } from "react"
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import {array, object, string} from "yup"
 const EditUser = () =>{
+    const {id} = useParams();
+    titleHandler(`Editar usuário ${id}`)
     const navigate = useNavigate()
     const {data, isFetching, error} =useQuery("getUserData", async ()=>await api.get(`/api/users/${id}`))
     const {allPermissions} = useContext(GlobalContext);
-    const {id} = useParams();
     const initialValues = {
         name: data?.data.name,
         email:data?.data.email,

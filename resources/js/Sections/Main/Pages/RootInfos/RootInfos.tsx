@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import rootInfo from './Types/rootInfo'
 import Card from './Template/Card/Card'
-import api from '@/Utils/api'
 import { Link } from 'react-router-dom'
-import { Formik } from 'formik'
 import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
+import { titleHandler, api } from '@/Utils'
 
 export default function Users() {
+  titleHandler("Informações Raiz")
   const [url, setUrl] = useState("/api/rootInfos")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")

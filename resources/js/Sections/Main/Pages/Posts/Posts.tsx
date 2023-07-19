@@ -1,4 +1,3 @@
-import api from '@/Utils/api'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 
@@ -7,8 +6,10 @@ import {PageSpinner, Pagination, Select} from '<>'
 import post from './Types/post'
 import Card from './Template/Card/Card'
 import { Link } from 'react-router-dom'
+import { api, titleHandler } from '@/Utils'
 
 export default function Posts() {
+  titleHandler("Posts")
   const [url, setUrl] = useState("/api/posts")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")

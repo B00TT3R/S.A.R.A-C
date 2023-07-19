@@ -1,15 +1,14 @@
 import { PageSpinner,Switch } from '<>'
 import {useContext} from 'react'
-import { DateFormatter } from '@/Utils'
-import api from '@/Utils/api'
+import { DateFormatter, titleHandler, api } from '@/Utils'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '@/Context/GlobalContext'
 import InfoHash from '../../Template/Card/Utils/InfoHash'
 
-export default function ViewError() {
-  const {allPermissions} = useContext(GlobalContext);
+export default function ViewRootInfo() {
   const {id} = useParams()
+  titleHandler(`Informação Raiz ${id}`)
   const {data, refetch, isFetching, error} = useQuery(
     'getUser', 
     async ()=> await api.get(`/api/rootInfos/${id}`),

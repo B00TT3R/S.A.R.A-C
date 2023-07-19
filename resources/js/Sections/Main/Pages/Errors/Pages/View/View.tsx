@@ -1,13 +1,12 @@
 import { PageSpinner } from '<>'
-import { DateFormatter } from '@/Utils'
-import api from '@/Utils/api'
+import { DateFormatter, titleHandler, api } from '@/Utils'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
 export default function ViewError() {
   const {id} = useParams()
-  const [notFound, setNotFound] = useState(false)
+  titleHandler(`Erro ${id}`)
   const {data, refetch, isFetching, error} = useQuery(
     'getError', 
     async ()=> await api.get(`/api/errors/${id}`),

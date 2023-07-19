@@ -1,6 +1,5 @@
-import { Input, ListSwitch, PageLoader, PageSpinner, Select } from "<>"
-import { GlobalContext } from "@/Context/GlobalContext";
-import api from "@/Utils/api";
+import { Input, PageSpinner, Select } from "<>"
+import { titleHandler, api } from "@/Utils";
 import {Form, Formik, FormikHelpers} from "formik"
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,6 +7,7 @@ import { object, string} from "yup"
 const EditRoot = () =>{
     const navigate = useNavigate()
     const {id} = useParams()
+    titleHandler(`Editar Informação Raiz ${id}`)
     const {data, isFetching} = useQuery("getRootInfo", async ()=>await api.get(`/api/rootInfos/${id}`))
     const initialValues = {
         info: data?.data.info,

@@ -1,13 +1,13 @@
-import api from '@/Utils/api'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-
 import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import generation from './Types/generation'
 import Card from './Template/Card/Card'
+import { titleHandler, api } from '@/Utils'
 
-export default function Errors() {
+export default function Generations() {
+  titleHandler("Gerações")
   const [url, setUrl] = useState("/api/generations")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")

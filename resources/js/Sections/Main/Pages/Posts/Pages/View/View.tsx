@@ -1,15 +1,13 @@
 import { PageSpinner } from '<>'
-import { DateFormatter } from '@/Utils'
-import api from '@/Utils/api'
+import { DateFormatter, titleHandler, api } from '@/Utils'
 import { FacebookEmbed } from 'react-social-media-embed';
-
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import FacebookPreview from '../../Template/FacebookPreview/FacebookPreview'
 
 export default function ViewError() {
   const {id} = useParams()
-  const {data, refetch, isFetching, error} = useQuery(
+  titleHandler(`Post ${id}`)
+  const {data, isFetching, error} = useQuery(
     'getPost', 
     async ()=> await api.get(`/api/posts/${id}`),
     {

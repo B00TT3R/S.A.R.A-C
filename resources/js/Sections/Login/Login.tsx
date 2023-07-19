@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik';
 import { string, object } from 'yup'
 import { Input } from '@/Components';
-import api from '@/Utils/api';
+import {titleHandler, api} from "@/Utils"
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Login() {
+    titleHandler("Login")
     const navigate = useNavigate()
     const [error, setError] = useState<string|undefined>()
     const handleSubmit = async (values:typeof initial, {setSubmitting}:FormikHelpers<typeof initial>) => {

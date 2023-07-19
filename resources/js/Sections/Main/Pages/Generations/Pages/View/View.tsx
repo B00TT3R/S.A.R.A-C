@@ -1,11 +1,12 @@
 import { PageSpinner } from '<>'
-import { DateFormatter } from '@/Utils'
+import { DateFormatter, titleHandler } from '@/Utils'
 import api from '@/Utils/api'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
-export default function ViewError() {
+export default function ViewGeneration() {
   const {id} = useParams()
+  titleHandler(`Geração  ${id}`)
   const {data, refetch, isFetching, error} = useQuery(
     'getGeneration', 
     async ()=> await api.get(`/api/generations/${id}`),

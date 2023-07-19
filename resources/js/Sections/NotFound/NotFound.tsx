@@ -1,8 +1,9 @@
 import { classNames } from '@/Utils'
-import React from 'react'
 import { Link } from 'react-router-dom'
+import { titleHandler } from '@/Utils'
 
 export default function NotFound() {
+  titleHandler("Não Encontrado!")
   return (
     <section className='w-full h-screen flex flex-col items-center justify-center p-2 text-center'>
         <h1 style={{textShadow:"0px 4px 7px grey"}} className='text-9xl'>404</h1>

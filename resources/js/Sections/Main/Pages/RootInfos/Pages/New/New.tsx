@@ -1,11 +1,10 @@
-import { Input, ListSwitch, Select } from "<>"
-import { GlobalContext } from "@/Context/GlobalContext";
-import api from "@/Utils/api";
+import { Input, Select } from "<>"
+import { titleHandler, api } from "@/Utils";
 import {Form, Formik, FormikHelpers} from "formik"
-import { ChangeEvent, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { object, string} from "yup"
 const NewUser = () =>{
+    titleHandler(`Criar Informação Raiz`)
     const navigate = useNavigate()
     const initialValues = {
         info: "",

@@ -5,9 +5,10 @@ import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import error from './Types/error'
 import Card from './Template/Card/Card'
-import api from '@/Utils/api'
+import { titleHandler, api } from '@/Utils'
 
 export default function Errors() {
+  titleHandler("Erros")
   const [url, setUrl] = useState("/api/errors")
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")

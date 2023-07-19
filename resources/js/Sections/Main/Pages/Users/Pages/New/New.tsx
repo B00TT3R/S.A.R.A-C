@@ -1,11 +1,12 @@
 import { Input, ListSwitch } from "<>"
 import { GlobalContext } from "@/Context/GlobalContext";
-import api from "@/Utils/api";
+import { titleHandler, api } from "@/Utils";
 import {Form, Formik, FormikHelpers} from "formik"
 import { ChangeEvent, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import {array, object, string} from "yup"
 const NewUser = () =>{
+    titleHandler("Criar usuário")
     const navigate = useNavigate()
     const {allPermissions} = useContext(GlobalContext);
     const initialValues = {
