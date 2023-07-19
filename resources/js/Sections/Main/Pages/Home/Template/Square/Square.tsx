@@ -16,15 +16,17 @@ export default function Square({
   return (
     <article
         className={classNames(
-            'w-full bg-white border rounded-sm shadow-md shadow-gray-200 p-2 grid gap-1 content-start',
+            'w-full border rounded-sm shadow-md p-2 grid gap-1 content-start',
             "transition-all duration-500 group",
-            "hover:shadow-lg hover:rounded-md cursor-pointer"
+            "hover:rounded-md cursor-pointer",
+            "shadow-gray-200 bg-white hover:shadow-lg border-1",
+            "dark:shadow-none dark:bg-slate-950 dark:border-2 dark:border-slate-800",
+            
         )}
         onClick={()=>navigate(to)}
     >
         <header className='font-semibold text-lg w-full flex items-center gap-2'>{title}</header>
         {children}
-
     </article>
   )
 }

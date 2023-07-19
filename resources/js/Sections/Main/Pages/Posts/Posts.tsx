@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-
 import {paginatedValue} from '-ts/paginatedValue'
-import {PageSpinner, Pagination, Select} from '<>'
+import {NewButton, PageSpinner, Pagination, Select} from '<>'
 import post from './Types/post'
 import Card from './Template/Card/Card'
-import { Link } from 'react-router-dom'
 import { api, titleHandler } from '@/Utils'
 
 export default function Posts() {
@@ -38,7 +36,7 @@ export default function Posts() {
                 {/* orderby */}
                 <div className='flex gap-1 sm:gap-2 w-full text-sm sm:text-base'>
                   <div className='grid'>
-                    <span>Ordernar por: </span>
+                    <span>Ordenar por: </span>
                     <Select 
                       onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
                       value={orderBy}
@@ -57,11 +55,7 @@ export default function Posts() {
                       <option value="desc">Decrescente</option>
                     </Select>
                   </div>
-                  <Link to="novo" className="ml-auto bg-red text-white flex flex-col">
-                    <div className="bg-black hover:bg-gray-700 transition-colors rounded-md p-2.5 sm:p-2 mt-auto">
-                      Novo
-                    </div>
-                  </Link>
+                  <NewButton to="novo"/>
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((post)=>(

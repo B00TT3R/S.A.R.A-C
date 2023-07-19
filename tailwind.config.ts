@@ -1,6 +1,5 @@
 import { Config } from 'tailwindcss';
 
-import defaultTheme from 'tailwindcss/defaultTheme';
 import formsPlugin from '@tailwindcss/forms';
 
 const config: Config = {
@@ -12,9 +11,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-      },
       gap: {
         inherit: 'inherit',
       },

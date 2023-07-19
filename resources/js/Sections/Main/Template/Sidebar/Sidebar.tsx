@@ -29,11 +29,11 @@ export default function Sidebar() {
       )}>
         <Link to="/"
           className={classNames(
-            'hover:underline',
+            'hover:underline whitespace-nowrap',
             sidebar?"block":"hidden"
           )}
         >
-          S.A.R.A
+          S.A.R.A-C
         </Link>
         <button 
           onClick={toggleSidebar}

@@ -35,7 +35,7 @@ export default function Generations() {
                 {/* orderby */}
                 <div className='flex gap-2'>
                   <div className='grid'>
-                    <span>Ordernar por: </span>
+                    <span>Ordenar por: </span>
                     <Select 
                       onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
                       value={orderBy}

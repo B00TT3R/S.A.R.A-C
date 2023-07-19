@@ -8,11 +8,9 @@ export default function titleHandler(title:string, useRoot = true):void {
         else{
             document.title = title
         }
-        
         return () => {
             document.title = prefix
         }
-
     },[])
     
 }

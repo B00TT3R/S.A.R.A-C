@@ -5,6 +5,7 @@ import Select from "./Select/Select"
 import Input from "./Input/Input"
 import Switch from "./Switch/Switch"
 import ListSwitch from "./ListSwitch/ListSwitch"
+import NewButton from "./NewButton/NewButton"
 export {
     PageLoader,
     PageSpinner,
@@ -13,7 +14,5 @@ export {
     Input,
     Switch,
     ListSwitch,
+    NewButton
 }
-
-
-

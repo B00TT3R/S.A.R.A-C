@@ -1,8 +1,14 @@
 import { createContext } from "react";
 
+function getInitialTheme() {
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDarkMode ? "dark" : "light";
+}
+
 const initialState = {
     sidebar: false,
     menu: false,
+    theme: getInitialTheme(),
 };
 
 const RootContext = createContext({} as any);
