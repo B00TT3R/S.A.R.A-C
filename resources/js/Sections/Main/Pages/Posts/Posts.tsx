@@ -4,7 +4,8 @@ import {paginatedValue} from '-ts/paginatedValue'
 import {NewButton, PageSpinner, Pagination, Select} from '<>'
 import post from './Types/post'
 import Card from './Template/Card/Card'
-import { api, titleHandler } from '@/Utils'
+import { titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 
 export default function Posts() {
   titleHandler("Posts")

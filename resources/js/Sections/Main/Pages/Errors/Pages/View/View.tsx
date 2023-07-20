@@ -1,6 +1,6 @@
 import { PageSpinner } from '<>'
-import { DateFormatter, titleHandler, api } from '@/Utils'
-import React, { useState } from 'react'
+import { DateFormatter, titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 

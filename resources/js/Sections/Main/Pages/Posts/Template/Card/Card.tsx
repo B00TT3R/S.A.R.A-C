@@ -1,5 +1,6 @@
 import { RxCrossCircled } from 'react-icons/rx'
-import { classNames, api } from '@/Utils'
+import { classNames } from '@/Utils'
+import api from "@/Utils/api"
 import { CardWrapper } from '<>'
 import post from '../../Types/post'
 interface props{

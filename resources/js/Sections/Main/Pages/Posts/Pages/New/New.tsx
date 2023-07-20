@@ -4,7 +4,8 @@ import { Context, initialState, reducer } from './Context/Context';
 import ImagePrompt from './Template/ImagePrompt/ImagePrompt';
 import { PageSpinner } from '<>';
 import { useQuery } from 'react-query';
-import { titleHandler, api } from '@/Utils';
+import { titleHandler } from '@/Utils';
+import api from "@/Utils/api"
 
 export default function NewPòst() {
   titleHandler("Criar Post")

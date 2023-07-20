@@ -4,7 +4,8 @@ import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import generation from './Types/generation'
 import Card from './Template/Card/Card'
-import { titleHandler, api } from '@/Utils'
+import { titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 
 export default function Generations() {
   titleHandler("Gerações")

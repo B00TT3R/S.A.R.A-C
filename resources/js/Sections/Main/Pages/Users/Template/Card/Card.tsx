@@ -1,5 +1,6 @@
-import { classNames, api } from '@/Utils'
-import { Link, useNavigate } from 'react-router-dom'
+import { classNames } from '@/Utils'
+import api from '@/Utils/api'
+import { useNavigate } from 'react-router-dom'
 import user from '../../Types/user'
 import { MdModeEditOutline} from 'react-icons/md'
 import { RxCrossCircled } from 'react-icons/rx'
@@ -25,7 +26,7 @@ export default function Card({user, onDelete}:props) {
 
     }
   }
-  
+
   return(
     <CardWrapper to={user.id.toString()} 
       className='flex gap-1 justify-around items-center'

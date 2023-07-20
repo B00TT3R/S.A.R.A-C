@@ -5,7 +5,8 @@ import {NewButton, PageSpinner, Pagination, Select} from '<>'
 import rootInfo from './Types/rootInfo'
 import Card from './Template/Card/Card'
 import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
-import { titleHandler, api } from '@/Utils'
+import { titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 
 export default function RootInfos() {
   titleHandler("Informações Raiz")

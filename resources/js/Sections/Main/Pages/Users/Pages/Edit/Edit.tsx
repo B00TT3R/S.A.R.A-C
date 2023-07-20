@@ -1,6 +1,7 @@
 import { Input, ListSwitch, PageSpinner } from "<>"
 import { GlobalContext } from "@/Context/GlobalContext";
-import { titleHandler, api } from "@/Utils";
+import { titleHandler } from "@/Utils";
+import api from "@/Utils/api"
 import {Form, Formik, FormikHelpers} from "formik"
 import { ChangeEvent, useContext } from "react"
 import { useQuery } from "react-query";

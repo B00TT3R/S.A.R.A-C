@@ -22,11 +22,12 @@ export default function Menu() {
     return (
         <div
             className={classNames(
-                "absolute  left-1/2 -translate-x-1/2",
+                "absolute left-1/2 -translate-x-1/2",
                 "sm:left-auto sm:-translate-x-0 sm:right-2",
-                "border bg-gray-100 w-80  z-10 rounded-b-md",
+                "border w-80  z-10 rounded-b-md",
                 "flex flex-col group",
                 "text-2xl transition-all",
+                "bg-gray-100 dark:bg-slate-600 dark:border-slate-800",
                 state.menu?"shadow-md":"-translate-y-full",
             )}
             id="menu"
@@ -35,24 +36,39 @@ export default function Menu() {
                 <button 
                     className={
                         classNames(
-                            'flex w-full items-center gap-2 bg-gray-100 p-2 hover:brightness-95 transition-all',
-                            canSeeItself?"cursor-pointer":"cursor-default"
+                            'flex w-full items-center gap-2 p-2 transition-all',
+                            canSeeItself?"cursor-pointer":"cursor-default",
+                            "bg-gray-100 hover:brightness-95",
+                            "dark:bg-slate-800 dark:text-white dark:hover:bg-slate-900"
                         )
                     }
                     onClick={handleUserClick}
                 >
-                    <FaUser />                
+                    <FaUser />
                     {localStorage.getItem("userName")}
                 </button>
             </div>
             <div>
-                <Link to="/logout" className='flex items-center gap-2 p-2 bg-gray-100 hover:brightness-95 transition-all'>
+                <Link to="/logout" 
+                    className={
+                        classNames(
+                            "flex items-center gap-2 p-2 transition-all",
+                            "bg-gray-100 hover:brightness-95",
+                            "dark:bg-slate-800 dark:text-white dark:hover:bg-slate-900"
+                        )
+                    }
+                    >
                     <FaSignOutAlt/>
                     Deslogar
                 </Link>
             </div>
             <button 
-                className='absolute top-full bg-black text-white px-4 rounded-b -translate-x-1/2 left-1/2 text-xl h-5 sm:h-6 flex items-center hover:bg-gray-700'
+                className={
+                    classNames(
+                        "absolute top-full  px-4 rounded-b -translate-x-1/2 left-1/2 text-xl h-5 sm:h-6 flex items-center ",
+                        "bg-black dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300"
+                    )
+                }
                 onClick={()=>dispatch({type:'toggleMenu'})}
             >
                 {state.menu

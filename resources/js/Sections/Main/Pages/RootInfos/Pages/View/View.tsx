@@ -1,9 +1,8 @@
-import { PageSpinner,Switch } from '<>'
-import {useContext} from 'react'
-import { DateFormatter, titleHandler, api } from '@/Utils'
+import { PageSpinner } from '<>'
+import { DateFormatter, titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { GlobalContext } from '@/Context/GlobalContext'
 import InfoHash from '../../Template/Card/Utils/InfoHash'
 
 export default function ViewRootInfo() {

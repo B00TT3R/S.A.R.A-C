@@ -5,7 +5,8 @@ import {paginatedValue} from '-ts/paginatedValue'
 import {PageSpinner, Pagination, Select} from '<>'
 import error from './Types/error'
 import Card from './Template/Card/Card'
-import { titleHandler, api } from '@/Utils'
+import { titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 
 export default function Errors() {
   titleHandler("Erros")

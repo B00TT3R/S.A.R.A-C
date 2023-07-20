@@ -1,5 +1,6 @@
 import { PageSpinner } from '<>'
-import { DateFormatter, titleHandler, api } from '@/Utils'
+import { DateFormatter, titleHandler } from '@/Utils'
+import api from "@/Utils/api"
 import { FacebookEmbed } from 'react-social-media-embed';
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'

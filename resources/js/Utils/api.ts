@@ -10,14 +10,12 @@ api.interceptors.response.use(
             const currentUrl = window.location.pathname
             const parts = currentUrl.split('/')
             const lastPart = parts[parts.length - 1]
-        
             if (lastPart !== 'login') {
                 router.navigate('login')
             }
         }
         return Promise.reject(error);
     }
-
 )
 api.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token")
 export default api

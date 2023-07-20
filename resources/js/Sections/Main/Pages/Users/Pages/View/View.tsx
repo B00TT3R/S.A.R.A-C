@@ -1,9 +1,10 @@
 import { PageSpinner,Switch } from '<>'
 import {useContext} from 'react'
-import { DateFormatter, titleHandler, api } from '@/Utils'
+import { DateFormatter, titleHandler } from '@/Utils'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { GlobalContext } from '@/Context/GlobalContext'
+import api from "@/Utils/api"
 
 export default function ViewUser() {
   const {id} = useParams()

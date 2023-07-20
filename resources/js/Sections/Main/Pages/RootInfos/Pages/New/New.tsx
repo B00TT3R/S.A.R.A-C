@@ -1,5 +1,6 @@
 import { Input, Select } from "<>"
-import { titleHandler, api } from "@/Utils";
+import { titleHandler } from "@/Utils";
+import api from "@/Utils/api"
 import {Form, Formik, FormikHelpers} from "formik"
 import { useNavigate } from "react-router-dom";
 import { object, string} from "yup"

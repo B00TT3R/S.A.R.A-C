@@ -6,7 +6,6 @@ interface props{
     outerChild?: React.ReactNode
     to: string
     className?: string
-    rest?: React.HTMLProps<HTMLLIElement>
 }
 const CardWrapper = ({children, to, outerChild, className, ...rest}:props) =>{
     return(

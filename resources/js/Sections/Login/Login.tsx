@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik';
 import { string, object } from 'yup'
 import { Input } from '@/Components';
-import {titleHandler, api} from "@/Utils"
+import { titleHandler} from "@/Utils"
+import api from "@/Utils/api"
 import { useNavigate } from 'react-router-dom';
 
 
