@@ -14,13 +14,13 @@ export default function Sidebar() {
   
   return (
     <aside className={classNames(
-      "bg-black transition-[width] duration-300 shadow-md shadow-gray-400 z-10",
+      "bg-black transition-[width] duration-300 shadow-md shadow-gray-400 z-10 dark:shadow-none",
       "flex flex-col h-screen absolute",
       sidebar?"sm:w-72 w-screen":"w-12"
     )}>
       <header className={classNames(
         'text-3xl flex text-white transition-all duration-300',
-        "shadow-sm shadow-gray-600 group",
+        "shadow-sm shadow-gray-600 dark:shadow-none group",
         "items-center h-14 box-border",
         sidebar?`justify-between pl-2`
         :`

@@ -17,7 +17,7 @@ export default function Select({value, children,label, error, ...rest}:props) {
           classNames(
             "rounded-md py-2 transition-all cursor-pointer",
             "ring-slate-400 focus:ring-slate-600",            
-            "dark:ring-slate-800 dark:focus:ring-slate-900 bg-black",
+            "dark:ring-slate-800 dark:focus:ring-slate-900 dark:bg-black",
           )
         }
         value={value}

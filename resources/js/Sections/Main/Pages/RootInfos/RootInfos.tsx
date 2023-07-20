@@ -7,7 +7,7 @@ import Card from './Template/Card/Card'
 import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 import { titleHandler, api } from '@/Utils'
 
-export default function Users() {
+export default function RootInfos() {
   titleHandler("Informações Raiz")
   const [url, setUrl] = useState("/api/rootInfos")
   const [orderBy, setOrderBy] = useState("id")
@@ -22,8 +22,6 @@ export default function Users() {
   useEffect(()=>{
     refetch()
   },[url, order, orderBy])
-
-  
 
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>

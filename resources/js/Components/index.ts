@@ -6,6 +6,7 @@ import Input from "./Input/Input"
 import Switch from "./Switch/Switch"
 import ListSwitch from "./ListSwitch/ListSwitch"
 import NewButton from "./NewButton/NewButton"
+import CardWrapper from "./CardWrapper/CardWrapper"
 export {
     PageLoader,
     PageSpinner,
@@ -14,5 +15,6 @@ export {
     Input,
     Switch,
     ListSwitch,
-    NewButton
+    NewButton,
+    CardWrapper
 }

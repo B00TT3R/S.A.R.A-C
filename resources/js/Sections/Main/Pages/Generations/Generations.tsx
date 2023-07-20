@@ -12,7 +12,7 @@ export default function Generations() {
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getErrors',async ()=> await api.get<paginatedValue<generation[]>>(url, 
+  const {data, refetch, isFetching} = useQuery('getGenerations',async ()=> await api.get<paginatedValue<generation[]>>(url, 
     {params:{orderBy, order}
   }))
 
