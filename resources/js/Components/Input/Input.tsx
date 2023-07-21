@@ -1,3 +1,4 @@
+import { classNames } from '@/Utils'
 import React from 'react'
 
 interface props extends React.InputHTMLAttributes<HTMLInputElement>{
@@ -20,7 +21,11 @@ export default function Input({
     <div className='w-full flex flex-col gap-1 relative'>
         <label htmlFor={name}>{label}</label>
         <input
-            className={'rounded p-2'+ className}
+            className={classNames(
+                'rounded p-2 bg:white border',
+                "dark:bg-gray-950 dark:focus:ring-slate-600 dark:focus:border-slate-600",
+                className
+            )}
             type={type} 
             name={name}
             onChange={onChange}

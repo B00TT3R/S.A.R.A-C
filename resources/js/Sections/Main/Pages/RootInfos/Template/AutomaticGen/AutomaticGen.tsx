@@ -60,8 +60,8 @@ export default function AutomaticGen(){
                         <button 
                             type="submit"
                             className={classNames(
-                                " rounded p-1.5 text-white w-24 ",
-                                isSubmitting ? "bg-gray-700" : "bg-black"
+                                " rounded p-1.5 text-white dark:text-black w-24 transition-all ",
+                                isSubmitting ? "bg-gray-700 dark:bg-gray-300" : "bg-black dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300"
                             )}
                             disabled={isSubmitting}
                         >
