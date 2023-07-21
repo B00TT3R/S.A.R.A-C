@@ -10,7 +10,7 @@ const NewButton  = ({to}:props) =>{
             <div className={classNames(
                 "transition-colors rounded-md p-2 mt-auto",
                 "bg-black hover:bg-gray-700",
-                "dark:bg-white dark:hover:bg-gray-300 text-black"
+                "dark:bg-white dark:hover:bg-gray-300 text-white dark:text-black"
             )}>
                 Novo
             </div>

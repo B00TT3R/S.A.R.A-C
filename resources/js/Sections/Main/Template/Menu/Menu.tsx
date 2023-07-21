@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import RootContext from '../../Contexts/RootContext';
 import { classNames } from '@/Utils';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
@@ -65,8 +65,8 @@ export default function Menu() {
             <button 
                 className={
                     classNames(
-                        "absolute top-full  px-4 rounded-b -translate-x-1/2 left-1/2 text-xl h-5 sm:h-6 flex items-center ",
-                        "bg-black dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300"
+                        "absolute top-full px-4 rounded-b -translate-x-1/2 left-1/2 text-xl h-5 sm:h-6 flex items-center ",
+                        "bg-black dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-white dark:text-black"
                     )
                 }
                 onClick={()=>dispatch({type:'toggleMenu'})}
