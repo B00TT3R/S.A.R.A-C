@@ -1,4 +1,4 @@
-import { Input, ListSwitch } from "<>"
+import { BigButton, Input, ListSwitch } from "<>"
 import { GlobalContext } from "@/Context/GlobalContext";
 import { titleHandler } from "@/Utils";
 import api from "@/Utils/api"
@@ -83,11 +83,10 @@ const NewUser = () =>{
                             onChange={(e)=>handleChange("permissions")(e as ChangeEvent<any>)}
                             error={errors.permissions}
                         />
-                        <button
-                            className="bg-black rounded hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
+                        <BigButton 
+                            label="Criar Usuário"
                             disabled={isSubmitting}
-                            type="submit"
-                        >Criar Usuário</button>
+                        />
                     </Form>
                 )}
             </Formik>

@@ -1,4 +1,4 @@
-import { Input, PageSpinner, Select } from "<>"
+import { BigButton, Input, PageSpinner, Select } from "<>"
 import { titleHandler } from "@/Utils";
 import api from "@/Utils/api"
 import { Form, Formik, FormikHelpers } from "formik"
@@ -71,11 +71,9 @@ const EditRoot = () =>{
                                 onChange={handleChange("info")}
                                 error={errors.info}
                             />
-                            <button
-                                className="bg-black rounded mt-auto hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
+                            <BigButton
                                 disabled={isSubmitting}
-                                type="submit"
-                            >Salvar</button>
+                            />
                         </Form>
                     )}
                 </Formik>

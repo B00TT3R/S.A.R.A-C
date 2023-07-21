@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 import TextPrompt from './Template/TextPrompt/TextPrompt';
 import { Context, initialState, reducer } from './Context/Context';
 import ImagePrompt from './Template/ImagePrompt/ImagePrompt';
-import { PageSpinner } from '<>';
+import { BigButton, PageSpinner } from '<>';
 import { useQuery } from 'react-query';
 import { titleHandler } from '@/Utils';
 import api from "@/Utils/api"
@@ -73,13 +73,11 @@ export default function NewPòst() {
         {
           state.textResult && !(state.textLoading || state.imageLoading) &&
           <div className='w-full flex justify-start'>
-            <button
-              className="bg-black rounded hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
-              disabled={false}
+            <BigButton
+              label='Criar Post'
+              disabled={isFetching}
               onClick={handleCreate}
-            >
-              Criar Post
-            </button>
+            />
           </div>
         }
       </div>

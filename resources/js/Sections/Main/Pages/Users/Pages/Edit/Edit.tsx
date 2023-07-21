@@ -1,4 +1,4 @@
-import { Input, ListSwitch, PageSpinner } from "<>"
+import { BigButton, Input, ListSwitch, PageSpinner } from "<>"
 import { GlobalContext } from "@/Context/GlobalContext";
 import { titleHandler } from "@/Utils";
 import api from "@/Utils/api"
@@ -89,11 +89,10 @@ const EditUser = () =>{
                                 onChange={(e)=>handleChange("permissions")(e as ChangeEvent<any>)}
                                 error={errors.permissions}
                             />
-                            <button
-                                className="bg-black rounded hover:bg-gray-800 text-white p-2 hover:ring-2 ring-black transition-all duration-300 disabled:bg-gray-700"
+                            <BigButton
                                 disabled={isSubmitting}
-                                type="submit"
-                            >Editar Usuário</button>
+                                label="Editar Usuário"
+                            />
                         </Form>
                     )}
                 </Formik>
