@@ -19,6 +19,7 @@ return new class extends Migration
             $table->mediumText("result");
             $table->mediumText("local_result")->nullable();
             $table->text("prompt");
+            $table->json("messages")->nullable();
             $table->json("response");
             $table->id();
             $table->timestamps();

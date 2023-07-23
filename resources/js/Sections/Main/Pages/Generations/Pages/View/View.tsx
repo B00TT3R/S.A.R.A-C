@@ -60,6 +60,16 @@ export default function ViewGeneration() {
                         <h3 className='text-xl font-semibold'>Prompt:</h3>
                         {data?.data.prompt}
                       </div>
+                      {data?.data.messages && data?.data.messages.length > 0 &&
+                        <div className="">
+                          <h3 className='text-xl font-semibold'>Mensagens:</h3>
+                          <code>
+                            <pre className='whitespace-pre-wrap text-gray-700'>
+                              {JSON.stringify(data?.data.messages, null, 2)}
+                            </pre>
+                          </code>
+                        </div>
+                      }
                       <div className="">
                         <h3 className='text-xl font-semibold'>Resultado:</h3>
                         {data?.data.gen_type == "image"

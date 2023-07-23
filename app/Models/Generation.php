@@ -15,11 +15,13 @@ class Generation extends Model
         "model",
         "type",
         "prompt",
+        "messages",
         "gen_type",
         "result",
     ];
     protected $casts = [
-        "response" => "json"
+        "response" => "json",
+        "messages" => "json",
     ];
 
     private static function downloadImage(string $path):string{

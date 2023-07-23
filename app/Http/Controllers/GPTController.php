@@ -16,27 +16,15 @@ class GPTController extends Controller
         $this->select = ["id","type","gen_type"];
     }
 
-    private static function textCompletionGen(
-        null|string $prompt = null,
-        int $max_tokens = 512,
-        float $temperature = 0.7,
-        string $type="não-definido",
-    ){
-        $model = env("OPENAI_TEXT_MODEL");
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-        ])->timeout(60)->post('https://api.openai.com/v1/completions',
-            compact('model','prompt','max_tokens','temperature'))->throw();
-        $json = json_decode($response);
-        Generation::create([
-            "model" => $model,
-            "type" => $type,
-            "prompt" => $prompt,
-            "response" => $json,
-            "gen_type" => "text",
-            "result" => $json->choices[0]->text
-        ]);
-        return $json->choices[0]->text ?? "erro na geração";
+    public static function messageGenerator(
+        string $prompt,
+        string $role = "system"
+    )
+    {
+        return [
+            "role" => $role,
+            "content" => $prompt,
+        ];
     }
     
     private static function chatCompletionGen(
@@ -44,6 +32,7 @@ class GPTController extends Controller
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
+        array $messages=[]
     ){
         $model = env("OPENAI_TEXT_MODEL");
         $response = Http::withHeaders([
@@ -51,91 +40,40 @@ class GPTController extends Controller
         ])->timeout(60)->post('https://api.openai.com/v1/chat/completions',[
             "model" => $model,
             "messages" => [
-                [
-                    "role" => "system",
-                    "content" => "fale de forma impessoal e sem prosa, de forma a dar apenas o resultado pedido"
-                ],
-                [
-                    "role" => "system",
-                    "content" => "Considere que o usuário vá apenas copiar a resposta, sem tratamento"
-                ],
-                [
-                    "role" => "system",
-                    "content" => "Não use prefixos como \"Imagem de \" ou \"Imagem de capa: \" no retorno apenas gere o conteúdo requisitado de forma impessoal"
-                ],
-                [
-                    "role" => "system",
-                    "content" => "Finja que está criando respostas para uma máquina, não dê explicações sobre a razão de prompts de imagem (caso requisitado)"
-                ],
-                [
-                    "role" => "user",
-                    "content" => $prompt
-                ],
+                ...$messages,
+                self::messageGenerator($prompt, "user"),
             ],
             "max_tokens" => $max_tokens,
             "temperature" => $temperature
         ])->throw();
         $json = json_decode($response);
-        
         Generation::create([
             "model" => $model,
             "type" => $type,
             "prompt" => $prompt,
+            "messages" => $messages,
             "response" => $json,
             "gen_type" => "text",
             "result" => $json->choices[0]->message->content
         ]);
         return $json->choices[0]->message->content ?? "erro na geração";
-    }
-
-    private static function formatRootInfosToText(string $prompt): string {
-        $textStyle = RootInfo::where('type', "text")->pluck('info')->toArray();
+    }    
+    
+    public static function formatRootInfosToMessages(): array{
+        $textStyles = RootInfo::where('type', "text")->pluck('info')->toArray();
         $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
-    
-        $formattedTextStyle = "";
-        if(count($textStyle) > 0) {
-            $formattedTextStyle = " usando os seguintes estilos de escrita: \"" . implode("\", \"", $textStyle) . "\"";
+        $styleArray = [];
+        $infoArray = [];
+        foreach($textStyles as $style){
+            $styleArray[] = self::messageGenerator("Use o seguinte estilo de escrita: ".$style);
+        };
+        foreach($infos as $info){
+            $infoArray[] = self::messageGenerator("Considere a seguinte informação: ".$info);
         }
-    
-        $formattedInfoString = "";
-        if(count($infos) > 0) {
-            $formattedInfoString = " e usando alguns desses fatos: \"" . implode("\", \"", $infos) . "\"";
-        }
-    
-        if(empty($formattedTextStyle) && empty($formattedInfoString)) {
-            return "Gere uma notícia falsa Tendo como título: $prompt:\n";
-        } elseif(empty($formattedTextStyle)) {
-            return "Gere uma notícia falsa $formattedInfoString. Tendo como título: $prompt:\n";
-        } elseif(empty($formattedInfoString)) {
-            return "Gere uma notícia falsa $formattedTextStyle. Tendo como título: $prompt:\n";
-        } else {
-            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString. Tendo como título: $prompt:\n";
-        }
-    }
-    
-    private static function formatRootInfosToTextWithoutPrompt(){
-        $textStyle = RootInfo::where('type', "text")->pluck('info')->toArray();
-        $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
-    
-        $formattedTextStyle = "";
-        if(count($textStyle) > 0) {
-            $formattedTextStyle = " usando os seguintes estilos de escrita: \"" . implode("\", \"", $textStyle) . "\"";
-        }
-    
-        $formattedInfoString = "";
-        if(count($infos) > 0) {
-            $formattedInfoString = " usando alguns desses fatos: \"" . implode("\", \"", $infos) . "\"";
-        }
-
-        if(empty($formattedTextStyle) && empty($formattedInfoString)) {
-            return "Gere uma notícia falsa";
-        } elseif(empty($formattedTextStyle)) {
-            return "Gere uma notícia falsa $formattedInfoString";
-        } elseif(empty($formattedInfoString)) {
-            return "Gere uma notícia falsa $formattedTextStyle.";
-        } else {
-            return "Gere uma notícia falsa $formattedTextStyle$formattedInfoString.";
-        }
+        return [
+            ...$styleArray,
+            ...$infoArray,
+        ];
     }
 
     private static function formatRootInfosToImage(string $prompt){
@@ -145,38 +83,39 @@ class GPTController extends Controller
         $formattedString = implode(', \n ', $infos);
         return "$prompt,  \n Estilos: $formattedString";
     }
+
+    public static function formatImageRootInfosToMessages(){
+        $styles = RootInfo::where("type", "image")->pluck("info")->toArray();
+        $styleArray = [];
+        foreach($styles as $style){
+            $styleArray[] = self::messageGenerator("Considere a seguinte estilo desejado: ".$style);
+        }
+        return $styleArray;
+    }
     
     public static function textGen(
         null|string $prompt = null,
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
-        bool $useRoot = true
+        bool $useRoot = true,
+        array $messages = [],
     ):string{
-        $textGenType = env("OPENAI_TEXT_GEN_TYPE");
-        if($prompt){
-            $prompt = $useRoot?self::formatRootInfosToText($prompt):$prompt;
+        if($prompt){ // remover isso daqui
+            $prompt = $useRoot?$prompt:$prompt;
         }
         else{
-            $prompt = $useRoot?self::formatRootInfosToTextWithoutPrompt():"gere um texto dizendo que o usuário não inseriu a informação necessária";
+            error_log("sem prompt");
+            $prompt = $useRoot? "Gere uma noticia" :"gere um texto dizendo que o usuário não inseriu a informação necessária";
         }
-        try{
-            if($textGenType == "completion"){
-                $json = self::textCompletionGen(
-                    $prompt,
-                    $max_tokens,
-                    $temperature,
-                    $type
-                );
-            }
-            elseif($textGenType == "chat"){
-                $json = self::chatCompletionGen(
-                    $prompt,
-                    $max_tokens,
-                    $temperature,
-                    $type
-                );
-            }
+        try{            
+            $json = self::chatCompletionGen(
+                $prompt,
+                $max_tokens,
+                $temperature,
+                $type,
+                $messages
+            );
         } catch(RequestException $e){
             error_log("erro na geração de texto");
             Errors::create([
@@ -194,7 +133,7 @@ class GPTController extends Controller
         bool $originalUrl = false,
         bool $useRoot = true
     ):string{
-        $prompt = $useRoot? self::formatRootInfosToImage($prompt) : $prompt;
+        $prompt = $useRoot ? self::formatRootInfosToImage($prompt) : $prompt;
         try{
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.env("OPENAI_KEY"),
