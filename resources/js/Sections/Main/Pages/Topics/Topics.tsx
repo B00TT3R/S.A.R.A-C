@@ -2,27 +2,22 @@ import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import {paginatedValue} from '-ts/paginatedValue'
 import {NewButton, PageSpinner, Pagination, Select, Square} from '<>'
-import rootInfo from './Types/rootInfo'
-import Card from './Template/Card/Card'
+import topic from './Types/topic'
 import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 
 export default function Topics() {
   titleHandler("Tópicos")
-  const [url, setUrl] = useState("/api/topics")
-  const [orderBy, setOrderBy] = useState("id")
-  const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getTopics',async ()=> await api.get<paginatedValue<rootInfo[]>>
+  
+  const {data, refetch, isFetching} = useQuery('getTopics',async ()=> await api.get<topic[]>
   (
-    url, 
-    {params:{orderBy, order}
-  }))
+    "/api/topics"    
+  ));
 
-  useEffect(()=>{
-    refetch()
-  },[url, order, orderBy])
+  
+  console.log(data)
 
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>
@@ -42,10 +37,10 @@ export default function Topics() {
                   <NewButton to="novo"/>
                 </div>
                 <ul className='grid gap-5 w-full pb-3 grid-cols-3'>
-                  {[...Array(10)].map((e, i)=>
+                  {data?.data.map((e, i)=>
                     <Square
                       key={i}
-                      title={"Lorem ipsum: "+i}
+                      title={e.name}
                       to="a"
                       //className='aspect-square'
                     >
@@ -53,7 +48,7 @@ export default function Topics() {
                       <span><b>Estilos de Imagem: </b>2</span>
                       <span><b>Informações Raiz: </b>2</span>
                       <span><b>Noticias Totais: </b>2</span>
-                      <span><b>Ultima Geração: </b>{new Date().toLocaleString()}</span>
+                      {/* <span><b>Ultima Geração: </b>{new Date().toLocaleString()}</span> */}
                     </Square>
                   )}
                 </ul>

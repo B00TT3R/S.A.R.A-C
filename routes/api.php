@@ -6,6 +6,7 @@ use App\Http\Controllers\GPTController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RootInfosController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TopicsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,9 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
         Route::post('rootInfos/', [RootInfosController::class, "create"]);
         Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
+
+        Route::get('topics', [TopicsController::class, "index"]);
+        
     });
 
     Route::post("logout", [UserController::class, "logout"]);
