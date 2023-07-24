@@ -1,9 +1,6 @@
-import React from 'react'
-import Square from '../Square/Square'
 import { BiErrorAlt } from 'react-icons/bi';
 import { useQuery } from 'react-query';
-import axios from 'axios';
-import {PageSpinner} from '<>';
+import { PageSpinner, Square } from '<>';
 import api from '@/Utils/api';
 
 export default function Errors() {

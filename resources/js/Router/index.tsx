@@ -1,4 +1,4 @@
-import {lazy} from 'react';
+import {Children, lazy} from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import {PageLoader} from '<>'
 
@@ -29,6 +29,8 @@ const ViewRootInfos = lazy(()=>import("&/RootInfos/Pages/View/View"))
 const NewRootInfos = lazy(()=>import("&/RootInfos/Pages/New/New"))
 const EditRootInfos = lazy(()=>import("&/RootInfos/Pages/Edit/Edit"))
 
+const Topics = lazy(()=>import("&/Topics/Topics"))
+
 const router = createBrowserRouter([
     {
         element: <Template />,
@@ -37,6 +39,15 @@ const router = createBrowserRouter([
             {
                 element: <PageLoader Element={Home}/>,
                 index: true,
+            },
+            {
+                path: "topicos",
+                children:[
+                    {
+                        element: <PageLoader Element={Topics}/>,
+                        index: true,
+                    }
+                ]
             },
             {
                 path: 'erros',

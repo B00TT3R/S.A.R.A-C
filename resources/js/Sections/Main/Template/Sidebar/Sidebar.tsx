@@ -83,7 +83,15 @@ export default function Sidebar() {
         to="/inforaiz"
         iconClass='sm:group-hover:text-fuchsia-500 active:text-fuchsia-500'
         iconClassOnActive="text-fuchsia-500"
-        permission='view_users'
+        permission='root_infos'
+      />
+      <ListButton
+        Icon={TbInfoSquare}
+        text="Tópicos"
+        to="/topicos"
+        iconClass='sm:group-hover:text-fuchsia-500 active:text-fuchsia-500'
+        iconClassOnActive="text-fuchsia-500"
+        permission='root_infos'
       />
       <ListButton
         Icon={FaUserAlt}

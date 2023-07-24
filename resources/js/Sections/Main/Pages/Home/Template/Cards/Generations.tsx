@@ -1,7 +1,6 @@
-import Square from '../Square/Square'
 import { SiOpenai } from 'react-icons/si';
 import { useQuery } from 'react-query';
-import {PageSpinner} from '<>';
+import {PageSpinner, Square} from '<>';
 import api from '@/Utils/api';
 
 export default function Generations() {

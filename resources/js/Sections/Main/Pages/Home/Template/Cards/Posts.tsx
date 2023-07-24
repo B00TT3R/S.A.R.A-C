@@ -1,7 +1,6 @@
-import Square from '../Square/Square'
 import { FaFacebook } from 'react-icons/fa';
 import { useQuery } from 'react-query';
-import {PageSpinner} from '<>';
+import {PageSpinner, Square} from '<>';
 import api from '@/Utils/api';
 import {DateFormatter} from "@/Utils"
 

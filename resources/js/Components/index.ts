@@ -8,6 +8,7 @@ import ListSwitch from "./ListSwitch/ListSwitch"
 import NewButton from "./NewButton/NewButton"
 import CardWrapper from "./CardWrapper/CardWrapper"
 import BigButton from "./BigButton/BigButton"
+import Square from "./Square/Square"
 export {
     PageLoader,
     PageSpinner,
@@ -19,4 +20,5 @@ export {
     NewButton,
     CardWrapper,
     BigButton,
+    Square,
 }
