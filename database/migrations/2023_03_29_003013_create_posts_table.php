@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             
+            $table->id();
             $table->text("type");
             $table->json("response");
             $table->mediumText("description")->nullable();
+            $table->unsignedBigInteger("topic_id")->nullable();
+            $table->foreign('topic_id')->references('id')->on('topics');
             $table->json("request");
-            $table->id();
             $table->timestamps();
         });
     }

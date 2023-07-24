@@ -13,7 +13,9 @@ class TopicsController extends Controller
         $this->select = ["id","type", "info"];
 
     }
-    public function index(Request $request){
-        return Topic::all();
+    
+    public function index(Request $request)
+    {
+        return Topic::filteredAll();
     }
 }

@@ -13,15 +13,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('generations', function (Blueprint $table) {
+            $table->id();
             $table->string("type");
             $table->string("gen_type");
             $table->string("model");
             $table->mediumText("result");
             $table->mediumText("local_result")->nullable();
             $table->text("prompt");
+            $table->unsignedBigInteger("topic_id")->nullable();
+            $table->foreign('topic_id')->references('id')->on('topics');
+
             $table->json("messages")->nullable();
             $table->json("response");
-            $table->id();
             $table->timestamps();
         });
         $directory = public_path('images');

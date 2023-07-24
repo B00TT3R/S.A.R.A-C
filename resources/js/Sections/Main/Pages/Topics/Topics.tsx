@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import {paginatedValue} from '-ts/paginatedValue'
-import {NewButton, PageSpinner, Pagination, Select, Square} from '<>'
+import {NewButton, PageSpinner, Square} from '<>'
 import topic from './Types/topic'
-import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 
@@ -15,9 +13,6 @@ export default function Topics() {
   (
     "/api/topics"    
   ));
-
-  
-  console.log(data)
 
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>
@@ -44,10 +39,10 @@ export default function Topics() {
                       to="a"
                       //className='aspect-square'
                     >
-                      <span><b>Estilos de texto: </b>2</span>
-                      <span><b>Estilos de Imagem: </b>2</span>
-                      <span><b>Informações Raiz: </b>2</span>
-                      <span><b>Noticias Totais: </b>2</span>
+                      <span><b>Estilos de texto: </b>{e.infos.text}</span>
+                      <span><b>Estilos de Imagem: </b>{e.infos.image}</span>
+                      <span><b>Informações Raiz: </b>{e.infos.textinfo}</span>
+                      <span><b>Posts Totais: </b>{e.infos.total}</span>
                       {/* <span><b>Ultima Geração: </b>{new Date().toLocaleString()}</span> */}
                     </Square>
                   )}
