@@ -20,7 +20,7 @@ export default function Card({rootinfo, onDelete}:props) {
     }
   }
   const handleEdit = async () => {
-    navigate(`/inforaiz/editar/${id}`)
+    navigate(`editar/${id}`)
   }
   return(
     <CardWrapper
