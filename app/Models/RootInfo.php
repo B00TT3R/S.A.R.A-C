@@ -9,6 +9,6 @@ class RootInfo extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "type", "info"
+        "type", "info", "post_id"
     ];
 }

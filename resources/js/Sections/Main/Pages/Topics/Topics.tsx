@@ -5,7 +5,6 @@ import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import Card from './Template/Card/Card'
 
-
 export default function Topics() {
   titleHandler("Tópicos")
   const {data, refetch, isFetching} = useQuery('getTopics',async ()=> await api.get<topic[]>

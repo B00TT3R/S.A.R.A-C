@@ -31,6 +31,9 @@ const EditRootInfos = lazy(()=>import("&/RootInfos/Pages/Edit/Edit"))
 
 const Topics = lazy(()=>import("&/Topics/Topics"))
 const NewTopic = lazy(()=>import("&/Topics/Pages/New/New"))
+const ViewTopic = lazy(()=>import("&/Topics/Pages/View/View"))
+const ViewTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/View/View"))
+const NewTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/New/New"))
 
 const router = createBrowserRouter([
     {
@@ -51,6 +54,18 @@ const router = createBrowserRouter([
                     {
                         element: <PageLoader Element={NewTopic}/>,
                         path: 'novo',
+                    },
+                    {
+                        element: <PageLoader Element={ViewTopic}/>,
+                        path: ':id',
+                    },
+                    {
+                        element: <PageLoader Element={NewTopicRootInfo}/>,
+                        path: ':id/novo',
+                    },
+                    {
+                        element: <PageLoader Element={ViewTopicRootInfo}/>,
+                        path: ':id/:infoid',
                     }
                 ]
             },

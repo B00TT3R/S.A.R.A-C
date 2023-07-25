@@ -68,6 +68,9 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
 
         Route::get('topics', [TopicsController::class, "index"]);
         Route::post('topics', [TopicsController::class, "create"]);
+        Route::get('topics/{id}', [TopicsController::class, "showRegister"]);
+        Route::post('topics/{id}', [TopicsController::class, "createRootInfo"]);
+        Route::put('topics/{id}/{infoid}', [TopicsController::class, "updateRootInfo"]);
         
     });
 
