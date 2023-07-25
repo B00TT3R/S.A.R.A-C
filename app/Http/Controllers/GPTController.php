@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Errors;
 use App\Models\Generation;
 use App\Models\RootInfo;
+use App\Models\Topic;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -32,7 +34,8 @@ class GPTController extends Controller
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
-        array $messages=[]
+        array $messages=[],
+        Topic $topic
     ){
         $model = env("OPENAI_TEXT_MODEL");
         $response = Http::withHeaders([
@@ -54,28 +57,12 @@ class GPTController extends Controller
             "messages" => $messages,
             "response" => $json,
             "gen_type" => "text",
+            "topic_id" => $topic->id,
             "result" => $json->choices[0]->message->content
         ]);
         return $json->choices[0]->message->content ?? "erro na geração";
     }    
-    
-    public static function formatRootInfosToMessages(): array{
-        $textStyles = RootInfo::where('type', "text")->pluck('info')->toArray();
-        $infos = RootInfo::where('type', "textinfo")->pluck('info')->toArray();
-        $styleArray = [];
-        $infoArray = [];
-        foreach($textStyles as $style){
-            $styleArray[] = self::messageGenerator("Use o seguinte estilo de escrita: ".$style);
-        };
-        foreach($infos as $info){
-            $infoArray[] = self::messageGenerator("Considere a seguinte informação: ".$info);
-        }
-        return [
-            ...$styleArray,
-            ...$infoArray,
-        ];
-    }
-
+   
     private static function formatRootInfosToImage(string $prompt){
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
@@ -83,38 +70,23 @@ class GPTController extends Controller
         $formattedString = implode(', \n ', $infos);
         return "$prompt,  \n Estilos: $formattedString";
     }
-
-    public static function formatImageRootInfosToMessages(){
-        $styles = RootInfo::where("type", "image")->pluck("info")->toArray();
-        $styleArray = [];
-        foreach($styles as $style){
-            $styleArray[] = self::messageGenerator("Considere a seguinte estilo desejado: ".$style);
-        }
-        return $styleArray;
-    }
     
     public static function textGen(
-        null|string $prompt = null,
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
-        bool $useRoot = true,
+        Topic|Builder $topic,
         array $messages = [],
+        string $prompt = "Gere uma noticia",
     ):string{
-        if($prompt){ // remover isso daqui
-            $prompt = $useRoot?$prompt:$prompt;
-        }
-        else{
-            error_log("sem prompt");
-            $prompt = $useRoot? "Gere uma noticia" :"gere um texto dizendo que o usuário não inseriu a informação necessária";
-        }
         try{            
             $json = self::chatCompletionGen(
-                $prompt,
-                $max_tokens,
-                $temperature,
-                $type,
-                $messages
+                prompt:$prompt,
+                max_tokens:$max_tokens,
+                temperature:$temperature,
+                type:$type,
+                messages:$messages,
+                topic:$topic
             );
         } catch(RequestException $e){
             error_log("erro na geração de texto");
@@ -131,9 +103,7 @@ class GPTController extends Controller
         string $size = "1024x1024",
         string $type = "não-definido",
         bool $originalUrl = false,
-        bool $useRoot = true
     ):string{
-        $prompt = $useRoot ? self::formatRootInfosToImage($prompt) : $prompt;
         try{
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.env("OPENAI_KEY"),

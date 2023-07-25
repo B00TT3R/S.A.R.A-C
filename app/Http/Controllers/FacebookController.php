@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Errors;
 use App\Models\Post;
+use App\Models\Topic;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Http;
 class FacebookController extends Controller
 {
     public static function post(
+        Topic|Builder|null $topic,
         array ...$params
     ){
         $page_id = env("FACEBOOK_PAGE_ID");        
@@ -32,7 +35,8 @@ class FacebookController extends Controller
         return Post::create([
             "type" =>"facebook",
             "response" => json_decode($response),
-            "request" => $params[0]
+            "request" => $params[0],
+            "topic_id" => $topic ? $topic->id : null
         ]);;
     }
     

@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\RootInfo;
 use App\Models\ShootTime;
+use App\Models\Topic;
 use App\Models\Timer;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public static function getTitle($news){
+    public static function getTitle($news, $topic){
         $title = GPTController::textGen(
             prompt: "Escreva um titulo adequado para: ".$news,
             max_tokens:2048,
             temperature:0.4,
+            messages:[],
             type:"obtenção de título",
-            useRoot:false
+            topic:$topic
         );
         error_log($title);
         return $title;
     }
-    private static function getImagePrompt($title){
+    private static function getImagePrompt($title, $topic){
         $prompt = "Descreva de forma curta, literal e sem prosa, uma imagem de capa para uma noticia cujo titulo é";
-        $messages = GPTController::formatImageRootInfosToMessages();
+        $messages = $topic->formatImageRootInfosToMessages();
         $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             $infos = "";
@@ -34,31 +36,43 @@ class ScheduleController extends Controller
             prompt: "$prompt: $title",
             temperature:0.5,
             type: "geração de prompt de imagem",
-            useRoot:false,
-            messages:$messages
+            messages:$messages,
+            topic:$topic
         );
         error_log($imagePrompt);
         return $imagePrompt;
     }
     public static function shoot(){
-        error_log("Criando noticia automaticamente...");
-        $message = GPTController::textGen(
-            max_tokens:3064,
-            temperature:0.6,
-            type: "geração automática",
-            useRoot:true,
-            messages: GPTController::formatRootInfosToMessages()
-        );
-        $url = GPTController::imageGen(
-            prompt: self::getImagePrompt(self::getTitle($message)),
-            size: "512x512",
-            type: "geração-automatica",
-            originalUrl: true
-        );
-        FacebookController::post([
-            'message'=> $message,
-            'url'=> $url,
-        ]);
+        error_log("Criando noticias automaticamente...");
+        $topics = Topic::with("root_infos")->get();
+
+        foreach ($topics as $topic) {
+            error_log("criando noticia do tópico: \n> " . $topic->name);
+            $message = GPTController::textGen(
+                max_tokens: 3064,
+                temperature: 0.6,
+                type: "geração automática",
+                messages: $topic->formatRootInfosToMessages(),
+                topic: $topic
+            );
+            $url = GPTController::imageGen(
+                prompt: $topic->formatRootInfosToImage(
+                    self::getImagePrompt(self::getTitle($message, $topic), $topic)
+                ),
+                size: "512x512",
+                type: "geração-automatica",
+                originalUrl: true
+            );
+            FacebookController::post(
+                $topic,
+                [
+                    'message'=> $message,
+                    'url'=> $url,
+                ]
+            );
+
+        }
+
         Timer::resetTimer();
         Timer::addMinutes(ShootTime::getTime());
     }

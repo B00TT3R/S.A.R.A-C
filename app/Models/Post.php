@@ -13,7 +13,8 @@ class Post extends Model
         'type',
         'response',
         'description',
-        'request'
+        'request',
+        'topic_id'
     ];
     protected $casts = [
        'response' => 'json',

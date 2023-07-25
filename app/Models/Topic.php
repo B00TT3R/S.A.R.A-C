@@ -54,4 +54,49 @@ class Topic extends Model
         return $topics;
     }
 
+    public static function messageGenerator(
+        string $prompt,
+        string $role = "system"
+    )
+    {
+        return [
+            "role" => $role,
+            "content" => $prompt,
+        ];
+    }
+
+    public function formatRootInfosToMessages(){
+        $textStyles = $this->root_infos->where('type', "text")->pluck('info')->toArray();
+        $infos = $this->root_infos->where('type', "textinfo")->pluck('info')->toArray();
+        $styleArray = [];
+        $infoArray = [];
+        foreach($textStyles as $style){
+            $styleArray[] = self::messageGenerator("Use o seguinte estilo de escrita: ".$style);
+        };
+        foreach($infos as $info){
+            $infoArray[] = self::messageGenerator("Considere a seguinte informação: ".$info);
+        }
+        return [
+            ...$styleArray,
+            ...$infoArray,
+        ];
+    }
+
+    public function formatRootInfosToImage(string $prompt){
+        $infos = $this->root_infos("type", "image")->pluck("info")->toArray();
+        if(count($infos) == 0)
+            return $prompt;
+        $formattedString = implode(', \n ', $infos);
+        return "$prompt,  \n Estilos: $formattedString";
+    }
+
+    public function formatImageRootInfosToMessages(){
+        $styles = $this->root_infos->where("type", "image")->pluck("info")->toArray();
+        $styleArray = [];
+        foreach($styles as $style){
+            $styleArray[] = self::messageGenerator("Considere a seguinte estilo desejado: ".$style);
+        }
+        return $styleArray;
+    }
+
 }

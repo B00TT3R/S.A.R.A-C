@@ -26,10 +26,13 @@ class PostsController extends Controller
     }
     public function create(Request $request)
     {
-        $post = FacebookController::post([
-            "message"=> $request->message,
-            "url"=> $request->url ?? null,
-        ]);
+        $post = FacebookController::post(
+            null,
+            [
+                "message"=> $request->message,
+                "url"=> $request->url ?? null,
+            ]
+        );
         return [
             'url' => FacebookController::getPostUrl($post)
         ];
