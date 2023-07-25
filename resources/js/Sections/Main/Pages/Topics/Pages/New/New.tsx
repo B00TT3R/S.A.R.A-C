@@ -4,21 +4,19 @@ import api from "@/Utils/api"
 import {Form, Formik, FormikHelpers} from "formik"
 import { useNavigate } from "react-router-dom";
 import { object, string} from "yup"
-const NewUser = () =>{
-    titleHandler(`Criar Informação Raiz`)
+const NewTopic = () =>{
+    titleHandler(`Criar Tópico`)
     const navigate = useNavigate()
     const initialValues = {
-        info: "",
-        type:"",
+        name: "",
     }
     const validation = object({
-        info: string().required("é um campo obrigatório"),
-        type: string().required("é um campo obrigatório"),
+        name: string().required("é um campo obrigatório"),
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            const res = await api.post("/api/rootInfos", values)
-            navigate("/inforaiz")
+            const res = await api.post("/api/topics", values)
+            navigate("/topicos")
         } catch(err){
             alert("Erro na criação!")
         }
@@ -29,7 +27,7 @@ const NewUser = () =>{
         <div>
             <header className="text-2xl">
                 <h1>
-                    <b>Criar Informação raiz:</b>
+                    <b>Criar Tópico:</b>
                 </h1>
             </header>
             <Formik
@@ -45,24 +43,14 @@ const NewUser = () =>{
                     errors,
                 }) => (
                     <Form className="grid gap-2">
-                        <Select
-                            label="Tipo"
-                            value={values.type}
-                            onChange={handleChange("type")}
-                            error={errors.type}
-                        >
-                            <option value="" label="Selecione um valor"/>
-                            <option value="text" label="Estilo de Texto"/>
-                            <option value="textinfo" label="Informação Chave"/>
-                            <option value="image" label="Estilo de Imagem"/>
-                        </Select>
+                        
                         <Input
-                            label="Informação"
-                            placeholder="Digite a Informação"
-                            name="info"
-                            value={values.info}
-                            onChange={handleChange("info")}
-                            error={errors.info}
+                            label="Nome"
+                            placeholder="Digite o nome do tópico"
+                            name="name"
+                            value={values.name}
+                            onChange={handleChange("name")}
+                            error={errors.name}
                         />
                         <BigButton
                             disabled={isSubmitting}
@@ -73,4 +61,4 @@ const NewUser = () =>{
         </div>
     )
 }
-export default NewUser;
+export default NewTopic;

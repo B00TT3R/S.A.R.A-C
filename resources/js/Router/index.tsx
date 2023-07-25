@@ -30,6 +30,7 @@ const NewRootInfos = lazy(()=>import("&/RootInfos/Pages/New/New"))
 const EditRootInfos = lazy(()=>import("&/RootInfos/Pages/Edit/Edit"))
 
 const Topics = lazy(()=>import("&/Topics/Topics"))
+const NewTopic = lazy(()=>import("&/Topics/Pages/New/New"))
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
                     {
                         element: <PageLoader Element={Topics}/>,
                         index: true,
+                    },
+                    {
+                        element: <PageLoader Element={NewTopic}/>,
+                        path: 'novo',
                     }
                 ]
             },

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
+    protected $fillable = ["name"];
     public function root_infos(){
         return $this->hasMany(RootInfo::class);
     }
