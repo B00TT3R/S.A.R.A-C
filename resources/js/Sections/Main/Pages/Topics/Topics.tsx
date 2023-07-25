@@ -32,11 +32,10 @@ export default function Topics() {
                 </div>
                 <ul className='grid gap-5 w-full pb-3 grid-cols-3'>
                   {data?.data.map((el, i)=>
-                    <Card
-                      key={el.name + i}
-                      to={el.id}
-                      topic={el}
-                    />
+                      <Card
+                        key={el.name + i}
+                        topic={el}
+                      />
                   )}
                 </ul>
                 <div className='sticky bottom-0 w-full'>

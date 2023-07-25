@@ -2,6 +2,7 @@ import { classNames } from '@/Utils'
 import { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+
 interface props{
     title:string|ReactNode
     to:string

@@ -3,13 +3,12 @@ import topic from "../../Types/topic";
 
 interface props{
     topic:topic
-    to:string
 }
-export default function Card({topic, to}:props){
+export default function Card({topic}:props){
     return(
         <Square
             title={topic.name}
-            to={to}
+            to={topic.id.toString()}
             //className='aspect-square'
         >
             <span><b>Estilos de texto: </b>{topic.infos.text}</span>
