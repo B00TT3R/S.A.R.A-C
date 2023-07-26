@@ -5,11 +5,11 @@ import { Form, Formik, FormikHelpers } from "formik"
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { object, string} from "yup"
-const EditRoot = () =>{
+export default function EditTopicRoot(){
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {id, infoid} = useParams()
     titleHandler(`Editar Informação Raiz ${id}`)
-    const {data, isFetching} = useQuery("getRootInfo", async ()=>await api.get(`/api/rootInfos/${id}`))
+    const {data, isFetching} = useQuery("getRootInfo", async ()=>await api.get(`/api/topics/${id}/${infoid}`))
     const initialValues = {
         info: data?.data.info,
         type: data?.data.type,
@@ -20,8 +20,8 @@ const EditRoot = () =>{
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            const res = await api.post(`/api/rootInfos/${id}`, values)
-            navigate("/inforaiz")
+            await api.put(`/api/topics/${id}/${infoid}`, values)
+            navigate(`/topics/${id}`)
         } catch(err){
             alert("Erro na criação!")
         }
@@ -81,4 +81,3 @@ const EditRoot = () =>{
         </div>
     )
 }
-export default EditRoot;

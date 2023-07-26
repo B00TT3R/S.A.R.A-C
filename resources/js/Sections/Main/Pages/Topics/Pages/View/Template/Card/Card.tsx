@@ -1,5 +1,5 @@
 import { classNames } from '@/Utils'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import rootInfo from '../../../../Types/rootInfo'
 import { MdModeEditOutline } from 'react-icons/md'
 import { RxCrossCircled } from 'react-icons/rx'
@@ -11,11 +11,12 @@ interface props{
     onDelete?: ()=>void
 }
 export default function Card({rootinfo, onDelete}:props) {
-  const {id} = rootinfo;
+  const {id:infoid} = rootinfo;
+  const {id} = useParams()
   const navigate = useNavigate()
   const handleDelete = async () =>{
-    if(window.confirm(`Deseja realmente deletar a informação ${id}?`)){
-      await api.delete(`/api/rootInfos/${id}`)
+    if(window.confirm(`Deseja realmente deletar a informação ${infoid}?`)){
+      await api.delete(`/api/topics/${id}/${infoid}`)
       onDelete && onDelete()
     }
   }
