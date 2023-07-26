@@ -58,7 +58,7 @@ export default function Posts() {
                         <option value="desc">Decrescente</option>
                         </Select>
                     </div>
-                    <NewButton to="novo"/>
+                    {/* <NewButton to="novo"/> */}
                     </div>
                     <ul className='grid gap-2 w-full pb-3'>
                     {data?.data.data.map((post)=>(

@@ -55,9 +55,15 @@ class TopicsController extends Controller
     }
 
     public function getPosts(Request $request, $id){
-        //dd($id);
         $topic = Topic::findOrFail($id);
         $register = $topic->posts()->orderBy($request->orderBy, $request->order)->paginate(10);
         return $register;        
+    }
+
+    public function destroyPost($id,$postid){
+        $topic = Topic::findOrFail($id);
+        $post = $topic->posts()->findOrFail($postid);
+        FacebookController::deletePost($post);
+        $post->delete();
     }
 }

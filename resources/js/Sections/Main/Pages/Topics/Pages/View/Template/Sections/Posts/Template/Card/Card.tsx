@@ -3,17 +3,19 @@ import { classNames } from '@/Utils'
 import api from "@/Utils/api"
 import { CardWrapper } from '<>'
 import post from '../../Types/post'
+import { useParams } from 'react-router-dom'
 interface props{
     post: post
     onDelete: ()=>void
     isDeleting?: (val:boolean)=>void
 }
 export default function Card({post, onDelete, isDeleting}:props) {
-  const {id} = post
+  const {id:postid} = post
+  const {id} = useParams()
   const handleDelete = async () =>{
-    if(window.confirm(`Deseja realmente deletar o post ${id}?`)){
+    if(window.confirm(`Deseja realmente deletar o post ${postid}?`)){
       isDeleting && isDeleting(true)
-      await api.delete(`/api/posts/${id}`)
+      await api.delete(`/api/topics/${id}/post/${postid}`)
       isDeleting && isDeleting(false)
       onDelete && onDelete()
     }
