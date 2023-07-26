@@ -7,6 +7,7 @@ import Card from './Template/Card/Card'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import { useParams } from 'react-router-dom'
+import Header from './Template/Header/Header'
 
 export default function ViewTopicRootInfo() {
   const {id} = useParams()
@@ -21,7 +22,7 @@ export default function ViewTopicRootInfo() {
     {params:{orderBy, order}
   }))
 
-  const {data:topicData, isFetching:topicIsFetching} = useQuery('getTopic',async ()=>await api.get(`/api/topics/raw/${id}`))
+  
   useEffect(()=>{
     refetch()
   },[url, order, orderBy])
@@ -30,12 +31,7 @@ export default function ViewTopicRootInfo() {
     <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
         <h1>
-          {topicIsFetching
-            ? 
-              "Carregando"
-            :
-              topicData?.data.name
-          }
+          <Header/>
         </h1>
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>

@@ -34,6 +34,7 @@ export default function Topics() {
                       <Card
                         key={el.name + i}
                         topic={el}
+                        onDelete={refetch}
                       />
                   )}
                 </ul>

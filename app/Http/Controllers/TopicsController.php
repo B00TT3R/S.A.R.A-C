@@ -47,4 +47,10 @@ class TopicsController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->root_infos()->findOrFail($infoid)->delete();
     }
+
+    public function updateName(Request $request, $id){
+        $topic = Topic::findOrFail($id);
+        $topic->name = $request->name;
+        $topic->save();
+    }
 }
