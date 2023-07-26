@@ -9,6 +9,7 @@ import NewButton from "./NewButton/NewButton"
 import CardWrapper from "./CardWrapper/CardWrapper"
 import BigButton from "./BigButton/BigButton"
 import Square from "./Square/Square"
+import Tabs from "./Tabs/Tabs"
 export {
     PageLoader,
     PageSpinner,
@@ -21,4 +22,5 @@ export {
     CardWrapper,
     BigButton,
     Square,
+    Tabs
 }

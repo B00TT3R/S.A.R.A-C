@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import {NewButton, PageSpinner, Square} from '<>'
+import {NewButton, PageSpinner} from '<>'
 import topic from './Types/topic'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"

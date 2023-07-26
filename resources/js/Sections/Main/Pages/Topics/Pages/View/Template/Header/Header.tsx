@@ -41,7 +41,7 @@ export default function Header(){
                 <div className="flex justify-between">
                     <input
                         value={inputValue}
-                        className="!outline-none !border-none !ring-0 text-2xl p-0"
+                        className="!outline-none !border-none !ring-0 text-2xl p-0 bg-transparent"
                         onChange={handleInputChange}
                         onKeyDown={handleEnterKey}
                     />
