@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom'
 export default function Posts() {
     const {id} = useParams()
     titleHandler(`Posts do tópico ${id}`)
-    const [url, setUrl] = useState(`/api/topics/${id}/posts`)
+    const [url, setUrl] = useState(`/api/topics/${id}/post`)
     const [orderBy, setOrderBy] = useState("id")
     const [order, setOrder] = useState("desc")
     const [isDeleting, setIsDeleting] = useState(false)
