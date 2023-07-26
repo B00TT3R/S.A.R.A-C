@@ -21,6 +21,7 @@ export default function ViewTopicRootInfo() {
     {params:{orderBy, order}
   }))
 
+  const {data:topicData, isFetching:topicIsFetching} = useQuery('getTopic',async ()=>await api.get(`/api/topics/raw/${id}`))
   useEffect(()=>{
     refetch()
   },[url, order, orderBy])
@@ -28,7 +29,14 @@ export default function ViewTopicRootInfo() {
   return (
     <div className='w-full h-full gap-2 flex flex-col relative'>
       <header className="text-2xl">
-        <h1>Informações Raiz:</h1>
+        <h1>
+          {topicIsFetching
+            ? 
+              "Carregando"
+            :
+              topicData?.data.name
+          }
+        </h1>
       </header>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
           {

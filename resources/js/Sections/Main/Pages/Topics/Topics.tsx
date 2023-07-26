@@ -29,7 +29,7 @@ export default function Topics() {
 
                   <NewButton to="novo"/>
                 </div>
-                <ul className='grid gap-5 w-full pb-3 grid-cols-3'>
+                <ul className='w-full pb-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-2'>
                   {data?.data.map((el, i)=>
                       <Card
                         key={el.name + i}
