@@ -9,7 +9,7 @@ export default function EditTopicRootInfo(){
     const navigate = useNavigate()
     const {id, infoid} = useParams()
     titleHandler(`Editar Informação Raiz ${infoid} do tópico ${id}`)
-    const {data, isFetching} = useQuery("getTopicRootInfo", async ()=>await api.get(`/api/topics/${id}/${infoid}`))
+    const {data, isFetching} = useQuery("getTopicRootInfo", async ()=>await api.get(`/api/topics/${id}/info/${infoid}`))
     const initialValues = {
         info: data?.data.info,
         type: data?.data.type,
@@ -20,7 +20,7 @@ export default function EditTopicRootInfo(){
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            await api.put(`/api/topics/${id}/${infoid}`, values)
+            await api.put(`/api/topics/${id}/info/${infoid}`, values)
             navigate(`/topicos/${id}`)
         } catch(err){
             alert("Erro na criação!")

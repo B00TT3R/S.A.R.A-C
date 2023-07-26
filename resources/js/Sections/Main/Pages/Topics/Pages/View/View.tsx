@@ -2,6 +2,7 @@ import { Tabs } from "<>"
 import { useParams } from 'react-router-dom'
 import Header from './Template/Header/Header'
 import RootInfos from './Template/Sections/RootInfos/RootInfos'
+import Posts from "./Template/Sections/Posts/Posts"
 
 export default function ViewTopicRootInfo() {
   const {id} = useParams()
@@ -21,7 +22,7 @@ export default function ViewTopicRootInfo() {
           },
           {
             "label": "Posts",
-            "element":<>Posts</>
+            "element":<Posts/>
           },
           {
             "label": "Gerações",

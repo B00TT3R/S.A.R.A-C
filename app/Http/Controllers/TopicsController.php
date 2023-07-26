@@ -53,4 +53,11 @@ class TopicsController extends Controller
         $topic->name = $request->name;
         $topic->save();
     }
+
+    public function getPosts(Request $request, $id){
+        dd($id);
+        $topic = Topic::findOrFail($id);
+        $register = $topic->posts()->orderBy($request->orderBy, $request->order)->paginate(10);
+        return $register;        
+    }
 }

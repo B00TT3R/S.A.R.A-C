@@ -19,7 +19,7 @@ const NewUser = () =>{
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            await api.post(`/api/topics/${id}`, values)
+            await api.post(`/api/topics/${id}/info`, values)
             navigate(`/topicos/${id}`)
         } catch(err){
             alert("Erro na criação!")

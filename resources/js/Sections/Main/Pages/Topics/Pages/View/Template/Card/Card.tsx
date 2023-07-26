@@ -16,12 +16,12 @@ export default function Card({rootinfo, onDelete}:props) {
   const navigate = useNavigate()
   const handleDelete = async () =>{
     if(window.confirm(`Deseja realmente deletar a informação ${infoid}?`)){
-      await api.delete(`/api/topics/${id}/${infoid}`)
+      await api.delete(`/api/topics/${id}/info/${infoid}`)
       onDelete && onDelete()
     }
   }
   const handleEdit = async () => {
-    navigate(`editar/${id}`)
+    navigate(`editar/${infoid}`)
   }
   return(
     <CardWrapper
