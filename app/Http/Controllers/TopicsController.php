@@ -72,4 +72,9 @@ class TopicsController extends Controller
         $post = $topic->posts()->findOrFail($postid);
         return $post;
     }
+
+    public function instantGeneration($id){
+        ScheduleController::fullGeneration(Topic::findOrFail($id));
+        return "Post lançado";
+    }
 }

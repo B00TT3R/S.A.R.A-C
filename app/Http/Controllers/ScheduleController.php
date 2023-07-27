@@ -10,6 +10,32 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+    public static function fullGeneration($topic){
+        error_log("Criando noticia do tópico: \n> " . $topic->name);
+        $message = GPTController::textGen(
+            max_tokens: 3064,
+            temperature: 0.6,
+            type: "geração automática",
+            messages: $topic->formatRootInfosToMessages(),
+            topic: $topic
+        );
+        $url = GPTController::imageGen(
+            prompt: $topic->formatRootInfosToImage(
+                self::getImagePrompt(self::getTitle($message, $topic), $topic)
+            ),
+            size: "512x512",
+            type: "geração-automatica",
+            originalUrl: true
+        );
+        FacebookController::post(
+            $topic,
+            [
+                'message'=> $message,
+                'url'=> $url,
+            ]
+        );
+    }
+
     public static function getTitle($news, $topic){
         $title = GPTController::textGen(
             prompt: "Escreva um titulo adequado para: ".$news,
@@ -47,29 +73,7 @@ class ScheduleController extends Controller
         $topics = Topic::with("root_infos")->get();
 
         foreach ($topics as $topic) {
-            error_log("criando noticia do tópico: \n> " . $topic->name);
-            $message = GPTController::textGen(
-                max_tokens: 3064,
-                temperature: 0.6,
-                type: "geração automática",
-                messages: $topic->formatRootInfosToMessages(),
-                topic: $topic
-            );
-            $url = GPTController::imageGen(
-                prompt: $topic->formatRootInfosToImage(
-                    self::getImagePrompt(self::getTitle($message, $topic), $topic)
-                ),
-                size: "512x512",
-                type: "geração-automatica",
-                originalUrl: true
-            );
-            FacebookController::post(
-                $topic,
-                [
-                    'message'=> $message,
-                    'url'=> $url,
-                ]
-            );
+            self::fullGeneration($topic);
 
         }
 

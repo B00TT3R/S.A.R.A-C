@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import {paginatedValue} from '-ts/paginatedValue'
-import {NewButton, PageSpinner, Pagination, Select} from '<>'
+import { paginatedValue} from '-ts/paginatedValue'
+import { PageSpinner, Pagination, Select} from '<>'
 import post from './Types/post'
 import Card from './Template/Card/Card'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import { useParams } from 'react-router-dom'
+import GenerateButton from './Template/GenerateButton/GenerateButton'
 
 export default function Posts() {
     const {id} = useParams()
@@ -24,11 +25,10 @@ export default function Posts() {
         refetch()
     },[url, order, orderBy])
 
+    const handleGeneration = async()=>{
+
+    }
     return (
-        <div className='w-full h-full gap-2 flex flex-col relative'>
-        <header className="text-2xl">
-            <h1>Posts:</h1>
-        </header>
         <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
             {
                 isFetching || isDeleting
@@ -37,7 +37,7 @@ export default function Posts() {
                 :
                 <>
                     {/* orderby */}
-                    <div className='flex gap-1 sm:gap-2 w-full text-sm sm:text-base'>
+                    <div className='flex gap-2 w-full'>
                     <div className='grid'>
                         <span>Ordenar por: </span>
                         <Select 
@@ -58,7 +58,7 @@ export default function Posts() {
                         <option value="desc">Decrescente</option>
                         </Select>
                     </div>
-                    {/* <NewButton to="novo"/> */}
+                    <GenerateButton onFinish={refetch} />
                     </div>
                     <ul className='grid gap-2 w-full pb-3'>
                     {data?.data.data.map((post)=>(
@@ -73,8 +73,6 @@ export default function Posts() {
                     </div>
                 </>
             }
-        </div>
-        
         </div>
     )
 }
