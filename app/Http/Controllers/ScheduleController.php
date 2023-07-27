@@ -25,7 +25,8 @@ class ScheduleController extends Controller
             ),
             size: "512x512",
             type: "geração-automatica",
-            originalUrl: true
+            originalUrl: true,
+            topic:$topic
         );
         FacebookController::post(
             $topic,

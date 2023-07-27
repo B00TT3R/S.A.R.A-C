@@ -13,7 +13,7 @@ class ShootNewsByTopic extends Command
      *
      * @var string
      */
-    protected $signature = 'news:topicshoot';
+    protected $signature = 'news:shoot';
 
     /**
      * The console command description.

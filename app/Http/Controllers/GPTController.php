@@ -35,7 +35,7 @@ class GPTController extends Controller
         float $temperature = 0.7,
         string $type="não-definido",
         array $messages=[],
-        Topic $topic
+        Topic|null $topic = null
     ){
         $model = env("OPENAI_TEXT_MODEL");
         $response = Http::withHeaders([
@@ -57,7 +57,7 @@ class GPTController extends Controller
             "messages" => $messages,
             "response" => $json,
             "gen_type" => "text",
-            "topic_id" => $topic->id,
+            "topic_id" => $topic ? $topic->id : null,
             "result" => $json->choices[0]->message->content
         ]);
         return $json->choices[0]->message->content ?? "erro na geração";
@@ -75,11 +75,11 @@ class GPTController extends Controller
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
-        Topic|Builder $topic,
+        null |Topic | Builder $topic = null,
         array $messages = [],
         string $prompt = "Gere uma noticia",
     ):string{
-        try{            
+        try{
             $json = self::chatCompletionGen(
                 prompt:$prompt,
                 max_tokens:$max_tokens,
@@ -103,6 +103,7 @@ class GPTController extends Controller
         string $size = "1024x1024",
         string $type = "não-definido",
         bool $originalUrl = false,
+        null|Builder|Topic $topic = null
     ):string{
         try{
             $response = Http::withHeaders([
@@ -119,7 +120,8 @@ class GPTController extends Controller
                 "prompt" => $prompt,
                 "response" => $json,
                 'type' => $type,
-                'result'=> $json->data[0]->url
+                'result'=> $json->data[0]->url,
+                "topic_id" => $topic?$topic->id:null,
             ]);
             if($originalUrl){
                 return $generation->result;

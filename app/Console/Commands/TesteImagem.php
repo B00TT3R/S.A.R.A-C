@@ -27,7 +27,12 @@ class TesteImagem extends Command
      */
     public function handle(): void
     {
-        $url = GPTController::imageGen("debugging dragon", "256x256" , "teste-imagem");
+        $url = GPTController::imageGen(
+            prompt: "debugging dragon",
+            size: "256x256" ,
+            type: "teste-imagem",
+            originalUrl:true
+        );
         $this->info(Artisan::output());
         $this->info($url);
     }

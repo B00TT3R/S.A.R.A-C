@@ -25,7 +25,6 @@ class LogTeste extends Command
      */
     public function handle(): void
     {
-        error_log("Teste de log completo!");
         $this->info("Teste de log completo!");
     }
 }
