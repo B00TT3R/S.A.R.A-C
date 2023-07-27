@@ -71,6 +71,7 @@ class ScheduleController extends Controller
         return $imagePrompt;
     }
     
+    // gerar todas as noticias num foreach
     public static function shoot(){
         error_log("Criando noticias automaticamente...");
         $topics = Topic::all();
@@ -79,7 +80,5 @@ class ScheduleController extends Controller
             self::fullGeneration($topic);
         }
 
-        Timer::resetTimer();
-        Timer::addMinutes(ShootTime::getTime());
     }
 }
