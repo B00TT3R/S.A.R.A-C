@@ -48,6 +48,7 @@ class ScheduleController extends Controller
         error_log($title);
         return $title;
     }
+
     private static function getImagePrompt($title, $topic){
         $prompt = "Descreva de forma curta, literal e sem prosa, uma imagem de capa para uma noticia cujo titulo é";
         $messages = $topic->formatImageRootInfosToMessages();
@@ -68,6 +69,7 @@ class ScheduleController extends Controller
         error_log($imagePrompt);
         return $imagePrompt;
     }
+    
     public static function shoot(){
         error_log("Criando noticias automaticamente...");
         $topics = Topic::with("root_infos")->get();
