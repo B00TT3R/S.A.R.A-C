@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import {paginatedValue} from '-ts/paginatedValue'
-import {NewButton, PageSpinner, Pagination, Select} from '<>'
-import rootInfo from '../../../../../Types/rootInfo'
-import Card from '../../../Template/Card/Card'
+import {PageSpinner, Pagination, Select} from '<>'
+import generation from './Types/generation'
+import Card from './Template/Card/Card'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import { useParams } from 'react-router-dom'
 
-export default function ViewTopicRootInfo() {
+export default function Generations() {
   const {id} = useParams()
-  titleHandler(`Informações Raiz do tópico ${id}`)
-  const [url, setUrl] = useState(`/api/topics/${id}`)
+  titleHandler(`Gerações do tópico ${id}`)
+  const [url, setUrl] = useState(`/api/topics/${id}/generation`)
   const [orderBy, setOrderBy] = useState("id")
   const [order, setOrder] = useState("desc")
   
-  const {data, refetch, isFetching} = useQuery('getRootInfoTopics',async ()=> await api.get<paginatedValue<rootInfo[]>>
-  (
-    url, 
+  const {data, refetch, isFetching} = useQuery('getTopicGenerations',async ()=> await api.get<paginatedValue<generation[]>>(url, 
     {params:{orderBy, order}
   }))
 
-  
   useEffect(()=>{
     refetch()
   },[url, order, orderBy])
@@ -35,15 +32,14 @@ export default function ViewTopicRootInfo() {
             :
               <>
                 {/* orderby */}
-                <div className='flex gap-2 w-full'>
-                <div className='grid'>
+                <div className='flex gap-2'>
+                  <div className='grid'>
                     <span>Ordenar por: </span>
                     <Select 
                       onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
                       value={orderBy}
                     >
                       <option value="id">ID</option>
-                      <option value="info">Informação</option>
                       <option value="type">Tipo</option>
                     </Select>
                   </div>
@@ -57,11 +53,10 @@ export default function ViewTopicRootInfo() {
                       <option value="desc">Decrescente</option>
                     </Select>
                   </div>
-                  <NewButton to="info/novo"/>
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
-                  {data?.data.data.map((rootinfo)=>(
-                    <Card rootinfo={rootinfo} onDelete={refetch} key={rootinfo.id}/>
+                  {data?.data.data.map((error)=>(
+                    <Card error={error} key={error.id}/>
                   ))}
                 </ul>
                 <div className='sticky bottom-0 w-full'>
@@ -69,7 +64,7 @@ export default function ViewTopicRootInfo() {
                     data={data!.data}
                     handleChange={setUrl}
                   />
-                </div>                
+                </div>
               </>
           }
       </div>

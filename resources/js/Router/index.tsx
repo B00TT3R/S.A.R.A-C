@@ -72,16 +72,21 @@ const router = createBrowserRouter([
                         path: ':id',
                     },
                     {
-                        element: <PageLoader Element={NewTopicRootInfo}/>,
-                        path: ':id/novo',
-                    },
-                    {
-                        element: <PageLoader Element={ViewTopicRootInfo}/>,
-                        path: ':id/:infoid',
-                    },
-                    {
-                        element: <PageLoader Element={EditTopicRootInfo}/>,
-                        path: ':id/editar/:infoid',
+                        path: ":id/info",
+                        children: [
+                            {
+                                element: <PageLoader Element={NewTopicRootInfo}/>,
+                                path: 'novo',
+                            },
+                            {
+                                element: <PageLoader Element={ViewTopicRootInfo}/>,
+                                path: ':infoid',
+                            },
+                            {
+                                element: <PageLoader Element={EditTopicRootInfo}/>,
+                                path: 'editar/:infoid',
+                            },
+                        ]
                     },
                     
                 ]

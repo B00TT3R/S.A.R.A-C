@@ -21,11 +21,11 @@ export default function Card({rootinfo, onDelete}:props) {
     }
   }
   const handleEdit = async () => {
-    navigate(`editar/${infoid}`)
+    navigate(`info/editar/${infoid}`)
   }
   return(
     <CardWrapper
-      to={rootinfo.id.toString()}
+      to={"info/"+rootinfo.id}
       className='flex gap-1 justify-around items-center'
       outerChild={
         <>

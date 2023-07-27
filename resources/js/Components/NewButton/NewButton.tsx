@@ -6,7 +6,7 @@ interface props{
 }
 const NewButton  = ({to}:props) =>{
     return(
-        <Link to="novo" className="ml-auto bg-red text-white flex flex-col">
+        <Link to={to} className="ml-auto bg-red text-white flex flex-col">
             <div className={classNames(
                 "transition-colors rounded-md p-2 mt-auto",
                 "bg-black hover:bg-gray-700",

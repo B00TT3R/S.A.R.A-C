@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::post("topics/{id}/post/shoot", [TopicsController::class, "instantGeneration"]);
         Route::delete('topics/{id}/post/{postid}', [TopicsController::class, "destroyPost"]);
         Route::get('topics/{id}/post/{postid}', [TopicsController::class, "showPost"]);
+        Route::get("topics/{id}/generation", [TopicsController::class, "getGeneration"]);
         
     });
 
