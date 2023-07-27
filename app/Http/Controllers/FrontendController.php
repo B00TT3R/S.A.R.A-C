@@ -17,6 +17,7 @@ class FrontendController extends Controller
                 "modify_users",
                 "generations",
                 "root_infos",
+                "topics",
             ]
         ]);
     }

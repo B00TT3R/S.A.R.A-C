@@ -59,13 +59,17 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::middleware(['auth:sanctum', 'abilities:root_infos'])->group(function () {
         Route::post('rootInfos/autogen', [RootInfosController::class, "changeGeneration"]);
         Route::get("rootInfos/autogen", [RootInfosController::class, "getGeneration"]);
-
+        
         Route::get('rootInfos', [RootInfosController::class, "index"]);
         Route::get('rootInfos/{id}', [RootInfosController::class, "show"]);
         Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
         Route::post('rootInfos/', [RootInfosController::class, "create"]);
         Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
-
+        
+        
+        
+    });
+    Route::middleware(['auth:sanctum', 'abilities:topics'])->group(function () {
         Route::get('topics', [TopicsController::class, "index"]);
         Route::post('topics', [TopicsController::class, "create"]);
         Route::get('topics/{id}', [TopicsController::class, "showRegister"]);
@@ -84,8 +88,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get("topics/{id}/generation/{generationid}", [TopicsController::class, "showGeneration"]);
         Route::get("topics/{id}/autogen", [TopicsController::class, "showAutoGeneration"]);
         Route::patch("topics/{id}/autogen", [TopicsController::class, "setAutoGeneration"]);
-        
     });
-
+    
     Route::post("logout", [UserController::class, "logout"]);
 });
