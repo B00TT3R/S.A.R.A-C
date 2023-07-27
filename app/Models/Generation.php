@@ -18,6 +18,7 @@ class Generation extends Model
         "messages",
         "gen_type",
         "result",
+        "topic_id"
     ];
     protected $casts = [
         "response" => "json",
