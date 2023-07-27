@@ -22,7 +22,7 @@ export default function Card({post, onDelete, isDeleting}:props) {
   }  
   return(
     <CardWrapper 
-      to={post.id.toString()}
+      to={"post/"+post.id}
       className="flex gap-1 justify-around items-center"
       outerChild={
         <div className='flex gap-1'>

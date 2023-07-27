@@ -66,4 +66,10 @@ class TopicsController extends Controller
         FacebookController::deletePost($post);
         $post->delete();
     }
+
+    public function showPost($id,$postid){
+        $topic = Topic::findOrFail($id);
+        $post = $topic->posts()->findOrFail($postid);
+        return $post;
+    }
 }

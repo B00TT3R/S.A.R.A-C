@@ -5,12 +5,12 @@ import { FacebookEmbed } from 'react-social-media-embed';
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
-export default function ViewPost() {
-  const {id} = useParams()
-  titleHandler(`Post ${id}`)
+export default function ViewError() {
+  const {id, postid} = useParams()
+  titleHandler(`Post ${postid}`)
   const {data, isFetching, error} = useQuery(
     'getPost', 
-    async ()=> await api.get(`/api/posts/${id}`),
+    async ()=> await api.get(`/api/topics/${id}/post/${postid}`),
     {
       retry:false
     }
@@ -61,7 +61,6 @@ export default function ViewPost() {
                           <pre className='whitespace-pre-wrap text-gray-700'>{JSON.stringify(data?.data.response, null, 2)}</pre>
                         </code>
                       </div>
-                      
                       <div>
                         <h3 className='text-xl font-semibold'>Criado em:</h3>
                         {data?.data.created_at?DateFormatter(data.data.created_at):"sem valor"}
