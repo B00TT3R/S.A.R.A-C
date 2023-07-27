@@ -1,6 +1,5 @@
-import React, { HTMLAttributes, useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch as Switcher } from '@headlessui/react';
-import {Form, Formik} from "formik"
 import { classNames } from '@/Utils';
 
 interface Props extends React.ComponentPropsWithoutRef<typeof Switcher> {

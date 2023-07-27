@@ -88,4 +88,19 @@ class TopicsController extends Controller
         $topic = Topic::findOrFail($id);
         return($topic->generations()->findOrFail($generationid));
     }
+    
+    public function showAutoGeneration($id){
+        $topic = Topic::findOrFail($id);
+        return [
+            "generate" => $topic->auto_gen,
+            "frequency" => $topic->time,
+        ];
+    }
+    
+    public function setAutoGeneration(Request $request, $id){
+        Topic::findOrFail($id)->update([
+            "time" => $request->frequency,
+            "auto_gen" => $request->generate,
+        ]);
+    }
 }

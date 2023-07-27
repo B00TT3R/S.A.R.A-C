@@ -82,6 +82,8 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get('topics/{id}/post/{postid}', [TopicsController::class, "showPost"]);
         Route::get("topics/{id}/generation", [TopicsController::class, "getGeneration"]);
         Route::get("topics/{id}/generation/{generationid}", [TopicsController::class, "showGeneration"]);
+        Route::get("topics/{id}/autogen", [TopicsController::class, "showAutoGeneration"]);
+        Route::patch("topics/{id}/autogen", [TopicsController::class, "setAutoGeneration"]);
         
     });
 

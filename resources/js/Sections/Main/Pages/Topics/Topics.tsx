@@ -37,6 +37,10 @@ export default function Topics() {
                         onDelete={refetch}
                       />
                   )}
+                  {
+                    data?.data.length == 0 && 
+                    <h2 className="text-xl">Sem tópicos ainda</h2>
+                  }
                 </ul>
                 <div className='sticky bottom-0 w-full'>
                   {/* paginação */}

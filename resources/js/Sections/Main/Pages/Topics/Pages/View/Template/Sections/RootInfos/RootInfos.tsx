@@ -7,6 +7,7 @@ import Card from '../../../Template/Card/Card'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import { useParams } from 'react-router-dom'
+import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 
 export default function ViewTopicRootInfo() {
   const {id} = useParams()
@@ -27,6 +28,8 @@ export default function ViewTopicRootInfo() {
   },[url, order, orderBy])
 
   return (
+    <>
+      <AutomaticGen/>
       <div className='flex flex-col items-start w-full h-full flex-1 gap-2'>
           {
             isFetching
@@ -73,5 +76,6 @@ export default function ViewTopicRootInfo() {
               </>
           }
       </div>
+    </>
   )
 }
