@@ -105,7 +105,7 @@ export default function Sidebar() {
         <ListButton
           Icon={FaGithub}
           text="Link no Github"
-          to="https://github.com/B00TT3R/S.A.R.A"
+          to="https://github.com/B00TT3R/S.A.R.A-C"
           iconClass='sm:group-hover:text-green-500 active:text-green-500'
           iconClassOnActive="text-green-500"
         />
