@@ -2,11 +2,11 @@ import React from 'react'
 import Square from '../Square/Square'
 import { BiErrorAlt } from 'react-icons/bi';
 import { useQuery } from 'react-query';
-import axios from 'axios';
 import {PageSpinner} from '<>';
+import api from '@/Utils/api';
 
 export default function Errors() {
-    const {data, isLoading, isFetching} = useQuery('errorCount', async ()=>await axios.get("api/errorCount"))
+    const {data, isLoading, isFetching} = useQuery('errorCount', async ()=>await api.get("/api/errorCount"))
     return (
         
         <Square

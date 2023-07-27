@@ -11,7 +11,7 @@ api.interceptors.response.use(
             const parts = currentUrl.split('/')
             const lastPart = parts[parts.length - 1]
             if (lastPart !== 'login') {
-                router.navigate('login')
+                router.navigate('/login')
             }
         }
         return Promise.reject(error);

@@ -2,11 +2,11 @@ import React from 'react'
 import Square from '../Square/Square'
 import { SiOpenai } from 'react-icons/si';
 import { useQuery } from 'react-query';
-import axios from 'axios';
 import {PageSpinner} from '<>';
+import api from '@/Utils/api';
 
 export default function Errors() {
-    const {data, isLoading, isFetching} = useQuery('generationCount', async ()=> await axios.get("api/generationCount"))
+    const {data, isLoading, isFetching} = useQuery('generationCount', async ()=> await api.get("/api/generationCount"))
     return (
         
         <Square
