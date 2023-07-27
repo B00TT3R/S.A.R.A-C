@@ -15,10 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command("news:shoot")->when(function (){
-            $next = Timer::getNextTime();
-            return $next->isPast() && AutoGen::getGenerate();
-        });
+        $schedule->command("news:topicshoot")->everyMinute();
         
     }
 

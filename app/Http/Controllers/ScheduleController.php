@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ScheduleController extends Controller
 {
     public static function fullGeneration($topic){
-        error_log("Criando noticia do tópico: \n> " . $topic->name);
+        error_log("Criando noticia do tópico: \n>" . $topic->name);
         $message = GPTController::textGen(
             max_tokens: 3064,
             temperature: 0.6,
@@ -19,7 +19,7 @@ class ScheduleController extends Controller
             messages: $topic->formatRootInfosToMessages(),
             topic: $topic
         );
-        $url = GPTController::imageGen(
+        $url = GPTController::imageGen( // colocar tópico aqui
             prompt: $topic->formatRootInfosToImage(
                 self::getImagePrompt(self::getTitle($message, $topic), $topic)
             ),
@@ -72,11 +72,10 @@ class ScheduleController extends Controller
     
     public static function shoot(){
         error_log("Criando noticias automaticamente...");
-        $topics = Topic::with("root_infos")->get();
+        $topics = Topic::all();
 
         foreach ($topics as $topic) {
             self::fullGeneration($topic);
-
         }
 
         Timer::resetTimer();

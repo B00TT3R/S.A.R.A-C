@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use HasFactory;
-    protected $fillable = ["name", "auto_gen", "time"];
+    protected $fillable = ["name", "auto_gen", "time", "next"];
+    protected $casts = [
+        'next' => 'datetime',
+    ];
+
     public function root_infos(){
         return $this->hasMany(RootInfo::class);
     }
@@ -38,7 +42,7 @@ class Topic extends Model
         return $counts;
     }
 
-    public static function all($columns = ['*'])
+    public static function allCounted($columns = ['*'])
     {
         $topics = parent::all($columns);
         foreach ($topics as $topic){
@@ -48,7 +52,7 @@ class Topic extends Model
     }
 
     public static function filteredAll($columns = ['*']){
-        $topics = self::all($columns);
+        $topics = self::allCounted($columns);
         foreach ($topics as $topic){
             unset($topic->root_infos);
         }
@@ -98,6 +102,18 @@ class Topic extends Model
             $styleArray[] = self::messageGenerator("Considere a seguinte estilo desejado: ".$style);
         }
         return $styleArray;
+    }
+
+    public function addNext(){
+        $this->update([
+            "next" => $this->next->addMinutes($this->time)
+        ]);
+    }
+
+    public function resetTimer(){
+        $this->next = now()->toDateTimeString();
+        $this->save();
+        return $this->next;
     }
 
 }

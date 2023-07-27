@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->unsignedInteger("time")->default(1);
             $table->boolean("auto_gen")->default(false);
+            $table->dateTime("next")->nullable();
             $table->timestamps();
         });
     }

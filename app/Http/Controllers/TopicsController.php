@@ -98,9 +98,13 @@ class TopicsController extends Controller
     }
     
     public function setAutoGeneration(Request $request, $id){
-        Topic::findOrFail($id)->update([
+        $topic = Topic::findOrFail($id);
+        $topic->update([
             "time" => $request->frequency,
             "auto_gen" => $request->generate,
         ]);
+        $topic->setNext();
+
+        
     }
 }
