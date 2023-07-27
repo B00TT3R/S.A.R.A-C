@@ -83,4 +83,9 @@ class TopicsController extends Controller
         $registers = $topic->generations()->orderBy($request->orderBy, $request->order)->paginate(10);
         return $registers;
     }
+
+    public function showGeneration($id, $generationid){
+        $topic = Topic::findOrFail($id);
+        return($topic->generations()->findOrFail($generationid));
+    }
 }

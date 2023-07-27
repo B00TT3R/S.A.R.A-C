@@ -36,6 +36,7 @@ const ViewTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/View/View")
 const NewTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/New/New"))
 const EditTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/Edit/Edit"))
 const ViewTopicPost = lazy(()=>import("&/Topics/Pages/View/Template/Sections/Posts/View/View"));
+const ViewTopicGeneration = lazy(()=>import("&/Topics/Pages/View/Template/Sections/Generations/Pages/View/View"));
 
 
 const router = createBrowserRouter([
@@ -50,15 +51,6 @@ const router = createBrowserRouter([
             {
                 path: "topicos",
                 children:[
-                    {
-                        path: ':id/post',
-                        children: [
-                            {
-                                path: ':postid',
-                                element:<PageLoader Element={ViewTopicPost}/>,
-                            },
-                        ]
-                    },
                     {
                         element: <PageLoader Element={Topics}/>,
                         index: true,
@@ -88,6 +80,24 @@ const router = createBrowserRouter([
                             },
                         ]
                     },
+                    {
+                        path: ':id/post',
+                        children: [
+                            {
+                                path: ':postid',
+                                element:<PageLoader Element={ViewTopicPost}/>,
+                            },
+                        ]
+                    },
+                    {
+                        path: ":id/geracao",
+                        children: [
+                            {
+                                path: ":generationid",
+                                element: <PageLoader Element={ViewTopicGeneration}/>,
+                            }
+                        ]
+                    }
                     
                 ]
             },
