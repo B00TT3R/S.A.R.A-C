@@ -89,10 +89,8 @@ class ScheduleController extends Controller
     public static function shoot(){
         error_log("Criando noticias automaticamente...");
         $topics = Topic::all();
-
         foreach ($topics as $topic) {
             self::fullGeneration($topic);
         }
-
     }
 }

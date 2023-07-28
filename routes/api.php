@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     Route::middleware(['auth:sanctum', 'abilities:modify_users'])->group(function () {
         Route::post('users', [UserController::class, "create"]);
         Route::delete('users/{id}', [UserController::class, "destroy"]);
-        Route::post('users/{id}', [UserController::class, "update"]);
+        Route::put('users/{id}', [UserController::class, "update"]);
     });
     Route::middleware(['auth:sanctum', 'abilities:root_infos'])->group(function () {
         Route::post('rootInfos/autogen', [RootInfosController::class, "changeGeneration"]);

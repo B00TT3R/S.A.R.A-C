@@ -28,7 +28,7 @@ const EditUser = () =>{
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            const res = await api.post(`/api/users/${id}`, values)
+            const res = await api.put(`/api/users/${id}`, values)
             navigate("/usuarios")
         } catch(err){
             alert("Erro na criação!")
