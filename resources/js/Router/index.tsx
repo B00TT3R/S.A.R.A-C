@@ -24,11 +24,6 @@ const NewPost = lazy(()=>import("&/Posts/Pages/New/New"))
 const Generations = lazy(()=>import("&/Generations/Generations"))
 const ViewGeneration = lazy(()=>import("&/Generations/Pages/View/View"))
 
-const RootInfos = lazy(()=>import("&/RootInfos/RootInfos"))
-const ViewRootInfos = lazy(()=>import("&/RootInfos/Pages/View/View"))
-const NewRootInfos = lazy(()=>import("&/RootInfos/Pages/New/New"))
-const EditRootInfos = lazy(()=>import("&/RootInfos/Pages/Edit/Edit"))
-
 const Topics = lazy(()=>import("&/Topics/Topics"))
 const NewTopic = lazy(()=>import("&/Topics/Pages/New/New"))
 const ViewTopic = lazy(()=>import("&/Topics/Pages/View/View"))
@@ -141,27 +136,6 @@ const router = createBrowserRouter([
                     {
                         element: <PageLoader Element={ViewPost}/>,
                         path: ':id',
-                    },
-                ]
-            },
-            {
-                path: 'inforaiz',
-                children: [
-                    {
-                        element: <PageLoader Element={RootInfos}/>,
-                        index:true,
-                    },
-                    {
-                        element: <PageLoader Element={ViewRootInfos}/>,
-                        path: ':id',
-                    },
-                    {
-                        element: <PageLoader Element={NewRootInfos}/>,
-                        path: 'novo',
-                    },
-                    {
-                        element: <PageLoader Element={EditRootInfos}/>,
-                        path: 'editar/:id',
                     },
                 ]
             },

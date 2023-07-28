@@ -51,24 +51,13 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
         Route::get('users', [UserController::class, "index"]);
         Route::get('users/{id}', [UserController::class, "show"]);
     });
+
     Route::middleware(['auth:sanctum', 'abilities:modify_users'])->group(function () {
         Route::post('users', [UserController::class, "create"]);
         Route::delete('users/{id}', [UserController::class, "destroy"]);
         Route::put('users/{id}', [UserController::class, "update"]);
     });
-    Route::middleware(['auth:sanctum', 'abilities:root_infos'])->group(function () {
-        Route::post('rootInfos/autogen', [RootInfosController::class, "changeGeneration"]);
-        Route::get("rootInfos/autogen", [RootInfosController::class, "getGeneration"]);
-        
-        Route::get('rootInfos', [RootInfosController::class, "index"]);
-        Route::get('rootInfos/{id}', [RootInfosController::class, "show"]);
-        Route::delete('rootInfos/{id}', [RootInfosController::class, "destroy"]);
-        Route::post('rootInfos/', [RootInfosController::class, "create"]);
-        Route::post('rootInfos/{id}', [RootInfosController::class, "update"]);
-        
-        
-        
-    });
+    
     Route::middleware(['auth:sanctum', 'abilities:topics'])->group(function () {
         Route::get('topics', [TopicsController::class, "index"]);
         Route::post('topics', [TopicsController::class, "create"]);
