@@ -64,7 +64,21 @@ class ScheduleController extends Controller
             prompt: "$prompt: $title",
             temperature:0.5,
             type: "geração de prompt de imagem",
-            messages:$messages,
+            messages:[
+                [
+                    "role" => "system",
+                    "content" => "você é um gerador de prompt de imagem"
+                ],
+                [
+                    "role" => "system",
+                    "content" => "descreva um prompt de imagem para ser passado para uma IA de geração de imagem"
+                ],
+                [
+                    "role" => "system",
+                    "content" => "seja o mais breve possível"
+                ],
+                ...$messages
+            ],
             topic:$topic
         );
         error_log($imagePrompt);

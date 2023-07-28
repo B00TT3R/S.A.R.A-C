@@ -62,14 +62,6 @@ class GPTController extends Controller
         ]);
         return $json->choices[0]->message->content ?? "erro na geração";
     }    
-   
-    private static function formatRootInfosToImage(string $prompt){
-        $infos = RootInfo::where("type", "image")->pluck("info")->toArray();
-        if(count($infos) == 0)
-            return $prompt;
-        $formattedString = implode(', \n ', $infos);
-        return "$prompt,  \n Estilos: $formattedString";
-    }
     
     public static function textGen(
         int $max_tokens = 512,
