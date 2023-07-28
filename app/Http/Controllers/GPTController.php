@@ -29,6 +29,30 @@ class GPTController extends Controller
         ];
     }
     
+    public static function generateNewInfo(
+        Topic|Builder $topic,
+        string $prompt,
+        int $max_tokens=2048,
+        
+    ):string{
+        $info = self::chatCompletionGen(
+            prompt : $prompt,
+            messages : $topic->formatRootInfosToMessages(),
+            max_tokens : $max_tokens,
+            functions : [self::factContinuerFunctionBuilder()],
+            function_call:["name"=>"gerar_fato"],
+            type:"Geração de Fato",
+            getFunction:true, 
+            temperature:0.6
+        );
+        $text = json_decode($info[0]->arguments)->nova_informacao;
+        $topic->root_infos()->create([
+            "type"=>"textinfo",
+            "info"=> $text
+        ]);
+        return $text;
+    }
+
     public static function chatCompletionGen(
         null|string $prompt = null,
         int $max_tokens = 512,
@@ -82,11 +106,9 @@ class GPTController extends Controller
 
         if($getFunction){
             error_log("GetFunction chamado!");
-            error_log(json_encode($json->choices[0], JSON_PRETTY_PRINT));
-            return $json->choices[0]->message->function_call ?? "erro na geração";
+            return array($json->choices[0]->message->function_call) ?? "erro na geração";
         }
         else{
-            error_log("GetFunction não foi chamado!");
             return $json->choices[0]->message->content ?? "erro na geração";
         }
     }    
