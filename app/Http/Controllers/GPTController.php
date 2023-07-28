@@ -29,65 +29,91 @@ class GPTController extends Controller
         ];
     }
     
-    private static function chatCompletionGen(
+    public static function chatCompletionGen(
         null|string $prompt = null,
         int $max_tokens = 512,
         float $temperature = 0.7,
         string $type="não-definido",
         array $messages=[],
-        Topic|null $topic = null
-    ){
+        Topic|null $topic = null,
+        null|array $functions = null,
+        null|array $function_call = null,
+        bool $getFunction = false
+    ):string|array{
         $model = env("OPENAI_TEXT_MODEL");
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer '.env("OPENAI_KEY"),
-        ])->timeout(60)->post('https://api.openai.com/v1/chat/completions',[
-            "model" => $model,
-            "messages" => [
-                ...$messages,
-                self::messageGenerator($prompt, "user"),
-            ],
-            "max_tokens" => $max_tokens,
-            "temperature" => $temperature
-        ])->throw();
-        $json = json_decode($response);
-        Generation::create([
-            "model" => $model,
-            "type" => $type,
-            "prompt" => $prompt,
-            "messages" => $messages,
-            "response" => $json,
-            "gen_type" => "text",
-            "topic_id" => $topic ? $topic->id : null,
-            "result" => $json->choices[0]->message->content
-        ]);
-        return $json->choices[0]->message->content ?? "erro na geração";
-    }    
-    
-    public static function textGen(
-        int $max_tokens = 512,
-        float $temperature = 0.7,
-        string $type="não-definido",
-        null |Topic | Builder $topic = null,
-        array $messages = [],
-        string $prompt = "Gere uma noticia",
-    ):string{
+        $useFunctions = env("OPENAI_FUNCTIONS");
         try{
-            $json = self::chatCompletionGen(
-                prompt:$prompt,
-                max_tokens:$max_tokens,
-                temperature:$temperature,
-                type:$type,
-                messages:$messages,
-                topic:$topic
-            );
-        } catch(RequestException $e){
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer '.env("OPENAI_KEY"),
+            ])->timeout(60)->post('https://api.openai.com/v1/chat/completions',[
+                "model" => $model,
+                "messages" => [
+                    ...$messages,
+                    self::messageGenerator($prompt, "user"),
+                ],
+                "max_tokens" => $max_tokens,
+                "temperature" => $temperature,
+                ...($functions && $useFunctions) ? [
+                    "functions" => $functions,
+                ]: [],
+                ...($function_call && $useFunctions) ? [
+                    "function_call" => $function_call,
+                ]: []
+            ])->throw();
+            $json = json_decode($response);
+            Generation::create([
+                "model" => $model,
+                "type" => $type,
+                "prompt" => $prompt,
+                "messages" => $messages,
+                "response" => $json,
+                "gen_type" => "text",
+                "topic_id" => $topic ? $topic->id : null,
+                "result" => $getFunction ? json_encode($json->choices[0]->message->function_call, JSON_PRETTY_PRINT) : $json->choices[0]->message->content
+            ]);
+        }
+        catch(RequestException $e){
             error_log("erro na geração de texto");
             Errors::create([
                 "message" => $e,
                 "type" => "Requisição a openAI (texto)",
             ]);
         }
-        return $json;
+
+        if($getFunction){
+            error_log("GetFunction chamado!");
+            error_log(json_encode($json->choices[0], JSON_PRETTY_PRINT));
+            return $json->choices[0]->message->function_call ?? "erro na geração";
+        }
+        else{
+            error_log("GetFunction não foi chamado!");
+            return $json->choices[0]->message->content ?? "erro na geração";
+        }
+    }    
+    
+    public static function textGen(
+        int $max_tokens = 512,
+        float $temperature = 0.7,
+        string $type="não-definido",
+        null|Topic|Builder $topic = null,
+        array $messages = [],
+        string $prompt = "Gere uma noticia",
+        null|array $functions = null,
+        null|array $function_call = null,
+        bool $getFunction = false
+    ):string|array{
+        $return = self::chatCompletionGen(
+            prompt:$prompt,
+            max_tokens:$max_tokens,
+            temperature:$temperature,
+            type:$type,
+            messages:$messages,
+            topic:$topic,
+            functions:$functions,
+            function_call:$function_call,
+            getFunction:$getFunction
+        );
+        return $return;
     }
 
     public static function imageGen(
@@ -140,6 +166,29 @@ class GPTController extends Controller
             'total' => $count,
             'image' => $imageGen,
             'text' => $textGen
+        ];
+    }
+
+    public static  function factContinuerFunctionBuilder(){
+        return [
+            "name"=>"gerar_fato",
+            "description" => "considera os fatos e a noticia entrada pelo usuário, e então gera um novo fato",
+            "parameters"=>[
+                "type"=> "object",
+                "properties" => [
+                    "informacoes_previas"=>[
+                        "type" => "array",
+                        "description" => "As informações prévias, não pode existir dentro de \"nova_informacao\"",
+                        "items" => [
+                            "type" => "string"
+                        ],
+                    ],
+                    "nova_informacao" => [
+                        "type" => "string",
+                        "description" => "A nova informação buscada na noticia, deve ser diferente das informações em \"informacoes_previas\""
+                    ]
+                ]
+            ]
         ];
     }
 }

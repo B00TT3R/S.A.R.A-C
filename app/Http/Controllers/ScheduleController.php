@@ -12,27 +12,41 @@ class ScheduleController extends Controller
 {
     public static function fullGeneration($topic){
         error_log("Criando noticia do tópico: \n>" . $topic->name);
-        $message = GPTController::textGen(
-            max_tokens: 3064,
+        $messages = $topic->formatRootInfosToMessages();
+        
+        $content = GPTController::textGen(
+            max_tokens: 2048,
             temperature: 0.6,
-            type: "geração automática",
-            messages: $topic->formatRootInfosToMessages(),
+            type: "Geração Automática",
+            messages: $messages,
             topic: $topic
         );
-        $url = GPTController::imageGen( // colocar tópico aqui
+        /* $url = GPTController::imageGen( // colocar tópico aqui
             prompt: $topic->formatRootInfosToImage(
-                self::getImagePrompt(self::getTitle($message, $topic), $topic)
+                self::getImagePrompt(self::getTitle($content, $topic), $topic)
             ),
             size: "512x512",
             type: "geração-automatica",
             originalUrl: true,
             topic:$topic
+        ); */
+        error_log("chamando função");
+        $newFact = GPTController::chatCompletionGen(
+            functions: [GPTController::factContinuerFunctionBuilder()],
+            function_call:["name"=>"gerar_fato"],
+            messages:$messages,
+            max_tokens:2048,
+            type:"Geração de Fato",
+            prompt:$content,
+            getFunction:true
         );
+        error_log("abaixo a chamada de função");
+        error_log(json_encode($newFact, JSON_PRETTY_PRINT));
         FacebookController::post(
             $topic,
             [
-                'message'=> $message,
-                'url'=> $url,
+                'message'=> $content,
+                //'url'=> $url,
             ]
         );
     }
