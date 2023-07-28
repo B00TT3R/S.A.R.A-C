@@ -64,6 +64,7 @@ class ScheduleController extends Controller
             prompt: "$prompt: $title",
             temperature:0.5,
             type: "geração de prompt de imagem",
+            topic:$topic,
             messages:[
                 [
                     "role" => "system",
@@ -79,7 +80,6 @@ class ScheduleController extends Controller
                 ],
                 ...$messages
             ],
-            topic:$topic
         );
         error_log($imagePrompt);
         return $imagePrompt;
