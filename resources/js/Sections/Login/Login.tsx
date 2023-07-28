@@ -38,7 +38,7 @@ export default function Login() {
     })
     return (
         <main className='w-full h-screen flex flex-col justify-center items-center bg-gray-100'>
-            <Formik 
+            <Formik
                 onSubmit={handleSubmit}
                 initialValues={initial}
                 validationSchema={validation}

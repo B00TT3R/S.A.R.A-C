@@ -29,8 +29,8 @@ export default function Template() {
             state.sidebar?"p-3":"p-1.5 sm:p-4"
           )}>
             <main className={classNames(
-              "transition-all flex flex-col flex-1  border shadow-sm",
-              "rounded p-2 sm:p-3 overflow-y-auto",
+              "transition-all flex flex-col flex-1 border shadow-sm",
+              "rounded p-1.5 sm:p-3 overflow-y-auto",
               "relative",
               "bg-white border-slate-400 shadow-gray-400 text-black",
               "dark:bg-black dark:border-slate-900 dark:shadow-black dark:text-white",

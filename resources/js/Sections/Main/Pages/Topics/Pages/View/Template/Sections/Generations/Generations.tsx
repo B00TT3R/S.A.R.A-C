@@ -32,27 +32,24 @@ export default function Generations() {
             :
               <>
                 {/* orderby */}
-                <div className='flex gap-2'>
-                  <div className='grid'>
-                    <span>Ordenar por: </span>
+                <div className='flex gap-1 sm:gap-2 w-full'>
                     <Select 
                       onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
                       value={orderBy}
+                      label="Ordenar por:"
                     >
                       <option value="id">ID</option>
                       <option value="type">Tipo</option>
                     </Select>
-                  </div>
-                  <div className='grid'>
-                    <span>Ordem: </span>
+                    <span></span>
                     <Select 
                       onChange={({target})=>setOrder((target as HTMLSelectElement).value)}
                       value={order}
+                      label='Ordem:'
                     >
                       <option value="asc">Crescente</option>
                       <option value="desc">Decrescente</option>
                     </Select>
-                  </div>
                 </div>
                 <ul className='grid gap-2 w-full pb-3'>
                   {data?.data.data.map((error)=>(

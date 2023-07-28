@@ -36,28 +36,23 @@ export default function Posts() {
                 <PageSpinner size='text-7xl'/>
                 :
                 <>
-                    {/* orderby */}
-                    <div className='flex gap-2 w-full'>
-                    <div className='grid'>
-                        <span>Ordenar por: </span>
+                    <div className='flex gap-0.5 sm:gap-2 w-full'>
                         <Select 
-                        onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
-                        value={orderBy}
+                            onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}
+                            value={orderBy}
+                            label="Ordenar por:"
                         >
-                        <option value="id">ID</option>
-                        <option value="type">Tipo</option>
+                            <option value="id">ID</option>
+                            <option value="type">Tipo</option>
                         </Select>
-                    </div>
-                    <div className='grid'>
-                        <span>Ordem: </span>
                         <Select 
-                        onChange={({target})=>setOrder((target as HTMLSelectElement).value)}
-                        value={order}
+                            onChange={({target})=>setOrder((target as HTMLSelectElement).value)}
+                            value={order}
+                            label='Ordem:'
                         >
-                        <option value="asc">Crescente</option>
-                        <option value="desc">Decrescente</option>
+                            <option value="asc">Crescente</option>
+                            <option value="desc">Decrescente</option>
                         </Select>
-                    </div>
                     <GenerateButton onFinish={refetch} />
                     </div>
                     <ul className='grid gap-2 w-full pb-3'>

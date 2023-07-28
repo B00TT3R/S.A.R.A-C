@@ -10,12 +10,12 @@ interface props extends HTMLAttributes<HTMLSelectElement>{
 export default function Select({value, children,label, error, ...rest}:props) {
   const id = useId()
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 w-full">
       {label && <label htmlFor={id}>{label}</label>}
       <select 
         className={
           classNames(
-            "rounded-md py-2 transition-all cursor-pointer",
+            "rounded-md py-2 pl-2 pr-2 sm:pr-8 sm:pl-3 transition-all cursor-pointer",
             "ring-slate-400 focus:ring-slate-600",            
             "dark:ring-slate-800 dark:focus:ring-slate-900 dark:bg-black",
           )

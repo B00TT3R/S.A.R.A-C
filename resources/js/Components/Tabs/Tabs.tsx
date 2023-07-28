@@ -13,7 +13,7 @@ interface props{
 export default function Tabs({items}:props) {
 
   return (
-    <div className="w-full px-2 sm:px-0">
+    <div className="w-full px-0">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-slate-100 dark:bg-slate-950 p-2">
           {items.map((item, i) => (

@@ -20,8 +20,8 @@ export default function GenerateButton({onFinish}:props){
     return(
         <button onClick={handleGeneration} className={
             classNames(
-                "ml-auto",
-                "transition-colors rounded-md p-2 mt-auto",
+                "text-sm sm:text-md",
+                "transition-colors rounded-md p-1.5 sm:p-2 mt-auto",
                 "bg-black hover:bg-gray-700",
                 "dark:bg-white dark:hover:bg-gray-300 text-white dark:text-black"
             )
