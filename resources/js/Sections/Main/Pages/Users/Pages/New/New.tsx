@@ -16,22 +16,22 @@ const NewUser = () =>{
         password: "",
         permissions: []
     }
+
     const validation = object({
         name: string().required("é um campo obrigatório"),
         email: string().email("Precisa ser um email").required("É um campo obrigatório"),
         password: string().required("É um campo obrigatório"),
         permissions: array().min(1, "Selecione ao menos uma permissão").required("Selecione ao menos uma permissão")
-
     })
+    
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            const res = await api.post("/api/users", values)
+            await api.post("/api/users", values)
             navigate("/usuarios")
         } catch(err){
             alert("Erro na criação!")
         }
         setSubmitting(false)
-
     }
     return(
         <div>

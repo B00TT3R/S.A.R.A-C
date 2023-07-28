@@ -24,11 +24,10 @@ const EditUser = () =>{
         email: string().email("Precisa ser um email").required("É um campo obrigatório"),
         password: string().required("É um campo obrigatório"),
         permissions: array().min(1, "Selecione ao menos uma permissão").required("Selecione ao menos uma permissão")
-
     })
     const handleSubmit = async (values:typeof initialValues, {setSubmitting}:FormikHelpers<typeof initialValues>) => {
         try{
-            const res = await api.put(`/api/users/${id}`, values)
+            await api.put(`/api/users/${id}`, values)
             navigate("/usuarios")
         } catch(err){
             alert("Erro na criação!")
