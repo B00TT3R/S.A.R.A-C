@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command("news:shoot")->everyMinute();
         $schedule->command("topic:run")->everyMinute();
+        $schedule->command("topic:del")->everyMinute();
         
     }
 
