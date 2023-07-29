@@ -106,6 +106,9 @@ class Topic extends Model
     }
 
     public function addNext(){
+        if(!$this->next){
+            $this->next = now();
+        }
         $this->update([
             "next" => $this->next->addMinutes($this->time)
         ]);

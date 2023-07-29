@@ -4,6 +4,7 @@ import topic from './Types/topic'
 import { titleHandler } from '@/Utils'
 import api from "@/Utils/api"
 import Card from './Template/Card/Card'
+import AutomaticGen from './Template/AutomaticGen/AutomaticGen'
 
 export default function Topics() {
   titleHandler("Tópicos")
@@ -24,6 +25,7 @@ export default function Topics() {
               <PageSpinner size='text-7xl'/>
             :
               <>
+              <AutomaticGen/>
                 {/* orderby */}
                 <div className='flex gap-2 w-full'>
 

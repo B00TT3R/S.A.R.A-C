@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RootInfo;
 use App\Models\Topic;
+use App\Models\TopicTimer;
 use Illuminate\Http\Request;
 
 class TopicsController extends Controller
@@ -103,7 +104,7 @@ class TopicsController extends Controller
             "time" => $request->frequency,
             "auto_gen" => $request->generate,
         ]);
-        $topic->setNext();
+        $topic->addNext();
 
         
     }
@@ -117,10 +118,11 @@ class TopicsController extends Controller
                 "properties" => [
                     "novo_topico" => [
                         "type" => "string",
-                        "description" => "O novo tópico a ser gerado, não pode ser um que já exista, nem deve ser parecido com um, um exemplo de tópico é: \"Cangurus Mutantes\", ou \"Carros Voadores\""
+                        "description" => "Tópico para gerar noticias sobre, um exemplo é \"Cangurus Mutantes\" ou \"Biotecnologia\", não pode ser um tópico que já exista"
                     ]
-                ]
-            ]
+                ],
+                "required"=>["novo_topico"]
+            ],
         ];
         $messages = Topic::all()->pluck("name")->toArray();
         $messages = array_map(function ($message) {
@@ -138,9 +140,24 @@ class TopicsController extends Controller
             function_call:["name"=>"gerar_topico"],
             getFunction:true,
             messages:$messages,
+            prompt: "Gere um novo tópico para criar noticias sobre ele:",
+            temperature:1
+            
         );        
         Topic::create([
             "name" =>  json_decode($newTopic[0]->arguments)->novo_topico
         ]);
+    }
+
+    public function updateAutogen(Request $request){
+        $timer = TopicTimer::getInstance();
+        $timer->update([
+            "auto_gen"=> $request->generate,
+            "time" => $request->frequency
+        ]);
+    }
+
+    public function getAutogen(){
+        return TopicTimer::getInstance();
     }
 }

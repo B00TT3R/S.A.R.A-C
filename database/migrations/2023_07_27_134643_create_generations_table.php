@@ -21,7 +21,7 @@ return new class extends Migration
             $table->mediumText("local_result")->nullable();
             $table->text("prompt")->nullable();
             $table->unsignedBigInteger("topic_id")->nullable();
-            $table->foreign('topic_id')->references('id')->on('topics');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete("set null");
 
             $table->json("messages")->nullable();
             $table->json("response");

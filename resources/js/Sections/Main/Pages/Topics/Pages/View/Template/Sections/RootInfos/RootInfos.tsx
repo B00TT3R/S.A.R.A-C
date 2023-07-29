@@ -37,7 +37,6 @@ export default function ViewTopicRootInfo() {
               <PageSpinner size='text-7xl'/>
             :
               <>
-                {/* orderby */}
                 <div className='flex gap-1 sm:gap-2 w-full'>
                   <Select 
                     onChange={({target})=>setOrderBy((target as HTMLSelectElement).value)}

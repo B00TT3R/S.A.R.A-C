@@ -12,7 +12,10 @@ class ScheduleController extends Controller
 {
     public static function fullGeneration($topic){
         error_log("Criando noticia do tópico: \n>" . $topic->name);
-        $messages = $topic->formatRootInfosToMessages();
+        $messages = [
+            GPTController::messageGenerator("Crie uma noticia sobre o tópico: $topic->name"),            
+            ...$topic->formatRootInfosToMessages()
+        ];
         
         $content = GPTController::textGen(
             max_tokens: 2048,

@@ -19,7 +19,7 @@ class TopicTimer extends Model
         "auto_gen" => "boolean"
     ];
 
-    protected function getInstance(){
+    public static function getInstance(){
         return self::first();
     }
 
@@ -29,4 +29,14 @@ class TopicTimer extends Model
             "next" => $item->next->addMinutes($item->time)
         ]);
     }
+    
+    public static function setNext($next){
+        $item = self::getInstance();
+        $item->update([
+            "next" => $next
+        ]);
+
+    }
+
+    
 }

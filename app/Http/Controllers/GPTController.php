@@ -73,7 +73,7 @@ class GPTController extends Controller
                 "model" => $model,
                 "messages" => [
                     ...$messages,
-                    ...($prompt ? self::messageGenerator($prompt, "user"): []),
+                    ...($prompt ? [self::messageGenerator($prompt, "user")]: []),
                 ],
                 "max_tokens" => $max_tokens,
                 "temperature" => $temperature,

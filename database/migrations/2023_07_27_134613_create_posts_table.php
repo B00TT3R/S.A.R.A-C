@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json("response");
             $table->mediumText("description")->nullable();
             $table->unsignedBigInteger("topic_id")->nullable();
-            $table->foreign('topic_id')->references('id')->on('topics');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('set null');
             $table->json("request");
             $table->timestamps();
         });
