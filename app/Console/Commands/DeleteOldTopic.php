@@ -27,7 +27,8 @@ class DeleteOldTopic extends Command
     public function handle(): void
     {
         $AITopics = Topic::whereNull("user_id");
-        if($AITopics->count() > 10){
+        $max = env("MAX_AI_TOPICS");
+        if($AITopics->count() > $max){
             $oldest = $AITopics->orderBy('created_at')->first();
             $this->info("Registro: ".$oldest->name. " Foi deletado");
             $oldest->delete();
