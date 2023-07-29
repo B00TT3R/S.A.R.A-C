@@ -53,5 +53,10 @@ class User extends Authenticatable
                 $model->password = Hash::make($model->password, ['rounds' => 12]);
             }
         });
+        static::updating(function ($model) {
+            if (isset($model->password)) {
+                $model->password = Hash::make($model->password, ['rounds' => 12]);
+            }
+        });
     }
 }
