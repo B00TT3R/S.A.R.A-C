@@ -73,7 +73,7 @@ class GPTController extends Controller
                 "model" => $model,
                 "messages" => [
                     ...$messages,
-                    self::messageGenerator($prompt, "user"),
+                    ...($prompt ? self::messageGenerator($prompt, "user"): []),
                 ],
                 "max_tokens" => $max_tokens,
                 "temperature" => $temperature,
@@ -97,11 +97,12 @@ class GPTController extends Controller
             ]);
         }
         catch(RequestException $e){
-            error_log("erro na geração de texto");
+            error_log("erro na geração de texto (catch)");
             Errors::create([
                 "message" => $e,
                 "type" => "Requisição a openAI (texto)",
             ]);
+            
         }
 
         if($getFunction){

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("model");
             $table->mediumText("result");
             $table->mediumText("local_result")->nullable();
-            $table->text("prompt");
+            $table->text("prompt")->nullable();
             $table->unsignedBigInteger("topic_id")->nullable();
             $table->foreign('topic_id')->references('id')->on('topics');
 

@@ -107,4 +107,40 @@ class TopicsController extends Controller
 
         
     }
+
+    public static function newTopic(){
+        $function = [
+            "name"=>"gerar_topico",
+            "description" => "gera um tópico novo para noticias sobre",
+            "parameters"=>[
+                "type"=> "object",
+                "properties" => [
+                    "novo_topico" => [
+                        "type" => "string",
+                        "description" => "O novo tópico a ser gerado, não pode ser um que já exista, nem deve ser parecido com um, um exemplo de tópico é: \"Cangurus Mutantes\", ou \"Carros Voadores\""
+                    ]
+                ]
+            ]
+        ];
+        $messages = Topic::all()->pluck("name")->toArray();
+        $messages = array_map(function ($message) {
+            return GPTController::messageGenerator(
+                prompt: "Tópico existente: ".$message
+            );
+        }, $messages);
+        if(count($messages) == 0){
+            $messages[] = GPTController::messageGenerator("sem tópicos ainda");
+        }
+        $newTopic = GPTController::chatCompletionGen(
+            max_tokens:1024,
+            type: "Geração de Tópico",
+            functions: [$function],
+            function_call:["name"=>"gerar_topico"],
+            getFunction:true,
+            messages:$messages,
+        );        
+        Topic::create([
+            "name" =>  json_decode($newTopic[0]->arguments)->novo_topico
+        ]);
+    }
 }

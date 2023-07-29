@@ -31,25 +31,11 @@ class ScheduleController extends Controller
             topic:$topic
         ); */
         error_log("chamando função");
-        /* $newFact = GPTController::chatCompletionGen(
-            functions: [GPTController::factContinuerFunctionBuilder()],
-            function_call:["name"=>"gerar_fato"],
-            messages:$messages,
-            max_tokens:2048,
-            type:"Geração de Fato",
-            prompt:$content,
-            getFunction:true
-        ); */
-        $newFact = GPTController::generateNewInfo(
+        GPTController::generateNewInfo(
             topic:$topic,
             max_tokens:2048,
             prompt:$content,
         );
-        error_log("abaixo a chamada de função");
-        error_log($newFact);
-        
-        
-        
         FacebookController::post(
             $topic,
             [
