@@ -145,7 +145,9 @@ class TopicsController extends Controller
             
         );        
         Topic::create([
-            "name" =>  json_decode($newTopic[0]->arguments)->novo_topico
+            "name" =>  json_decode($newTopic[0]->arguments)->novo_topico,
+            "auto_gen" => true,
+            "time"=>1440
         ]);
     }
 
