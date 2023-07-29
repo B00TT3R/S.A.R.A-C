@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Topic extends Model
 {
@@ -114,6 +115,16 @@ class Topic extends Model
         $this->next = now()->toDateTimeString();
         $this->save();
         return $this->next;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $user = Auth::user();
+            if($user)
+                $model->user_id = $user->id;
+        });
     }
 
 }

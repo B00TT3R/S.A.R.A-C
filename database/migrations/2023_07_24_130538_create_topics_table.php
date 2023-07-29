@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
             $table->mediumText("name")->unique();
-
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger("time")->default(1);
             $table->boolean("auto_gen")->default(false);
             $table->dateTime("next")->nullable();
