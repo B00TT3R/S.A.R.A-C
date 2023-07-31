@@ -24,7 +24,7 @@ class ScheduleController extends Controller
             messages: $messages,
             topic: $topic
         );
-        /* $url = GPTController::imageGen( // colocar tópico aqui
+        $url = GPTController::imageGen( // colocar tópico aqui
             prompt: $topic->formatRootInfosToImage(
                 self::getImagePrompt(self::getTitle($content, $topic), $topic)
             ),
@@ -32,7 +32,7 @@ class ScheduleController extends Controller
             type: "geração-automatica",
             originalUrl: true,
             topic:$topic
-        ); */
+        );
         error_log("chamando função");
         GPTController::generateNewInfo(
             topic:$topic,
@@ -43,7 +43,7 @@ class ScheduleController extends Controller
             $topic,
             [
                 'message'=> $content,
-                //'url'=> $url,
+                'url'=> $url,
             ]
         );
     }

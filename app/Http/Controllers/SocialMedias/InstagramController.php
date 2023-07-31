@@ -1,47 +1,74 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SocialMedias;
 
+use App\Http\Controllers\Controller;
 use App\Models\Errors;
 use App\Models\Post;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Http;
-class FacebookController extends Controller
+class InstagramController extends Controller
 {
-    public static function post(
-        Topic|Builder|null $topic,
-        array ...$params
-    ){
-        $page_id = env("FACEBOOK_PAGE_ID");        
-        $json = [
-            'access_token' => env("FACEBOOK_TOKEN"),
-            ...$params[0]
-        ];
-        $url = "https://graph.facebook.com/$page_id/";
+    private static function createContainer($caption, $image_url){
+        $page_id = env("INSTAGRAM_USER_ID");
+        $url = "https://graph.facebook.com/$page_id/media";
+        $urlWithParams = $url."?".http_build_query([
+            "caption" => $caption,
+            "image_url" => $image_url
+        ]);
 
-        if (isset($json['url']) && !!$json['url']) $url .= "photos";
-        else $url .= "feed";
-        
-        $response = Http::post($url, $json);
+        $response = Http::post($urlWithParams, [
+            'access_token' => env("FACEBOOK_TOKEN"),
+        ]);
+
         $response->onError(function($e){
-            error_log("Erro na criação de post facebook");
+            error_log("Erro na criação de post instagram");
             Errors::create([
                 'message' => $e,
-                'type'=>'Criação de post para facebook'
+                'type'=>'Criação de post para instagram'
             ]);
         });
+        return $response;
+    }
+    private static function postContainer(int $id){
+        $page_id = env("INSTAGRAM_USER_ID");
+        $url = "https://graph.facebook.com/$page_id/media_publish";
+        $urlWithParams = $url."?".http_build_query([
+            "creation_id"=>$id
+        ]);
+        $response = Http::post($urlWithParams, [
+            'access_token' => env("FACEBOOK_TOKEN"),
+        ]);
+        return $response;
+        
+    }
+    public static function post(
+        Topic|Builder|null $topic,
+        string $caption,
+        string $image_url,
+    ){
+        $containerRaw = self::createContainer($caption, $image_url);
+        $container = json_decode($containerRaw);
+        error_log("container ID: " . $container->id);
+        $response = self::postContainer($container->id);
+        $json = json_decode($response);
+        error_log("Post ID: " . $json->id);
+        
         
         return Post::create([
-            "type" =>"facebook",
+            "type" =>"instagram",
             "response" => json_decode($response),
-            "request" => $params[0],
+            "request" => [
+                "image_url"=>$image_url,
+                "captions"=>$caption
+            ],
             "topic_id" => $topic ? $topic->id : null
         ]);;
     }
     
     public static function getPageName(){
-        $page_id = env("FACEBOOK_PAGE_ID");
+        $page_id = env("INSTAGRAM_USER_ID");
         $response = Http::get("https://graph.facebook.com/$page_id", [
             'fields' => 'name',
             'access_token' => env("FACEBOOK_TOKEN")
@@ -85,7 +112,7 @@ class FacebookController extends Controller
     }
 
     public static function getFeed(){
-        $pageId = env("FACEBOOK_PAGE_ID");
+        $pageId = env("INSTAGRAM_USER_ID");
         $response = Http::get("https://graph.facebook.com/$pageId/feed",[
                 'fields'=>"permalink_url",
                 "access_token" => env("FACEBOOK_TOKEN")

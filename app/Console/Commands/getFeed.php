@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\SocialMedias\FacebookController;
 use Illuminate\Console\Command;
 
 class getFeed extends Command

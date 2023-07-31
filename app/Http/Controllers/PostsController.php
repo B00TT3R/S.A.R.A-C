@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\SocialMedias\FacebookController;
 use App\Models\Post;
 use Illuminate\Http\Request;
 

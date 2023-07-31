@@ -2,19 +2,19 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\SocialMedias\FacebookController;
 use App\Http\Controllers\GPTController;
+use App\Http\Controllers\SocialMedias\InstagramController;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class TesteFacebook extends Command
+class TesteInstagram extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'teste:facebook';
+    protected $signature = 'teste:instagram';
 
     /**
      * The console command description.
@@ -28,15 +28,17 @@ class TesteFacebook extends Command
      */
     public function handle(): void
     {
-        $this->info("Postando em: " . FacebookController::getPageName());
-        FacebookController::post(null,[
-            'message'=> GPTController::textGen(
+        $this->info("Testando post do instagram");
+        InstagramController::post(
+            topic:null,
+            caption: 'GPTController::textGen(
                 prompt:"crie um texto breve e curto dizendo que um teste de posts deu certo ",
                 max_tokens:256,
                 temperature:0.6,
                 type:"teste-geração",
-            ),
-        ]);
+            )',
+            image_url: "https://placehold.co/600x400"
+        );
         $this->info(Artisan::output());
     }
 }
