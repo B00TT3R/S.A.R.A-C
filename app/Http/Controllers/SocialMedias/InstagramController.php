@@ -19,7 +19,7 @@ class InstagramController extends Controller
         ]);
 
         $response = Http::post($urlWithParams, [
-            'access_token' => env("FACEBOOK_TOKEN"),
+            'access_token' => env("INSTAGRAM_USER_TOKEN"),
         ]);
 
         $response->onError(function($e){
@@ -38,7 +38,7 @@ class InstagramController extends Controller
             "creation_id"=>$id
         ]);
         $response = Http::post($urlWithParams, [
-            'access_token' => env("FACEBOOK_TOKEN"),
+            'access_token' => env("INSTAGRAM_USER_TOKEN"),
         ]);
         return $response;
         
@@ -71,7 +71,7 @@ class InstagramController extends Controller
         $page_id = env("INSTAGRAM_USER_ID");
         $response = Http::get("https://graph.facebook.com/$page_id", [
             'fields' => 'name',
-            'access_token' => env("FACEBOOK_TOKEN")
+            'access_token' => env("INSTAGRAM_USER_TOKEN")
         ]);
         $body = json_decode($response);
         $response->onError(function($e){
@@ -88,7 +88,7 @@ class InstagramController extends Controller
         $postId = $post->response["post_id"] ?? $post->response["id"];
         $response = Http::get("https://graph.facebook.com/$postId", [
             'fields'=> "permalink_url",
-            "access_token"=>env("FACEBOOK_TOKEN")
+            "access_token"=>env("INSTAGRAM_USER_TOKEN")
         ]);
         $body = json_decode($response);
         return $body->permalink_url??"erro";
@@ -98,7 +98,7 @@ class InstagramController extends Controller
         try{
             $postId = $post->response["post_id"] ?? $post->response["id"];
             $response = Http::delete("https://graph.facebook.com/$postId", [
-                "access_token"=>env("FACEBOOK_TOKEN")
+                "access_token"=>env("INSTAGRAM_USER_TOKEN")
             ])->throw();
             $body = json_decode($response);
             return $body??"erro";
@@ -115,7 +115,7 @@ class InstagramController extends Controller
         $pageId = env("INSTAGRAM_USER_ID");
         $response = Http::get("https://graph.facebook.com/$pageId/feed",[
                 'fields'=>"permalink_url",
-                "access_token" => env("FACEBOOK_TOKEN")
+                "access_token" => env("INSTAGRAM_USER_TOKEN")
         ]);
         $body = json_decode($response);
         return json_encode($body, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES);

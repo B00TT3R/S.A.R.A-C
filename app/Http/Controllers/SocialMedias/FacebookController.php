@@ -16,7 +16,7 @@ class FacebookController extends Controller
     ){
         $page_id = env("FACEBOOK_PAGE_ID");        
         $json = [
-            'access_token' => env("FACEBOOK_TOKEN"),
+            'access_token' => env("FACEBOOK_PAGE_TOKEN"),
             ...$params[0]
         ];
         $url = "https://graph.facebook.com/$page_id/";
@@ -45,9 +45,10 @@ class FacebookController extends Controller
         $page_id = env("FACEBOOK_PAGE_ID");
         $response = Http::get("https://graph.facebook.com/$page_id", [
             'fields' => 'name',
-            'access_token' => env("FACEBOOK_TOKEN")
+            'access_token' => env("FACEBOOK_PAGE_TOKEN")
         ]);
         $body = json_decode($response);
+        
         $response->onError(function($e){
             error_log("erro na checagem de nome de pagina");
             Errors::create([
@@ -62,7 +63,7 @@ class FacebookController extends Controller
         $postId = $post->response["post_id"] ?? $post->response["id"];
         $response = Http::get("https://graph.facebook.com/$postId", [
             'fields'=> "permalink_url",
-            "access_token"=>env("FACEBOOK_TOKEN")
+            "access_token"=>env("FACEBOOK_PAGE_TOKEN")
         ]);
         $body = json_decode($response);
         return $body->permalink_url??"erro";
@@ -72,7 +73,7 @@ class FacebookController extends Controller
         try{
             $postId = $post->response["post_id"] ?? $post->response["id"];
             $response = Http::delete("https://graph.facebook.com/$postId", [
-                "access_token"=>env("FACEBOOK_TOKEN")
+                "access_token"=>env("FACEBOOK_PAGE_TOKEN")
             ])->throw();
             $body = json_decode($response);
             return $body??"erro";
@@ -89,7 +90,7 @@ class FacebookController extends Controller
         $pageId = env("FACEBOOK_PAGE_ID");
         $response = Http::get("https://graph.facebook.com/$pageId/feed",[
                 'fields'=>"permalink_url",
-                "access_token" => env("FACEBOOK_TOKEN")
+                "access_token" => env("FACEBOOK_PAGE_TOKEN")
         ]);
         $body = json_decode($response);
         return json_encode($body, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES);

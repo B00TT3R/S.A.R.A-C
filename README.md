@@ -38,7 +38,7 @@ Para conseguir fazer o programa funcionar localmente, siga os passos abaixo:
 
 5. Configurar o Facebook:
 - No arquivo `.ENV`, preencha as seguintes chaves relacionadas ao Facebook:
-  - `FACEBOOK_TOKEN`: insira um token de página válido e sem tempo de expiração, com as seguintes permissões:
+  - `FACEBOOK_PAGE_TOKEN`: insira um token de página válido e sem tempo de expiração, com as seguintes permissões:
     1. public_profile
     2. pages_manage_posts
     3. pages_read_user_content
