@@ -20,6 +20,7 @@ class FrontendController extends Controller
             ]
         ]);
     }
+
     public function getTitleResult(Request $request){
         return 
         [
@@ -31,12 +32,13 @@ class FrontendController extends Controller
                     ]
                 ],
                 prompt: $request->value,
-                max_tokens: 2048,
+                max_tokens: 750,
                 temperature:0.9,
                 type:"Geração de conteúdo manual"
             )
         ];
     }
+
     public function getImageResult(Request $request){
         return [
             "result" =>  GPTController::imageGen(

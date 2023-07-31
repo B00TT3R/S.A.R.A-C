@@ -28,17 +28,18 @@ class TesteInstagram extends Command
      */
     public function handle(): void
     {
-        $this->info("Testando post do instagram");
-        InstagramController::post(
+        $this->info("Testando post do instagram, página: ". InstagramController::getPageName());
+        $post = InstagramController::post(
             topic:null,
-            caption: 'GPTController::textGen(
+            caption: GPTController::textGen(
                 prompt:"crie um texto breve e curto dizendo que um teste de posts deu certo ",
                 max_tokens:256,
                 temperature:0.6,
                 type:"teste-geração",
-            )',
+            ),
             image_url: "https://placehold.co/600x400"
         );
         $this->info(Artisan::output());
+        $this->info(InstagramController::getPostUrl($post));
     }
 }

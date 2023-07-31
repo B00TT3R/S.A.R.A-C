@@ -48,24 +48,27 @@ class InstagramController extends Controller
         string $caption,
         string $image_url,
     ){
+        // Limita o caption para 2200 caracteres
+        $caption = mb_substr($caption, 0, 2200);
+    
         $containerRaw = self::createContainer($caption, $image_url);
         $container = json_decode($containerRaw);
         error_log("container ID: " . $container->id);
         $response = self::postContainer($container->id);
         $json = json_decode($response);
         error_log("Post ID: " . $json->id);
-        
-        
+    
         return Post::create([
-            "type" =>"instagram",
+            "type" => "instagram",
             "response" => json_decode($response),
             "request" => [
-                "image_url"=>$image_url,
-                "captions"=>$caption
+                "image_url" => $image_url,
+                "captions" => $caption
             ],
             "topic_id" => $topic ? $topic->id : null
-        ]);;
+        ]);
     }
+    
     
     public static function getPageName(){
         $page_id = env("INSTAGRAM_USER_ID");
@@ -85,39 +88,12 @@ class InstagramController extends Controller
     }
 
     public static function getPostUrl(Post $post){
-        $postId = $post->response["post_id"] ?? $post->response["id"];
+        $postId = $post->response["id"];
         $response = Http::get("https://graph.facebook.com/$postId", [
-            'fields'=> "permalink_url",
-            "access_token"=>env("INSTAGRAM_USER_TOKEN")
+            'fields'=> "permalink",
+            "access_token"=> env("INSTAGRAM_USER_TOKEN")
         ]);
         $body = json_decode($response);
-        return $body->permalink_url??"erro";
-    }
-
-    public static function deletePost(Post $post){
-        try{
-            $postId = $post->response["post_id"] ?? $post->response["id"];
-            $response = Http::delete("https://graph.facebook.com/$postId", [
-                "access_token"=>env("INSTAGRAM_USER_TOKEN")
-            ])->throw();
-            $body = json_decode($response);
-            return $body??"erro";
-
-        } catch (\Exception $e) {
-            Errors::create([
-                "type"=> "Remoção de post do facebook",
-                "message"=>$e->getMessage(),
-            ]);
-        }
-    }
-
-    public static function getFeed(){
-        $pageId = env("INSTAGRAM_USER_ID");
-        $response = Http::get("https://graph.facebook.com/$pageId/feed",[
-                'fields'=>"permalink_url",
-                "access_token" => env("INSTAGRAM_USER_TOKEN")
-        ]);
-        $body = json_decode($response);
-        return json_encode($body, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES);
-    }
+        return $body->permalink ?? "erro";
+    }    
 }

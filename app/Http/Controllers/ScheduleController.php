@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\SocialMedias\FacebookController;
+use App\Http\Controllers\SocialMedias\InstagramController;
 use App\Models\RootInfo;
 use App\Models\ShootTime;
 use App\Models\Topic;
@@ -45,6 +47,11 @@ class ScheduleController extends Controller
                 'message'=> $content,
                 'url'=> $url,
             ]
+        );
+        InstagramController::post(
+            topic: $topic,
+            caption: $content,
+            image_url:$url
         );
     }
 

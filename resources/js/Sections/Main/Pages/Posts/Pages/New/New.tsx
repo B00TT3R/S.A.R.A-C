@@ -62,13 +62,24 @@ export default function NewPòst() {
           ? 
             <PageSpinner/> 
           :
-            <a
-              href={data?.data.url}
-              className='text-blue-500 hover:text-blue-600 hover:underline'
-              target="_blank"
-            >
-              {data?.data.url}
-            </a>
+            <>
+              <a
+                href={data?.data.facebook}
+                className='text-blue-500 hover:text-blue-600 hover:underline'
+                target="_blank"
+              >
+                {data?.data.facebook}
+              </a>
+              {data?.data.instagram &&
+                <a
+                  href={data?.data.instagram}
+                  className='text-blue-500 hover:text-blue-600 hover:underline'
+                  target="_blank"
+                >
+                  {data?.data.instagram}
+                </a>
+              }
+            </>
         }
         {
           state.textResult && !(state.textLoading || state.imageLoading) &&

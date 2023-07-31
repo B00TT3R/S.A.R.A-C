@@ -1,7 +1,7 @@
 import { PageSpinner } from '<>'
 import { DateFormatter, titleHandler } from '@/Utils'
 import api from "@/Utils/api"
-import { FacebookEmbed } from 'react-social-media-embed';
+import { FacebookEmbed, InstagramEmbed } from 'react-social-media-embed';
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 
@@ -67,7 +67,13 @@ export default function ViewError() {
                       </div>
                       <div>
                         <h3 className='text-xl font-semibold'>Preview:</h3>
-                        <FacebookEmbed url={data?.data.url}/>
+                        {
+                          data?.data.type == "facebook"
+                          ?
+                              <FacebookEmbed url={data?.data.url}/>
+                          :
+                              <InstagramEmbed url={data?.data.url}/>
+                        }
                       </div>
                     </div>
               }
