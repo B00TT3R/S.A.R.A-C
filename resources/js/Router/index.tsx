@@ -1,6 +1,6 @@
-import {Children, lazy} from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter } from "react-router-dom";
-import {PageLoader} from '<>'
+import { PageLoader } from '<>'
 
 import Template from '@/Sections/Main/Template/Template'
 const NotFound = lazy(()=>import("@/Sections/NotFound/NotFound"))
@@ -32,7 +32,6 @@ const NewTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/New/New"))
 const EditTopicRootInfo = lazy(()=>import("&/Topics/Pages/View/Pages/Edit/Edit"))
 const ViewTopicPost = lazy(()=>import("&/Topics/Pages/View/Template/Sections/Posts/View/View"));
 const ViewTopicGeneration = lazy(()=>import("&/Topics/Pages/View/Template/Sections/Generations/Pages/View/View"));
-
 
 const router = createBrowserRouter([
     {

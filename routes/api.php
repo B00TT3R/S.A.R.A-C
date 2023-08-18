@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', "api"]], function() {
     });
 
     Route::get('posts/last', [PostsController::class, "lastPost"]);
-    Route::middleware(['auth:sanctum', 'abilities:posts'])->group(function () {        
+    Route::middleware(['auth:sanctum', 'abilities:posts'])->group(function () {
         Route::get('posts', [PostsController::class, "index"]);
         Route::get('posts/{id}', [PostsController::class, "show"]);
         Route::delete('posts/{id}', [PostsController::class, "destroy"]);

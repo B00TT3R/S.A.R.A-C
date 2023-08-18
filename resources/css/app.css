@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* not mobile */
 @media not ((pointer:none) or (pointer:coarse)){
     ::-webkit-scrollbar{
         @apply w-2 h-2 p-2
