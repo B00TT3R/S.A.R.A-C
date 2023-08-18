@@ -1,6 +1,4 @@
-# S.A.R.A - Sistema Automatizado de Relatos Artificiais
-
-S.A.R.A-C significa Sistema Automatizado de Relatos Artificiais - Continuo.
+# S.A.R.A-C - Sistema Automatizado de Relatos Artificiais - Continuo
 
 O objetivo do S.A.R.A-C é produzir e manter várias "notícias" falsas usando inteligência artificial.
 
