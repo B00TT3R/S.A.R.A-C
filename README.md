@@ -12,7 +12,7 @@ O S.A.R.A-C é uma extensão do projeto [S.A.R.A](https://github.com/B00TT3R/S.A
 
 O projeto consiste na criação e manutenção de noticias falsas separadas em tópicos que serão regularmente postadas no Facebook e no Instagram. O backend do projeto é desenvolvido em PHP com o framework Laravel, enquanto o frontend é construído com ReactJS.
 
-# Preparação
+## Preparação
 
 Para conseguir fazer o programa funcionar localmente, alguns passos devem ser seguidos.
 
@@ -103,3 +103,5 @@ Para conseguir fazer o programa funcionar localmente, alguns passos devem ser se
         ```powershell
         php artisan schedule:run
         ```
+## Mais informações
+Para mais informações, consulte a [documentação](https://robust-flare-c4e.notion.site/S-A-R-A-C-63560a4b67414defa7f64d5e639d8c15?pvs=4).
