@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\SocialMedias\FacebookController;
+use App\Http\Controllers\SocialMedias\InstagramController;
 use App\Models\RootInfo;
 use App\Models\Topic;
 use App\Models\TopicTimer;
@@ -71,6 +73,12 @@ class TopicsController extends Controller
     public function showPost($id,$postid){
         $topic = Topic::findOrFail($id);
         $post = $topic->posts()->findOrFail($postid);
+        if($post->type == "facebook"){
+            $post->url = FacebookController::getPostUrl($post);
+        }
+        elseif($post->type == "instagram"){
+            $post->url = InstagramController::getPostUrl($post);
+        }
         return $post;
     }
 
