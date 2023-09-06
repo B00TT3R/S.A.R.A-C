@@ -29,6 +29,10 @@ class TopicTimer extends Model
         if($item->next instanceof \Carbon\Carbon){
             $item->next = $item->next->addMinutes($item->time);
             $item->save();
+            Errors::create([
+                "type" => "Log de tempo do gerador de tópicos",
+                "message" => "o tempo é $$item->time"
+            ]);
         }
         else{
             Errors::create([
