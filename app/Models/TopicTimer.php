@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class TopicTimer extends Model
 {
@@ -25,8 +26,16 @@ class TopicTimer extends Model
 
     public static function addNext(){
         $item = self::getInstance();
-        $item->next->addMinutes($item->time);
-        $item->save();
+        if($item->next instanceof \Carbon\Carbon){
+            $item->next = $item->next->addMinutes($item->time);
+            $item->save();
+        }
+        else{
+            Errors::create([
+                "type" => "adição de tempo ao gerador de tópicos",
+                "message" => "next Não é uma instancia do carbon!"
+            ]);
+        }
     }
     
     public static function setNext($next){
