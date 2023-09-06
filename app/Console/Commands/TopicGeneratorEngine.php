@@ -30,8 +30,8 @@ class TopicGeneratorEngine extends Command
         $timer = TopicTimer::getInstance();
         if($timer->auto_gen){
             if($timer->next && $timer->next->isPast() ){
-                TopicsController::newTopic();
                 TopicTimer::addNext();
+                TopicsController::newTopic();
             }
             else{
                 TopicTimer::setNext(now());

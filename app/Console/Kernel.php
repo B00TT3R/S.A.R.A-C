@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Http\Controllers\ScheduleController;
-use App\Models\AutoGen;
 use App\Models\Timer;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

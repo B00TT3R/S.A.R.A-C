@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\SocialMedias\FacebookController;
 use App\Http\Controllers\SocialMedias\InstagramController;
 use App\Models\RootInfo;
-use App\Models\ShootTime;
 use App\Models\Topic;
 use App\Models\Timer;
 use Illuminate\Http\Request;
