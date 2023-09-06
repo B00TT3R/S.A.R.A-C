@@ -30,8 +30,8 @@ class TopicTimer extends Model
             $item->next = $item->next->addMinutes($item->time);
             $item->save();
             Errors::create([
-                "type" => "Log de tempo do gerador de tópicos",
-                "message" => "o tempo é $$item->time"
+                "type" => "Log de próximo gerador de tópicos",
+                "message" => "o tempo é $item->next"
             ]);
         }
         else{
