@@ -27,9 +27,11 @@ class ShootNewsByTopic extends Command
      */
     public function handle(): void
     {
+        //Para fazer debug USE COM CUIDADO!
+        $forceGeneration = false;
         $topics = Topic::all();
         foreach($topics as $topic){
-            if($topic->auto_gen && $topic->next && $topic->next->isPast()){
+            if($topic->auto_gen && $topic->next && $topic->next->isPast() || $forceGeneration){
                 $this->info($topic->name." deve gerar");
                 ScheduleController::fullGeneration($topic);
                 $topic->addNext();
