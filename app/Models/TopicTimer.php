@@ -25,7 +25,7 @@ class TopicTimer extends Model
 
     public static function addNext(){
         $item = self::getInstance();
-        $item->next = now()->addMinutes($item->time);
+        $item->next = $item->next->addMinutes($item->time);
         $item->save();
     }
     
