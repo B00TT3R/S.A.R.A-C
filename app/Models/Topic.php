@@ -89,7 +89,7 @@ class Topic extends Model
     }
 
     public function formatRootInfosToImage(string $prompt){
-        $infos = $this->root_infos("type", "image")->pluck("info")->toArray();
+        $infos = $this->root_infos()->where("type", "image")->pluck("info")->toArray();
         if(count($infos) == 0)
             return $prompt;
         $formattedString = implode(', \n ', $infos);

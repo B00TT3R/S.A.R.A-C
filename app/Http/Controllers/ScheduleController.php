@@ -10,20 +10,7 @@ use App\Models\Timer;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
-{
-
-    public static function getTitle($news, $topic){
-        $title = GPTController::textGen(
-            prompt: "Escreva um titulo adequado para: ".$news,
-            max_tokens:2048,
-            temperature:0.4,
-            messages:[],
-            type:"obtenção de título",
-            topic:$topic
-        );
-        error_log($title);
-        return $title;
-    }
+{    
 
     private static function getImagePrompt($text, $topic){
         $fullText =  GPTController::chatCompletionGen(
@@ -63,8 +50,13 @@ class ScheduleController extends Controller
             function_call:["name"=>"formatar_prompt"]
             
         );
-        
-        return json_decode($filteredText[0]->arguments)->prompt;
+        $arguments = json_decode($filteredText[0]->arguments);
+        /* dd([
+            "fullText" => $fullText,
+            "function"=>$arguments->prompt
+        ]); */
+            
+        return $arguments->prompt;
     }
     
 
